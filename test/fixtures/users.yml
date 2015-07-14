@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  password: MyString
+  type: 
+  trainer_id: 1
+
+two:
+  username: MyString
+  password: MyString
+  type: 
+  trainer_id: 1
