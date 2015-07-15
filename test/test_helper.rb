@@ -7,4 +7,17 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  
+  def is_logged_in?
+    !session[:user_id].nil?
+  end
+  
+  def login_as(user)
+    get 'new'
+    post 'create', session: {
+      username: user.username,
+      password: user.password
+    }
+  end
+  
 end

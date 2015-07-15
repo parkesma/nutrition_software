@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714193308) do
+ActiveRecord::Schema.define(version: 20150714213034) do
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password"
-    t.string   "type"
+    t.string   "license"
     t.integer  "trainer_id"
     t.date     "expiration_date"
     t.boolean  "graduated?"
