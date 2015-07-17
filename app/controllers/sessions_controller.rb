@@ -5,13 +5,18 @@ class SessionsController < ApplicationController
   
   def create
     user = User.find_by(username: params[:session][:username])
-    if user
-      login(user)
-      current_user
-      redirect_to root_url
-    else
-      flash.now[:danger] = 'Invalid username/password combination'
+    if user.logged_in?
+      flash.now[:danger] = 'Only one login at a time per account'
       render 'new'
+    else
+      if !user || user.password != params[:session][:password]
+        flash.now[:danger] = 'Invalid username/password combination'
+        render 'new'
+      else
+        login(user)
+        current_user
+        redirect_to root_url
+      end
     end
   end
 

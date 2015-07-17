@@ -1,7 +1,8 @@
 module SessionsHelper
 	
   def login(user)
-	session[:user_id] = user.id
+	  session[:user_id] = user.id
+	  user.update_attribute("logged_in", true)
   end
 
   def current_user
