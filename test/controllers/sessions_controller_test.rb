@@ -5,6 +5,7 @@ class SessionsControllerTest < ActionController::TestCase
   def setup
     @student = users(:student)
     @trainer = users(:trainer)
+    @expired = users(:expired)
   end
 
   test "should get new" do
@@ -27,10 +28,15 @@ class SessionsControllerTest < ActionController::TestCase
   end
   
   test "should redirect on second simultaneous login" do
-    assert !is_logged_in?
     login_as(@student)
     assert is_logged_in?
     login_as(@student)
+    assert_not flash.empty?
+  end
+  
+  test "should redirect on expired account" do
+    login_as(@expired)
+    assert !is_logged_in?
     assert_not flash.empty?
   end
 

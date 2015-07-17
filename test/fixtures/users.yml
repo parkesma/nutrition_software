@@ -1,11 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 student:
-  username: hank
-  password: password
-  license:  student
+  username:        hank
+  password:        password
+  license:         student
+  expiration_date: 01/01/2500
 
 trainer:
-  username: becca
-  password: password
-  license:  trainer
+  username:        becca
+  password:        password
+  license:         trainer
+  expiration_date: 01/01/2500
+
+expired:
+  username:        expired
+  password:        password
+  license:         student
+  expiration_date: 01/01/1900
