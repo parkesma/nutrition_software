@@ -14,10 +14,11 @@ module SessionsHelper
   	!@current_user.nil?
   end
   
-  def logout
+  def logout(user)
   	session.delete(:user_id)
   	@current_user = nil
   	@license = nil
+    user.update_attribute("logged_in", false)
   end
-  
+
 end

@@ -27,11 +27,15 @@ class SessionsControllerTest < ActionController::TestCase
     assert !is_logged_in?
   end
   
-  test "should redirect on second simultaneous login" do
+  test "should redirect on second simultaneous login, but permit new login" do
     login_as(@student)
     assert is_logged_in?
     login_as(@student)
     assert_not flash.empty?
+    post 'destroy'
+    assert !is_logged_in?
+    login_as(@student)
+    assert is_logged_in?
   end
   
   test "should redirect on expired account" do
