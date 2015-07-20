@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+Employer_client1:
+  sup_id: 6
+  sub_id: 4
+ 
+Employer_client2:
+  sup_id: 6
+  sub_id: 5
+
+Employer_employee:
+  sup_id: 6
+  sub_id: 7

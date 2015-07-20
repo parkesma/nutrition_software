@@ -18,4 +18,14 @@ class UserTest < ActiveSupport::TestCase
     assert !@user.valid?
   end 
 
+  test "should find employer's clients in subs" do
+    assert_equal users(:employer).clients.length, 2
+    assert_equal users(:employee).clients.length, 2
+  end
+  
+  test "should find employer's employees in subs" do
+    employer = users(:employer)
+    assert_equal employer.employees.length, 1
+  end
+  
 end
