@@ -2,37 +2,83 @@
 
 student:
   id:              1
-  username:        hank
+  username:        student
   password:        password
   license:         student
   expiration_date: 01/01/2500
+  first_name:      hank
+  last_name:       jones
+
+ustudent:
+  id:              2
+  username:        unlimited_student
+  password:        password
+  license:         unlimited student
 
 trainer:
-  id:              2
-  username:        becca
+  id:              3
+  username:        trainer
   password:        password
   license:         trainer
   expiration_date: 01/01/2500
 
 expired:
-  id:              3
+  id:              4
   username:        expired
   password:        password
   license:         student
   expiration_date: 01/01/1900
 
 client1:
-  id:              4
+  id:              5
+  username:        client1
+  password:        password
   license:         client
 
 client2:
-  id:              5
+  id:              6
+  username:        client2
+  password:        password
   license:         client
   
 employer:
-  id:              6
+  id:              7
+  username:        employer
+  password:        password
   license:         employer
 
 employee:
-  id:              7
+  id:              8
+  username:        employee
+  password:        password
   license:         employee
+  
+owner:
+  id:              9
+  username:        owner
+  password:        password
+  license:         owner
+  
+client3:
+  id:              10
+  username:        client3
+  password:        password
+  license:         client
+
+client4:
+  id:              11
+  username:        client4
+  password:        password
+  license:         client
+  
+client5:
+  id:              12
+  username:        client5
+  password:        password
+  license:         client
+  
+client6:
+  id:              13
+  username:        client6
+  password:        password
+  license:         client

@@ -1,13 +1,29 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 Employer_client1:
-  sup_id: 6
-  sub_id: 4
+  sup_id: 7
+  sub_id: 5
  
 Employer_client2:
-  sup_id: 6
-  sub_id: 5
+  sup_id: 7
+  sub_id: 6
 
 Employer_employee:
-  sup_id: 6
-  sub_id: 7
+  sup_id: 7
+  sub_id: 8
+  
+Student_client3:
+  sup_id: 1
+  sub_id: 10
+  
+Student_client4:
+  sup_id: 1
+  sub_id: 11
+  
+UStudent_client5:
+  sup_id: 2
+  sub_id: 12
+  
+Trainer_client6:
+  sup_id: 3
+  sub_id: 13

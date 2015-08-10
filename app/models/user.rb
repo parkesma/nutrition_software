@@ -1,7 +1,12 @@
 class User < ActiveRecord::Base
-	validates :username, presence: true,
-	                     uniqueness: { case_sensitive: false }
-	validates :password, presence: true
+	validates :username,   presence: true,
+	                       uniqueness: { case_sensitive: false }
+	validates :password,   presence: true
+	validates :license,    presence: true
+	validates :last_name,  presence: true
+	validates :first_name, presence: true,
+	                       uniqueness: { case_sensitive: false,
+	                                     scope: :last_name }
 	has_many :top_down_relationships, class_name: "Relationship",
 	                                  foreign_key: "sub_id",
 	                                  dependent: :destroy
@@ -16,55 +21,37 @@ class User < ActiveRecord::Base
 	#has_many :bf_measurements, through _
 	
 	def clients
-		#all_subs = self.subs.all
-		if self.license == "employer" || self.license == "trainer"
-			trainer_id = self.id
-		elsif self.license = "employee"
+
+	  trainer_id = self.id
+	  if self.license == "employee"
 			trainer_id = self.employer.id
-		else
-			trainer_id = nil
-		end
-		
-		all_r = Relationship.where(sup_id: trainer_id)
-		clients = Array.new
-		
-		all_r.each do |s|
-			User.all.each do |u|
-		  	if u.id == s.sub_id && u.license == "client"
-			  	clients.push(u)
-		  	end
-			end
 	  end
-		
-		return clients
+
+		all_subs = "SELECT sub_id FROM relationships
+		            WHERE sup_id = #{trainer_id}"
+		User.where("id IN (#{all_subs})
+		            AND license = 'client'")
 	end
 
 	def employees
-		#all_subs = self.subs.all
-		all_r = Relationship.where(sup_id: self.id)
-		employees = Array.new
-		all_r.each do |s|
-			User.all.each do |u|
-			  if u.id == s.sub_id && u.license == "employee"
-			  	employees.push(u)
-			  end
-			end
-	  end
-		return employees
+		all_subs = "SELECT sub_id FROM relationships
+		            WHERE sup_id = #{self.id}"
+		User.where("id IN (#{all_subs})
+		            AND license = 'employee'")
 	end
 	
+	def employer
+		all_sups = "SELECT sup_id FROM relationships
+		            WHERE sub_id = #{self.id}"
+		User.where("id IN (#{all_sups})
+		            AND license = 'employer'").first
+	end
+
 	def trainer
-		all_r = Relationship.where(sub_id: self.id)
-		trainer = nil
-		all_r.each do |s|
-			User.all.each do |u|
-			  if u.id == s.sup_id && (u.license == "employer" || u.license == "trainer") 
-			  	trainer = u
-			  end
-			end
-	  end
-		return trainer
+		all_sups = "SELECT sup_id FROM relationships
+		            WHERE sub_id = #{self.id}"
+		User.where("id IN (#{all_sups})
+		            AND license != 'employee'").first
 	end
-	
-	alias_method :employer, :trainer
+
 end

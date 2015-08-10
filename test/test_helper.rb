@@ -12,12 +12,29 @@ class ActiveSupport::TestCase
     !session[:user_id].nil?
   end
   
-  def login_as(user)
-    get 'new'
-    post 'create', session: {
-      username: user.username,
-      password: user.password
-    }
+
+  module MyTestingDSL
+    def log_in_as(user)
+      post login_path, username: user.username, password: user.password
+    end
+    
+    def log_out(user)
+      
+    end
+  end  
+  
+  def new_session
+    open_session do |sess|
+      sess.extend(MyTestingDSL)
+      return sess if block_given?
+    end
+  end
+  
+  def new_session_as(user)
+    new_session do |sess|
+      sess.log_in_as(user)
+      return sess if block_given?
+    end
   end
   
 end

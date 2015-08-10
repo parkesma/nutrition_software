@@ -14,34 +14,38 @@ class SessionsControllerTest < ActionController::TestCase
   end
   
   test "valid login" do
-    login_as(@student)
+    login(@student)
     assert is_logged_in?
   end
     
-  test "login invalid" do
+  test "invalid login" do
     assert !is_logged_in?
-    assert_nil @current_user
-    assert_nil @license
     @student.password = "invalid"
-    login_as(@student)
+    login(@student)
     assert !is_logged_in?
   end
   
   test "should redirect on second simultaneous login, but permit new login" do
-    login_as(@student)
-    assert is_logged_in?
-    login_as(@student)
-    assert_not flash.empty?
-    post 'destroy'
     assert !is_logged_in?
-    login_as(@student)
+    login(@student)
     assert is_logged_in?
+    assert flash.empty?
+    login(@student)
+    assert_not flash.empty?
   end
   
   test "should redirect on expired account" do
-    login_as(@expired)
+    login(@expired)
     assert !is_logged_in?
     assert_not flash.empty?
   end
+  
+  def login(user)
+    post :create, session: {
+      username: user.username,
+      password: user.password
+    }    
+  end
+
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720161325) do
+ActiveRecord::Schema.define(version: 20150803221326) do
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "sub_id"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20150720161325) do
     t.string   "license"
     t.integer  "trainer_id"
     t.date     "expiration_date"
-    t.boolean  "graduated?"
+    t.boolean  "graduated",            default: false
     t.string   "website1"
     t.string   "website2"
     t.string   "first_name"
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 20150720161325) do
     t.boolean  "display_work_phone"
     t.boolean  "display_other_phone"
     t.boolean  "firing"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.boolean  "logged_in"
   end
 
