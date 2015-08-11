@@ -89,12 +89,41 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
-  end
+	end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User deleted"
-    redirect_to 'root'
+  	@target_user = User.find(params[:id])
+  	if current_license == "owner"
+    	@target_user.destroy
+    	flash[:success] = "User deleted"
+    	redirect_to :root
+  	elsif current_license != "client" &&
+  	
+  				current_license != "employee" &&
+
+					(@target_user.license == "client" && 
+					 current_user.clients.include?(@target_user)) ||
+
+					(@target_user.license == "employee" &&
+					 current_user.employees.include?(@target_user))
+
+  		target_relationship = Relationship.where(
+  			"sub_id = ? AND sup_id = ?", 
+  		   params[:id],   current_user.id
+  		).pluck(:id)
+			Relationship.destroy(target_relationship)
+
+
+  		@target_user.update_attribute(:expiration_date, Date.yesterday)
+  	
+  		redirect_to :root
+  	
+  	else
+  		
+  		flash[:danger] = "You are not authorized to delete that account"
+  		redirect_to :root
+  		
+  	end
   end
   
 	private
