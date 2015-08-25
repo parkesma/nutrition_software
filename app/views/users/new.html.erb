@@ -1,0 +1,56 @@
+<% provide(:title, 'New User') %>
+<h1>Create New User</h1>
+
+<%= form_for(:user, url: users_path) do |f| %>
+
+	<!-- username -->
+	<div class="row form-group col-md-offset-3">
+		<%= f.label :username, class: "control-label col-md-1" %>
+		<div class="col-md-5 col-md-offset-1">
+			<%= f.text_field :username, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- password -->	
+	<div class="row form-group col-md-offset-3">
+		<%= f.label :password, class: "control-label col-md-1" %>
+		<div class="col-md-5 col-md-offset-1">
+			<%= f.text_field :password, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- first name -->	
+	<div class="row form-group col-md-offset-3">
+		<%= f.label :first_name, class: "control-label col-md-1" %>
+		<div class="col-md-5 col-md-offset-1">
+			<%= f.text_field :first_name, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- last name -->
+	<div class="row form-group col-md-offset-3">
+		<%= f.label :last_name, class: "control-label col-md-1" %>
+		<div class="col-md-5 col-md-offset-1">
+			<%= f.text_field :last_name, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- license -->	
+	<div class="row form-group col-md-offset-3">
+		<% if @current_license == "owner" || @current_license == "employer" %>
+			<%= f.label :license, class: "control-label col-md-1" %>
+			<div class="col-md-5 col-md-offset-1">
+				<%= f.select :license, options_for_select(current_user.possible_licenses, "client"), 
+	  		  		{include_blank: false}, class: 'form-control' %>
+			</div>
+		<% elsif @current_license != "client" %>
+			<%= f.hidden_field :license, value: "client" %>
+		<% end %>
+	</div>
+	
+	<div class="text-center">		
+		<%= f.submit "Create", class: 'btn btn-primary' %>
+	</div>
+		
+<% end %>
+</div>

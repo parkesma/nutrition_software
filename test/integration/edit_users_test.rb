@@ -3,7 +3,7 @@ require 'test_helper'
 class EditUsersTest < ActionDispatch::IntegrationTest
   
   def setup
-    @client =   users(:client1)
+    @eclient1 = users(:eclient1)
     @student =  users(:student)
     @ustudent = users(:ustudent)
     @trainer =  users(:trainer)
@@ -11,10 +11,10 @@ class EditUsersTest < ActionDispatch::IntegrationTest
     @employer = users(:employer)
     @owner =    users(:owner)
     
-    @target_user = users(:client6)
+    @target_user = users(:tclient)
     
     @possible_users = [
-      @client, 
+      @eclient1, 
       @student,
       @ustudent,
       @trainer, 

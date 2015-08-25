@@ -1,0 +1,8 @@
+<% provide(:title, 'Certified Trainers') %>
+<h1>Certified Trainers</h1>
+
+<div class="text-center">
+	<%= render(partial: "listing", collection: @listings) || 
+			"No trainers match your search" %>
+</div>
+<br><br>

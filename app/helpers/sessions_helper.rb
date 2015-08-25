@@ -9,18 +9,43 @@ module SessionsHelper
   	@current_user || User.find_by(id: session[:user_id])
   end
   
-  def current_license
-    current_user.license
-  end
-
   def logged_in?
   	!current_user.nil?
   end
-  
-  def logout(user)
-  	user.update_attribute("logged_in", false)
-  	session.delete(:user_id)
-  	@current_user = nil
-  end
 
+  def current_license
+    current_user.license if logged_in?
+  end
+  
+  def logout
+  	current_user.update_attribute("logged_in", false)
+  	current_user.save
+  	session.delete(:user_id)
+  	session.delete(:focussed_id)
+  	@current_user = nil
+  	@focussed_user = nil
+  end
+  
+  def focus(user)
+    session[:focussed_id] = user.id
+  end
+  
+  def focussed_user
+    @focussed_user || User.find_by(id: session[:focussed_id])
+  end
+  
+  def focussed?
+    !focussed_user.nil?
+  end
+  
+  def focussed_license
+    focussed_user.license if focussed?
+  end
+  
+  def users_text
+    "Users"               if current_license == "owner"
+    "Clients & Employees" if current_license == "employer"
+    "Clients"             if current_license != "client"
+  end
+  
 end

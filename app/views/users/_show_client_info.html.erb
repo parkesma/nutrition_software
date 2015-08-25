@@ -1,0 +1,62 @@
+<h1>Client Contact Info</h1>
+
+<!-- home_address -->
+<div class="row col-md-offset-4">
+  <%= label_tag :address, "Home Address:", class: "control-label col-md-1" %>
+  <div class="address-box col-md-5 col-md-offset-1">
+  	<div><%= @user.home_address_1%></div>
+  	<div><%= @user.home_address_2 %></div>
+  	<div><%= @user.home_city_state_zip %></div>
+  	<div><%= @user.home_country %></div>
+  </div></div>
+
+<!-- work_address -->
+<div class="row col-md-offset-4">
+  <%= label_tag :address, "Work Address:", class: "control-label col-md-1" %>
+  <div class="address-box col-md-5 col-md-offset-1">
+  	<div><%= @user.work_address_1%></div>
+  	<div><%= @user.work_address_2 %></div>
+  	<div><%= @user.work_city_state_zip %></div>
+  	<div><%= @user.work_country %></div>
+  </div>
+</div>
+
+<!-- email -->
+<div class="row col-md-offset-4">
+  <%= label_tag :email, "Email:", class: "control-label col-md-1" %>
+  <div class="col-md-5 col-md-offset-1">
+  	<%= @user.email %>
+  </div>
+</div>
+
+<!-- home_phone -->
+<div class="row col-md-offset-4">
+  <%= label_tag :home_phone, "Home Phone:", class: "control-label col-md-1" %>
+  <div class="col-md-5 col-md-offset-1">
+  	<%= @user.home_phone %>
+  </div>
+</div>
+
+<!-- mobile_phone -->
+<div class="row col-md-offset-4">
+  <%= label_tag :mobile_phone, "Mobile Phone:", class: "control-label col-md-1" %>
+  <div class="col-md-5 col-md-offset-1">
+  	<%= @user.mobile_phone %>
+  </div>
+</div>
+
+<!-- work_phone -->
+<div class="row col-md-offset-4">
+  <%= label_tag :work_phone, "Work Phone:", class: "control-label col-md-1" %>
+  <div class="col-md-5 col-md-offset-1">
+  	<%= @user.work_phone %>
+  </div>
+</div>
+
+<!-- other_phone -->
+<div class="row col-md-offset-4">
+  <%= label_tag :other_phone, "Other Phone:", class: "control-label col-md-1" %>
+  <div class="col-md-5 col-md-offset-1">
+  	<%= @user.other_phone %>
+  </div>
+</div>

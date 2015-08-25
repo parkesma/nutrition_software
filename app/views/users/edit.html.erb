@@ -1,0 +1,118 @@
+<% provide(:title, 'Edit User') %>
+<h1><%= "Editting: #{@user.name}" %></h1>
+
+<%= form_for(:user, url: user_path, method: :patch) do |f| %>
+
+	<!-- username -->	
+	<div class="row form-group col-md-offset-3">		
+		<%= f.label :username, class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= f.text_field :username, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- password -->	
+	<div class="row form-group col-md-offset-3">
+		<%= f.label :new_password, class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= text_field "", :reset, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- first name -->	
+	<div class="row form-group col-md-offset-3">
+		<%= f.label :first_name, class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= f.text_field :first_name, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- last name -->
+	<div class="row form-group col-md-offset-3">
+		<%= f.label :last_name, class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= f.text_field :last_name, class: "form-control" %>
+		</div>
+	</div>
+
+	<!-- license -->	
+	<% if current_license == "owner" || current_license == "employer" %>
+		<div class="row form-group col-md-offset-3">
+			<%= f.label :license, class: "control-label col-md-2" %>
+			<div class="col-md-5">
+				<%= f.select :license, options_for_select(current_user.possible_licenses,
+						@user.license), {include_blank: false}, class: "form-control" %>
+			</div>
+		</div>
+	<% elsif current_license != "client" %>
+		<%= f.hidden_field :license, value: "client" %>
+	<% end %>
+
+	<!-- expiration -->	
+	<div class="row form-group col-md-offset-3">
+		<%= f.label "Expiration Date (day, month, yr)", 
+				class: "control-label col-md-1" %>
+	<div class="col-md-5">
+		<%= f.date_select(:expiration_date,
+				{use_short_month: true, 
+			 	 include_blank: 	true, 
+			 	 order: 					[:day, :month, :year],
+			 	 prompt:					false,
+			 	 start_year: Date.today.year},
+				{class: "col-md-4 control-form", id: "date-select"}
+		) %>
+	</div>
+	</div>
+
+	<!-- logged in -->	
+	<div class="row form-group col-md-offset-3">
+		<%= f.label :logged_in?, class: "control-label col-md-2" %>
+		<div class="col-md-1">
+			<%= f.check_box :logged_in?, class: 'checkbox' %>
+		</div>
+	</div>
+
+	<!-- graduated -->	
+	<% if @user.license == "student" || @user.license == "ustudent" %>	
+		<div class="row form-group col-md-offset-3">
+			<%= f.label :graduated?, class: "control-label col-md-2" %>
+			<div class="col-md-5">
+				<%= f.check_box :graduated?, class: 'checkbox' %>
+			</div>
+		</div>
+	<% end %>
+
+	<!-- trainer/employer -->	
+	<% if current_license == "owner" %>
+		<% if @user.license == "client" %>
+			<div class="row form-group col-md-offset-3">
+				<%= f.label :trainer, class: "control-label col-md-2" %>
+				<div class="col-md-5">
+					<%= f.select :trainer, options_for_select(@possible_trainers.name),
+							include_blank: false, class: 'form-control' %>
+				</div>
+			</div>
+		<% elsif @user.license == "employee" %>
+			<div class="row form-group col-md-offset-3">
+				<%= f.label :employer, class: "control-label col-md-2" %>
+				<div class="col-md-5">
+					<%= f.select :employer, options_for_select(@possible_employers.name),
+							include_blank: false, class: 'form-control' %>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+	
+	<div class="text-center">		
+		<%= f.submit "Update", class: 'btn btn-primary' %>
+	</div>
+		
+<% end %>
+
+<!-- client info / trainer listing -->
+<% if @user.license == "client" %>
+  <%= render 'users/edit_client_info' %>
+<% elsif @user.license != "owner" &&
+         @user.license != "employee" &&%>
+  <%= render 'users/edit_trainer_listing'%>
+<% end %>

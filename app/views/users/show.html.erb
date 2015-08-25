@@ -1,0 +1,64 @@
+<% provide(:title, 'User Profile') %>
+<h1><%= @user.name %></h1>
+
+<!-- username -->
+<div class="row col-md-offset-4">
+  <%= label_tag :username, "Username:", class: "control-label col-md-1" %>
+  <div class="col-md-5 col-md-offset-1">
+    <%= @user.username %>
+  </div>
+</div>
+
+<!-- license -->
+<div class="row col-md-offset-4">
+  <%= label_tag :license, "License:", class: "control-label col-md-1" %>
+  <div class="col-md-5 col-md-offset-1">
+    <%= @user.license %>
+  </div>
+</div>
+
+<!-- trainer/employer -->
+<div class="row col-md-offset-4">
+  <div class=="control-label col-md-1">
+    <%= "Trainer:" if @user.license == "client" && !@user.trainer.nil? %>
+    <%= "Employer:" if @user.license == "employee" && !@user.employer.nil? %>
+  </div>    
+  <div class="col-md-5 col-md-offset-1">
+    <% if (@user.license == "client" || @user.license == "employee") && !@user.sup.nil? %>
+      <%= @user.sup.name %>
+    <% end %>
+  </div>
+</div>
+
+<!-- expiration -->
+<div class="row col-md-offset-4">
+  <%= label_tag :expiration_date, "Expiration Date:", class: "control-label col-md-1" %>
+  <div class="col-md-5 col-md-offset-1">
+    <% if @user.expiration_date.nil? %>
+      <%= "None set" %>
+    <% else %>
+      <%= @user.expiration_date.to_formatted_s(:rfc822) %>
+    <% end %>
+  </div>
+</div>
+
+<!-- logged in -->
+<div class="row col-md-offset-4">
+  <%= label_tag :logged_in?, "Logged in?:", class: "control-label col-md-1" %>
+  <div class="col-md-5 col-md-offset-1">
+    <%= @user.logged_in? %>
+  </div>
+</div>
+
+<!-- client info / trainer listing -->
+<% if @user.license == "client" %>
+  <%= render 'users/show_client_info' %>
+<% elsif @user.license != "owner" &&
+         @user.license != "employee" &&%>
+  <%= render 'users/show_trainer_listing'%>
+<% end %>
+
+<div class="text-center">
+  <%= button_to "Edit", edit_user_path(@user.id), method: :get,
+      class: "btn btn-primary" %>
+</div>

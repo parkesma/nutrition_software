@@ -1,0 +1,60 @@
+<% provide(:title, 'Users') %>
+<h1>Users</h1>
+<div class="row">
+  <div class = "col-md-6 col-md-offset-3">
+  
+  	<% if @owners != nil && @owners.length > 0 %>
+			<ul>
+				<div class="level1">Owners</div>
+				<%= render @owners %>
+			</ul>
+		<% end %>
+		
+		<% if @employers != nil && @employers.length > 0 %>
+			<ul>
+				<div class="level1">Employers</div>
+				<%= render @employers %>
+			</ul>
+		<% end %>
+		
+		<% if @trainers != nil && @trainers.length > 0 %>
+			<ul>
+				<div class="level1">Trainers</div>
+				<%= render @trainers %>
+			</ul>
+		<% end %>
+		
+		<% if @students != nil && @students.length > 0 %>
+			<ul>
+				<div class="level1">Students</div>
+				<%= render @students %>
+			</ul>
+		<% end %>
+
+		<% if @orphans != nil && @orphans.length > 0 %>
+			<ul>
+				<div class="level1">Orphans</div>
+				<%= render @orphans %>
+			</ul>
+		<% end %>
+		
+		<% if @clients != nil && @clients.length > 0 %>
+			<ul>
+				<div class="level1">Clients</div>
+				<%= render @clients %>
+			</ul>
+		<% end %>
+		
+		<% if @employees != nil && @employees.length > 0 %>
+			<ul>
+				<div class="level1">Employees</div>
+				<%= render @employees %>
+			</ul>
+		<% end %>
+		
+		<div class="text-center">
+			<%= button_to "Add New User", new_user_path, method: :get, 
+					class: "btn btn-primary text-center" %>
+		</div>
+	</div>
+</div>

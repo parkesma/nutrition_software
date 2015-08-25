@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 	def clients
 
 	  trainer_id = self.id
-	  if self.license == "employee"
+	  if self.license == "employee" && !self.employer.nil?
 			trainer_id = self.employer.id
 	  end
 
@@ -53,5 +53,41 @@ class User < ActiveRecord::Base
 		User.where("id IN (#{all_sups})
 		            AND license != 'employee'").first
 	end
+	
+	def name
+		"#{first_name} #{last_name}"
+	end
+	
+	def possible_licenses
+		if self.license == "owner"
+			["owner",
+			 "employer",
+			 "employee",
+			 "trainer",
+			 "unlimited student",
+			 "student",
+			 "client"]
 
+		elsif self.license == "employer"
+			["employee",
+			 "client"]
+		end
+	end
+	
+	def home_city_state_zip
+		"#{home_city }#{', ' if !home_city.blank?  && !home_state.blank?}#{
+			 home_state}#{' '  if !home_state.blank? && !home_zip.blank?  }#{
+			 home_zip.to_s}"
+	end
+	
+	def work_city_state_zip
+		"#{work_city }#{', ' if !work_city.blank?  && !work_state.blank?}#{
+		   work_state}#{' '  if !work_state.blank? && !work_zip.blank?  }#{
+		   work_zip.to_s}"
+	end 
+	
+	def link(website)
+		"http://#{website}"
+	end
+	
 end

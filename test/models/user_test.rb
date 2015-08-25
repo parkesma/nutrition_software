@@ -13,14 +13,14 @@ class UserTest < ActiveSupport::TestCase
     @student = users(:student)
     @ustudent = users(:ustudent)
     @trainer = users(:trainer)
-    @client1 = users(:client1)
-    @client2 = users(:client2)
+    @eclient1 = users(:eclient1)
+    @eclient2 = users(:eclient2)
     @employer = users(:employer)
     @employee = users(:employee)
-    @client3 = users(:client3)
-    @client4 = users(:client4)
-    @client5 = users(:client5)
-    @client6 = users(:client6)
+    @sclient1 = users(:sclient1)
+    @sclient2 = users(:sclient2)
+    @uclient = users(:uclient)
+    @tclient = users(:tclient)
   end
   
   test "username should be present" do
@@ -72,14 +72,14 @@ class UserTest < ActiveSupport::TestCase
 
   test "should find unlimited student's clients in subs" do
     @ustudent.clients.each do |c|
-      assert_equal c.username, @client5.username
+      assert_equal c.username, @uclient.username
     end
     assert_equal @ustudent.clients.length, 1
   end
   
   test "should find trainer's clients in subs" do
     @trainer.clients.each do |c|
-      assert_equal c.username, @client6.username
+      assert_equal c.username, @tclient.username
     end
     assert_equal @trainer.clients.length, 1
   end
@@ -98,12 +98,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should find clients' trainers" do
-    assert_equal @client1.trainer, @employer
-    assert_equal @client2.trainer, @employer
-    assert_equal @client3.trainer, @student
-    assert_equal @client4.trainer, @student
-    assert_equal @client5.trainer, @ustudent
-    assert_equal @client6.trainer, @trainer
+    assert_equal @eclient1.trainer, @employer
+    assert_equal @eclient2.trainer, @employer
+    assert_equal @sclient1.trainer, @student
+    assert_equal @sclient2.trainer, @student
+    assert_equal @uclient.trainer, @ustudent
+    assert_equal @tclient.trainer, @trainer
   end
 
 end

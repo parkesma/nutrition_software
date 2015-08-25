@@ -1,0 +1,109 @@
+<h1>Contact Info</h1>
+
+<%= form_for(:user, url: user_path, method: :patch) do |c| %>
+
+	<!-- home_address -->	
+	<div class="row form-group col-md-offset-3">		
+		<%= c.label :home_address, class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= c.text_field :home_address_1, class: 'form-control' %>
+		</div>
+	</div>
+	<div class="row form-group col-md-offset-3">
+		<div class="control-label col-md-2"></div>
+		<div class="col-md-5">
+			<%= c.text_field :home_address_2, class: 'form-control' %>
+		</div>
+	</div>
+		
+	<!-- home city state zip country -->
+	<div class="row form-group col-md-offset-3">		
+		<%= c.label "Home City, State, Zip, Country", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= c.text_field :home_city, class: 'form-control col-md-1', id: 'city' %>
+			<%= c.text_field :home_state, class: 'form-control col-md-1', id: 'state' %>
+			<%= c.text_field :home_zip, class: 'form-control col-md-1', id: 'zip' %>
+		</div>
+	</div>
+	<div class="row form-group col-md-offset-3">
+		<div class="control-label col-md-2"></div>
+		<div class="col-md-5">
+			<%= c.text_field :home_country, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- work_address -->
+	<div class="row form-group col-md-offset-3">		
+		<%= c.label :work_address, class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= c.text_field :work_address_1, class: 'form-control' %>
+		</div>
+	</div>
+	<div class="row form-group col-md-offset-3">
+		<div class="control-label col-md-2"></div>
+		<div class="col-md-5">
+			<%= c.text_field :work_address_2, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<!-- work city state zip country -->
+	<div class="row form-group col-md-offset-3">		
+		<%= c.label "Work City, State, Zip, Country", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= c.text_field :work_city, class: 'form-control col-md-1', id: 'city' %>
+			<%= c.text_field :work_state, class: 'form-control col-md-1', id: 'state' %>
+			<%= c.text_field :work_zip, class: 'form-control col-md-1', id: 'zip' %>
+		</div>
+	</div>
+	<div class="row form-group col-md-offset-3">
+		<div class="control-label col-md-2"></div>
+		<div class="col-md-5">
+			<%= c.text_field :work_country, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- email -->
+	<div class="row form-group col-md-offset-3">		
+		<%= c.label "Email", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= c.text_field :email, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- home_phone -->
+	<div class="row form-group col-md-offset-3">		
+		<%= c.label "Home Phone", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= c.text_field :home_phone, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<!-- mobile_phone -->
+	<div class="row form-group col-md-offset-3">		
+		<%= c.label "Mobile Phone", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= c.text_field :mobile_phone, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<!-- work_phone -->
+	<div class="row form-group col-md-offset-3">		
+		<%= c.label "Work Phone", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= c.text_field :work_phone, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<!-- other_phone -->
+	<div class="row form-group col-md-offset-3">		
+		<%= c.label "Other Phone", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= c.text_field :other_phone, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<div class="text-center">		
+		<%= c.submit "Update", class: 'btn btn-primary' %>
+	</div>
+
+<% end %>

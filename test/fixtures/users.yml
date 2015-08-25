@@ -14,6 +14,7 @@ ustudent:
   username:        unlimited_student
   password:        password
   license:         unlimited student
+  first_name:      ustudent
 
 trainer:
   id:              3
@@ -21,6 +22,7 @@ trainer:
   password:        password
   license:         trainer
   expiration_date: 01/01/2500
+  first_name:      trainer
 
 expired:
   id:              4
@@ -28,57 +30,83 @@ expired:
   password:        password
   license:         student
   expiration_date: 01/01/1900
+  first_name:      expired
 
-client1:
+eclient1:
   id:              5
   username:        client1
   password:        password
   license:         client
+  first_name:      eclient1
 
-client2:
+eclient2:
   id:              6
   username:        client2
   password:        password
   license:         client
+  first_name:      eclient2
   
 employer:
   id:              7
   username:        employer
   password:        password
   license:         employer
+  first_name:      employer
 
 employee:
   id:              8
   username:        employee
   password:        password
   license:         employee
+  first_name:      employee
   
 owner:
   id:              9
   username:        owner
   password:        password
   license:         owner
+  first_name:      owner
   
-client3:
+sclient1:
   id:              10
   username:        client3
   password:        password
   license:         client
+  first_name:      sclient1
 
-client4:
+sclient2:
   id:              11
   username:        client4
   password:        password
   license:         client
+  first_name:      sclient2
   
-client5:
+uclient:
   id:              12
   username:        client5
   password:        password
   license:         client
+  first_name:      uclient
   
-client6:
+tclient:
   id:              13
   username:        client6
   password:        password
   license:         client
+  first_name:      tclient
+  
+orphan_client:
+  id:              14
+  username:        orphan_client
+  password:        password
+  license:         client
+  first_name:      client
+  last_name:       orphan
+
+orphan_employee:
+  id:              15
+  username:        orphan_employee
+  password:        password
+  license:         employee
+  first_name:      employee
+  last_name:       orphan

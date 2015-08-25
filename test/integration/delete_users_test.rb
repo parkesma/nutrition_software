@@ -3,7 +3,7 @@ require 'test_helper'
 class DeleteUsersTest < ActionDispatch::IntegrationTest
   
   def setup
-    @client =   users(:client1)
+    @eclient1 = users(:eclient1)
     @student =  users(:student)
     @ustudent = users(:ustudent)
     @trainer =  users(:trainer)
@@ -12,7 +12,7 @@ class DeleteUsersTest < ActionDispatch::IntegrationTest
     @owner =    users(:owner)
     
     @possible_users = [
-      @client, 
+      @eclient1, 
       @student,
       @ustudent,
       @trainer, 
@@ -27,7 +27,7 @@ class DeleteUsersTest < ActionDispatch::IntegrationTest
     login_as(@owner)
     assert_difference 'User.count', -1 do
       assert_difference 'Relationship.count', -1 do
-        delete "/users/#{@client.id}"
+        delete "/users/#{@eclient1.id}"
       end
     end
     
@@ -45,7 +45,7 @@ class DeleteUsersTest < ActionDispatch::IntegrationTest
   end
   
   test "clients can't delete anyone" do
-    login_as(@client)
+    login_as(@eclient1)
     
     assert_difference 'User.count', 0 do
       assert_difference 'Relationship.count', 0 do
@@ -59,7 +59,7 @@ class DeleteUsersTest < ActionDispatch::IntegrationTest
     
     assert_difference 'User.count', 0 do
       assert_difference 'Relationship.count', 0 do
-        delete "/users/#{@client.id}"
+        delete "/users/#{@eclient1.id}"
       end
     end
   end
@@ -69,7 +69,7 @@ class DeleteUsersTest < ActionDispatch::IntegrationTest
     
     assert_difference 'User.count', 0 do
       assert_difference 'Relationship.count', 0 do
-        delete "/users/#{@client.id}"
+        delete "/users/#{@eclient1.id}"
       end
     end
   end

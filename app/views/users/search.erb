@@ -1,0 +1,23 @@
+<% provide(:title, 'Certified Trainers') %>
+<h1>Search for Certified Trainers</h1>
+
+<%= form_for(:search, method: :post, html: {class: "form-inline"}) do |s| %>
+
+	<!-- city -->
+	<div class="row form-group col-md-offset-3">		
+		<%= s.label :city, class: "control-label" %>
+		<%= s.text_field :city, class: 'form-control' %>
+	</div>
+	
+	<!-- state -->
+	<div class="row form-group col-md-offset-3">		
+		<%= s.label :state, class: "control-label" %>
+		<%= s.text_field :state, class: 'form-control' %>
+	</div>
+	
+	<div class="text-center">		
+		<%= s.submit "Find", class: 'btn btn-primary' %>
+	</div>
+	
+<% end %>
+</form>

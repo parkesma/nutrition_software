@@ -3,7 +3,7 @@ require 'test_helper'
 class CreateUsersTest < ActionDispatch::IntegrationTest
   
   def setup
-    @client =   users(:client1)
+    @eclient1 = users(:eclient1)
     @student =  users(:student)
     @ustudent = users(:ustudent)
     @trainer =  users(:trainer)
@@ -32,23 +32,23 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
   end
 
   test "login with invalid information" do
-    @client.password = ""
+    @eclient1.password = ""
     get login_path
     assert_template 'sessions/new'
-    login_as(@client)
+    login_as(@eclient1)
     assert_template 'sessions/new'
     assert_not is_logged_in?
   end
 
   test "login with valid information followed by logout" do
-    login_as(@client)
+    login_as(@eclient1)
     assert is_logged_in?
-    delete logout_path, session: {username: @client.username}
+    delete logout_path, session: {username: @eclient1.username}
     assert_not is_logged_in?
   end
   
   test "client shouldn't be able to create any user" do
-    login_as(@client)
+    login_as(@eclient1)
     for i in 0...@possible_licenses.length
       @new_user_params[:username] = "user#{i}"
       @new_user_params[:first_name] = "name#{i}"

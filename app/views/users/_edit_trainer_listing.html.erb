@@ -1,0 +1,103 @@
+<h1>Search Listing</h1>
+
+<%= form_for(:user, url: user_path, method: :patch) do |t| %>
+
+	<!-- company -->
+	<div class="row form-group col-md-offset-3">		
+		<%= t.label "Company Name:", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= t.text_field :company, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<!-- website1 address -->
+	<div class="row form-group col-md-offset-3">		
+		<%= t.label "Main Website:", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= t.text_field :website1, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<!-- website2 address -->
+	<div class="row form-group col-md-offset-3">		
+		<%= t.label "Additional Website:", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= t.text_field :website2, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- work_address -->
+	<div class="row form-group col-md-offset-3">		
+		<%= t.label :address, class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= t.text_field :work_address_1, class: 'form-control' %>
+		</div>
+	</div>
+	<div class="row form-group col-md-offset-3">
+		<div class="control-label col-md-2"></div>
+		<div class="col-md-5">
+			<%= t.text_field :work_address_2, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<!-- work city state zip country -->
+	<div class="row form-group col-md-offset-3">		
+		<%= t.label "City, State, Zip, Country", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= t.text_field :work_city, class: 'form-control col-md-1', id: 'city' %>
+			<%= t.text_field :work_state, class: 'form-control col-md-1', id: 'state' %>
+			<%= t.text_field :work_zip, class: 'form-control col-md-1', id: 'zip' %>
+		</div>
+	</div>
+	<div class="row form-group col-md-offset-3">
+		<div class="control-label col-md-2"></div>
+		<div class="col-md-5">
+			<%= t.text_field :work_country, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- email -->
+	<div class="row form-group col-md-offset-3">		
+		<%= t.label "Email", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= t.text_field :email, class: 'form-control' %>
+		</div>
+	</div>
+
+	<!-- home_phone -->
+	<div class="row form-group col-md-offset-3">		
+		<%= t.label "Home Phone", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= t.text_field :home_phone, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<!-- mobile_phone -->
+	<div class="row form-group col-md-offset-3">		
+		<%= t.label "Mobile Phone", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= t.text_field :mobile_phone, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<!-- work_phone -->
+	<div class="row form-group col-md-offset-3">		
+		<%= t.label "Work Phone", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= t.text_field :work_phone, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<!-- other_phone -->
+	<div class="row form-group col-md-offset-3">		
+		<%= t.label "Other Phone", class: "control-label col-md-2" %>
+		<div class="col-md-5">
+			<%= t.text_field :other_phone, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<div class="text-center">		
+		<%= t.submit "Update", class: 'btn btn-primary' %>
+	</div>
+
+<% end %>

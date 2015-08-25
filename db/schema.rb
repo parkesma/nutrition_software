@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803221326) do
+ActiveRecord::Schema.define(version: 20150824214402) do
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "sub_id"
@@ -42,10 +42,10 @@ ActiveRecord::Schema.define(version: 20150803221326) do
     t.string   "meal_plan"
     t.string   "home_address_1"
     t.string   "home_address_2"
-    t.string   "city"
-    t.string   "state"
-    t.integer  "zip"
-    t.string   "country"
+    t.string   "home_city"
+    t.string   "home_state"
+    t.integer  "home_zip"
+    t.string   "home_country"
     t.string   "work_address_1"
     t.string   "work_address_2"
     t.string   "email"
@@ -73,6 +73,11 @@ ActiveRecord::Schema.define(version: 20150803221326) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.boolean  "logged_in"
+    t.string   "work_city"
+    t.string   "work_state"
+    t.integer  "work_zip"
+    t.string   "work_country"
+    t.string   "company"
   end
 
 end

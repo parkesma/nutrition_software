@@ -1,0 +1,39 @@
+<li>
+
+  <div class="row">
+    <div class="col-md-5" id="user-link">
+      <%= link_to user.name, user %>
+    </div>
+    
+    <div class="col-md-1">
+      <%= "#{user.license}" if
+        user.license == "student" ||
+        user.license == "unlimited student" ||
+        (!@orphans.nil? && @orphans.include?(user)) 
+      %>
+    </div>
+    
+    <div class="col-md-3 col-md-offset-2">
+      <%= link_to "edit",   edit_user_path(user), method: :get, 
+        class: "record-link" %>
+      
+      <%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" }, 
+        class: "record-link" %>
+    </div>
+  </div>
+      
+  <% if user.employees.length > 0 %>
+    <ul>
+  	  <div class="level2">Employees</div>
+	    <%= render user.employees %>
+    </ul>
+  <% end %>
+  
+  <% if user.license != "employee" && user.clients.length > 0 %>
+    <ul>
+    	<div class="level2">Clients</div>
+	    <%= render user.clients %>
+    </ul>
+  <% end %>
+  
+</li>

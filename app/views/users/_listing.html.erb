@@ -1,0 +1,55 @@
+<div class="text-center" id="company">
+	<%= listing.company %>
+</div>
+
+<div class="text-center">
+	<%= listing.name %>
+</div>
+
+<!-- website1 -->
+<div class="text-center">
+ 	<% if !listing.website1.blank? %>
+ 		<%= link_to listing.website1, listing.link(listing.website1), target: "_blank" %>
+ 	<% end %>
+</div>
+
+<!-- website2 -->
+<div class="text-center">
+ 	<% if !listing.website2.blank? %>
+ 		<%= link_to listing.website2, listing.link(listing.website2), target: "_blank" %>
+ 	<% end %>
+</div>
+
+<!-- work_address -->
+<div class="text-center">
+	<div><%= listing.work_address_1%></div>
+	<div><%= listing.work_address_2 %></div>
+	<div><%= listing.work_city_state_zip %></div>
+	<div><%= listing.work_country %></div>
+</div>
+
+<!-- home_phone -->
+<div class="text-center">
+	<%= listing.home_phone %>
+</div>
+
+<!-- mobile_phone -->
+<div class="text-center">
+  <%= listing.mobile_phone %>
+</div>
+
+<!-- work_phone -->
+<div class="text-center">
+  <%= listing.work_phone %>
+</div>
+
+<!-- other_phone -->
+<div class="text-center">
+  <%= listing.other_phone %>
+</div>
+
+<!-- email -->
+<div class="text-center">
+  <%= listing.email %>
+</div>
+<br><br>
