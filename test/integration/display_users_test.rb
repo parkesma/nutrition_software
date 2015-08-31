@@ -55,7 +55,7 @@ class DisplayUsersTest < ActionDispatch::IntegrationTest
     count_links(subs)
   end
   
-  test "trainer should see only his own clients" do
+  test "CFNS should see only his own clients" do
     login_as(@trainer)
     subs = [@tclient]
     count_links(subs)

@@ -20,7 +20,7 @@ trainer:
   id:              3
   username:        trainer
   password:        password
-  license:         trainer
+  license:         CFNS
   expiration_date: 01/01/2500
   first_name:      trainer
 

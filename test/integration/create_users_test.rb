@@ -23,7 +23,7 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
       "client", 
       "student",
       "unlimited student",
-      "trainer", 
+      "CFNS", 
       "employee",
       "employer",
       "owner"
@@ -75,7 +75,7 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
     uste_test
   end
   
-  test "trainers should only be able to create clients" do
+  test "CFNSs should only be able to create clients" do
     login_as(@trainer)
     uste_test
   end
@@ -92,7 +92,7 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
     cannot_create("employee")
     cannot_create("student")
     cannot_create("unlimited student")
-    cannot_create("trainer")
+    cannot_create("CFNS")
     cannot_create("employer")
     cannot_create("owner")
   end

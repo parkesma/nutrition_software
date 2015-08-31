@@ -43,7 +43,7 @@ class SessionsHelperTest < ActionView::TestCase
 
 	test "should return current license" do
 		login(@trainer)
-		assert_equal current_license, "trainer"
+		assert_equal current_license, "CFNS"
 		logout
 		login(@owner)
 		assert_equal current_license, "owner"

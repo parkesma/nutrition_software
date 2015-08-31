@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 		if current_license == "owner"
 			@owners    = User.where("license = ?", "owner")
 			@employers = User.where("license = ?", "employer")
-			@trainers  = User.where("license = ?", "trainer")
+			@trainers  = User.where("license = ?", "CFNS")
 			@students  = User.where("license = ? OR license = ?", 
 			                        "student",     "unlimited student")
 
@@ -113,7 +113,7 @@ class UsersController < ApplicationController
 				)
 			
 			@possible_trainers  = User.where("license = ? OR license = ?",
-			                                 "employer",    "trainer")
+			                                 "employer",    "CFNS")
 			
 			@possible_employers = User.where("license = ?", "employer")
 		else
@@ -183,7 +183,7 @@ class UsersController < ApplicationController
   def find
 		@listings = User.where(
 			"(expiration_date is null OR expiration_date>?) AND (license=? OR license=?)",
-			  													 Date.today,             "trainer",   "employer")
+			  													 Date.today,             "CFNS",   "employer")
 
   	if !search_params[:city].blank?
   		@listings = @listings.where("work_city=?", search_params[:city].capitalize)

@@ -42,7 +42,7 @@ class EditUsersTest < ActionDispatch::IntegrationTest
     end    
   end
 
-  test "student, ustudent, trainer, employer can edit their own clients" do
+  test "student, ustudent, CFNS, employer can edit their own clients" do
     test_array = [@student, @ustudent, @trainer, @employer]
     test_array.each do |u|
       login_as(u)
