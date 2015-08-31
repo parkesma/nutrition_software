@@ -130,12 +130,15 @@ class UsersController < ApplicationController
 		new_date = "(#{user_params["expiration_date(3i)"].to_i}, #{user_params["expiration_date(2i)"].to_i}, #{user_params["expiration_date(1i)"].to_i})"
 		user_params[:expiration_date] = new_date
 		@user.password = params[:reset] if !params[:reset].blank?
+
     if @user.update_attributes(user_params)
     	flash[:success] = "Profile updated"
     	redirect_to @user
+
     else
     	flash.now[:danger] = "Changes failed to save"
       render :edit
+
     end
 	end
 
@@ -181,36 +184,65 @@ class UsersController < ApplicationController
 		@listings = User.where(
 			"(expiration_date is null OR expiration_date>?) AND (license=? OR license=?)",
 			  													 Date.today,             "trainer",   "employer")
-p "all listings=#{@listings.pluck(:username)}"
+
   	if !search_params[:city].blank?
   		@listings = @listings.where("work_city=?", search_params[:city].capitalize)
   	end	
-p "city listings=#{@listings.pluck(:username)}"
+
   	if !search_params[:state].blank?
   		@listings = @listings.where("work_state=?", unabbreviate(search_params[:state]))
   	end
-p "state listings=#{@listings.pluck(:username)}"
+  	
+  	if !search_params[:zip].blank?
+  		@listings = @listings.where("work_zip=?", search_params[:zip])
+  	end
+
   end
-  
+	
+	def basic_info
+		@user = focussed_user
+	end
+	
+	def update_basic_info
+		@user = focussed_user
+    
+		if @user.update_attributes(basic_info_params)
+    	flash[:success] = "Basic info updated"
+
+    else
+    	flash[:danger] = "Changes failed to save"
+
+		end
+		redirect_to :basic_info
+	end
+	
 	private
 	
 		def user_params
 			params.require(:user).permit(
 				:creator_id, :username, :password, :license, :first_name, 
-				:last_name, :logged_in, "expiration_date(1i)", 
-				"expiration_date(2i)", "expiration_date(3i)", 
+				:last_name, :logged_in, :expiration_date_string,
 
-				:home_address_1, :home_address_2, :home_city, :home_state, :home_zip, 
-				:home_country, :work_address_1, :work_address_2, :work_city, 
-				:work_state, :work_zip, :work_country, :email, :home_phone, 
+				:home_address_1, :home_address_2, :home_csz_string, 
+				:home_country, :work_address_1, :work_address_2,
+				:work_csz_string, :work_country, :email, :home_phone, 
 				:mobile_phone, :work_phone, :other_phone,
 				
 				:company, :website1, :website2
 			)
 		end
 		
+		def basic_info_params
+			params.require(:user).permit(
+				:starting_date_string, :gender, :resting_heart_rate, :present_weight, 
+				:clothing, :present_body_fat, :height, :date_of_birth_string, 
+				:desired_weight, :desired_body_fat, :measured_metabolic_rate, 
+				:activity_index
+			)
+		end
+		
 		def search_params
-			params.require(:search).permit(:city, :state)
+			params.require(:search).permit(:city, :state, :zip)
 		end
 
 		def capitalize_params

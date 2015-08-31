@@ -105,5 +105,46 @@ class UserTest < ActiveSupport::TestCase
     assert_equal @uclient.trainer, @ustudent
     assert_equal @tclient.trainer, @trainer
   end
+  
+  test "should calculate basic info correctly" do
+    @eclient1.gender = "M"
+    @eclient1.resting_heart_rate = 70
+    @eclient1.present_weight = 160
+    @eclient1.present_body_fat = 20
+    @eclient1.height = 68
+    @eclient1.date_of_birth = "Tue Jan 1, 1979"
+    @eclient1.desired_weight = 150
+    @eclient1.desired_body_fat = 10
+    @eclient1.measured_metabolic_rate = nil
+    @eclient1.activity_index = 1
+    assert_equal @eclient1.age.to_i, 36
+    assert_equal @eclient1.ibw.to_i, 154
+    assert_equal @eclient1.basic_mr.to_i, 1681
+    assert_equal @eclient1.sa_needs.to_i, 336
+    assert_equal @eclient1.bmr_plus_sa.to_i, 2017
+    assert_equal @eclient1.bmr_plus_sa_plus_exercise.to_i, 
+      2017 + @eclient1.exercise_calories
+    assert_equal @eclient1.tef(@eclient1.present_weight).to_i, 8
+    assert_equal @eclient1.tef_factor.to_i, 241
+    assert_equal @eclient1.present_energy_expenditure.to_i, 3258
+
+    #adding diet plan will mess these up
+      assert_equal @eclient1.daily_caloric_needs.to_i, 2607
+      assert_equal @eclient1.daily_deficit.to_i, -651
+
+    assert_equal @eclient1.fluid_min.to_i, 80
+    assert_equal @eclient1.fluid_max.to_i, 160
+    assert_equal @eclient1.present_lean_mass.to_i, 128
+    assert_equal @eclient1.present_fat_mass.to_i, 32
+    assert_equal @eclient1.desired_lean_mass.to_i, 135
+    assert_equal @eclient1.desired_fat_mass.to_i, 15
+    assert_equal @eclient1.estimated_muscle_changes.to_i, 7
+    assert_equal @eclient1.estimated_fat_changes.to_i, -17
+    assert_equal @eclient1.estimated_total_changes.to_i, 24
+    assert_equal @eclient1.target_heart_rate_min.to_i, 138
+    assert_equal @eclient1.target_heart_rate_max.to_i, 149
+    assert_equal @eclient1.vo2max_endurance_min.to_i, 149
+    assert_equal @eclient1.vo2max_endurance_max.to_i, 161
+  end
 
 end

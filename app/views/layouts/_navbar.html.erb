@@ -46,21 +46,22 @@
         </ul>
       </li>
     <% else %>
-      <li><%= link_to "Find Certified Trainer", search_path %></li>
+      <li><%= link_to "Find Certified Fitness & Nutritional Specialist (CFNS)", search_path %></li>
     <% end %>
     
-    <!-- Client links dropdown -->        
+    <!-- What Works links dropdown -->        
     <% if current_license == "client" || focussed_license == "client" %>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           What Works <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <li><%= link_to "Meal Plan",       '#' %></li>
-          <li><%= link_to "Exercise Plan",   '#' %></li>
-          <li><%= link_to "Body Fat",        '#' %></li>
+          <li><%= link_to "Basic Info",      basic_info_path %></li>
           <li><%= link_to "Measurements",    '#' %></li>
-          <li><%= link_to "Trainer's Notes", '#' %></li>
+          <li><%= link_to "Body Fat",        '#' %></li>
+          <li><%= link_to "Exercise Plan",   '#' %></li>
+          <li><%= link_to "Meal Plan",       '#' %></li>
+          <li><%= link_to "Notes",           '#' %></li>
         </ul>
       </li>
     <% end %>

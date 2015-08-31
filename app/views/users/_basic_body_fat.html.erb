@@ -1,0 +1,39 @@
+<!-- set for all -->
+<% @width = "small" %>
+<% @popup = nil %>
+
+<!-- present body fat -->
+<% @label = "PRESENT Body Fat:" %>
+<% @field = :present_body_fat %>
+<% @type = "text" %>
+<% @right = "%" %>
+<%= render 'users/field_input'%>
+
+<!-- height -->
+<% @label = "Height:" %>
+<% @field = :height %>
+<% @type = "text" %>
+<% @right = "inches" %>
+<%= render 'users/field_input'%>
+		
+<!-- date of birth -->
+<% @label = "Date of Birth:" %>
+<% @field = :date_of_birth_string %>
+<% @date = @user.date_of_birth %>
+<% @type = "date" %>
+<% @right = "" %>
+<%= render 'users/field_input'%>
+
+<!-- desired weight -->
+<% @label = "Desired Weight:" %>
+<% @field = :desired_weight %>
+<% @type = "text" %>
+<% @right = "lbs" %>
+<%= render 'users/field_input'%>
+
+<!-- desired body fat -->
+<% @label = "DESIRED Body Fat:" %>
+<% @field = :desired_body_fat %>
+<% @type = "text" %>
+<% @right = "%" %>
+<%= render 'users/field_input'%>

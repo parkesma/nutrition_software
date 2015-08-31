@@ -1,0 +1,28 @@
+<% provide(:title, 'Basic Info') %>
+<h1><%= @user.name %></h1>
+<%= form_for(:user, url: recalculate_path, method: :patch, 
+		html: {class: "form-horizontal"}) do |f| %>
+
+	<% @form = f%>
+		<%= render 'users/basic_basic_info' %>	
+
+	<div class="row">
+		<div class="col-md-6">
+			<%= render 'users/basic_present_calories' %>	
+		</div>
+		<div class="col-md-6">
+			<%= render 'users/basic_target_calories' %>	
+		</div>
+	</div>
+
+	<%= render 'users/basic_weight_evolution' %>	
+	
+	<%= render 'users/basic_target_heart_rate' %>	
+
+<!-- add popups like Excel sheet -->
+	
+	<div class="text-center">
+		<%= f.submit "Recalculate", class: 'btn btn-primary' %>
+	</div>
+
+<% end %>

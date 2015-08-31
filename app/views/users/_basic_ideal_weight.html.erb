@@ -1,0 +1,33 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			Hamwi formula for ideal body weight
+		</h3>
+	</div>
+	<div class="panel-body">
+
+		<!-- true for all -->
+		<% @width = "small" %>
+		<% @popup = nil %>
+		<% @precision = 1 %>
+		
+		<!-- IBW minus 10% -->
+		<% @label = "IBW minus 10%:" %>
+		<% @field = @user.ibw * 0.9 if !@user.ibw.blank? %>
+		<% @right = "kg" %>
+		<%= render 'users/field_display'%>
+
+		<!-- IBW -->
+		<% @label = "IBW:" %>
+		<% @field = @user.ibw %>
+		<% @right = "kg" %>
+		<%= render 'users/field_display'%>
+			
+		<!-- IBW plus 10% -->
+		<% @label = "IBW plus 10%:" %>
+		<% @field = @user.ibw * 1.1 if !@user.ibw.blank? %>
+		<% @right = "kg" %>
+		<%= render 'users/field_display'%>
+		
+	</div>
+</div>

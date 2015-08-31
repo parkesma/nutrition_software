@@ -180,7 +180,7 @@ input {
 
 .control-label {
   color: gray;
-  width: 150px;
+  width: 165px;
 }
 
 #date-select {
@@ -205,6 +205,62 @@ input {
 
 #zip {
   width: 30%;
+}
+
+.other-label {
+  width: auto;
+  padding-top: 10px;
+  text-align: left;
+  color: gray;
+}
+
+.emphasized-label {
+  color: red;
+  padding-top: 5px;
+  float: left;
+  width: auto;
+  font-weight: bold;
+}
+
+.form-horizontal 
+  .form-group, 
+  .panel .panel-body 
+    .form-group,
+    .form-group .dl-horizontal {
+    margin: 2px;
+}
+
+.dl-horizontal .control-label-long .control-label {
+  white-space: normal;
+  padding-top: 0px;
+  padding-right: 6px;
+}
+  
+.form-control .form-control, select {
+  border: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.form-control {
+  margin: 0px;
+}
+
+.first-sub-field {
+  margin-left: 0px;
+}
+
+.total, .total .control-label, .total .form-control {
+  color: black;
+}
+
+.text-left, .text-right {
+  padding: 0px;
+  margin: 0px;
+}
+
+.fill-background {
+  background-color: #87CEEB;
 }
 
 /* Users index */
