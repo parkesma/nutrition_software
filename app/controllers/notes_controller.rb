@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
 	
 	def index
-	  @notes = focussed_user.notes
+	  @notes = focussed_user.notes.order("updated_at DESC")
 	end
 	
 	def create

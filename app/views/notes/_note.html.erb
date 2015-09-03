@@ -1,3 +1,7 @@
-<div class="col-md-1"><%= note.created_at %></div>
-<div class="col-md-1"><%= note.author.name %></div>
-<div class="col-md-10"><%= note.text %></div>
+<tr>
+	<td class="col-md-2">
+		<%= note.updated_at.strftime("%b %d, %Y - %I:%M") %>
+	</td>
+	<td class="col-md-2"><%= note.author.name %></td>
+	<td><%= note.text %></td>
+</tr>

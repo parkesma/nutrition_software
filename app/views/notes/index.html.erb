@@ -4,7 +4,7 @@
 <%= form_for(:note, url: notes_path, method: :post, 
 		html: {class: "form-horizontal"}) do |f| %>
 	
-	<%= f.text_field :text, class: 'form-control' %>
+	<%= f.text_area :text, cols: 5, rows: 3, class: 'form-control' %>
 	
 	<%= f.hidden_field :author_id, value: @current_user %>
 
@@ -14,9 +14,15 @@
 	
 <% end %>
 
-<!-- notes header row -->
-<div class="col-md-1 text-center">Date</div>
-<div class="col-md-1 text-center">Author</div>
-<div class="col-md-10 text-center">Note</div>
+<% if @notes.length > 0 %>
+	<table class="table table-striped table-bordered" >
+	
+		<!-- notes header row -->
+		<th>Date</th>
+		<th>Author</th>
+		<th>Note</th>
 
-<%= render @notes %>
+		<%= render @notes %>
+	
+	</table>
+<% end %>
