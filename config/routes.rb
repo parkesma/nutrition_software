@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get '/basic_info',   to: 'users#basic_info',          as: 'basic_info'
   patch '/basic_info', to: 'users#update_basic_info',   as: 'recalculate'
 
-  resources :notes,    only: [:index, :create, :destroy]
+  resources :notes
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

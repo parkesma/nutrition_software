@@ -1,7 +1,19 @@
 <tr>
+
 	<td class="col-md-2">
 		<%= note.updated_at.strftime("%b %d, %Y - %I:%M") %>
 	</td>
+
 	<td class="col-md-2"><%= note.author.name %></td>
+
 	<td><%= note.text %></td>
+	
+	<% if current_license != "client" %>
+		<td><%= link_to "edit",   edit_note_path(note), method: :get, 
+      			class: "record-link" %></td>
+	      
+	  <td><%= link_to "delete", note, method: :delete, data: { confirm: "You sure?" }, 
+      			class: "record-link" %></td>
+  <% end %>
+  
 </tr>

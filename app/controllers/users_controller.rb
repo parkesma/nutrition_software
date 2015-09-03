@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 	
 	def show
 		@user = User.find_by(id: params[:id])
-		focus(@user) if current_license != "client"
+		focus(@user)
 	end
 	
 	def new
@@ -132,8 +132,6 @@ class UsersController < ApplicationController
 	def update
 		capitalize_params
     @user = User.find(params[:id])
-		new_date = "(#{user_params["expiration_date(3i)"].to_i}, #{user_params["expiration_date(2i)"].to_i}, #{user_params["expiration_date(1i)"].to_i})"
-		user_params[:expiration_date] = new_date
 		@user.password = params[:reset] if !params[:reset].blank?
 
     if @user.update_attributes(user_params)

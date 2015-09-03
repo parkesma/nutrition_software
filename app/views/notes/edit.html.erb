@@ -1,0 +1,13 @@
+<% provide(:title, 'Notes') %>
+<h1>Notes</h1>
+
+<%= form_for(:note, url: note_path, method: :patch, 
+		html: {class: "form-horizontal"}) do |f| %>
+		
+	<%= f.text_area :text, cols: 5, rows: 3, class: 'form-control' %>
+
+	<div class="text-center">
+		<%= f.submit "Update Note", class: 'btn btn-primary' %>
+	</div>
+	
+<% end %>

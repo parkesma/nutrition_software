@@ -1,11 +1,26 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-note1:
+eclient1_note1:
   user_id: 5
   author_id: 7
   text: Employer note
 
-note2:
+eclient1_note2:
   user_id: 5
   author_id: 8
   text: Employee note
+  
+sclient_note:
+  user_id: 10
+  author_id: 9
+  text: Owner note
+
+uclient_note:
+  user_id: 12
+  author_id: 9
+  text: Owner note
+
+tclient_note:
+  user_id: 13
+  author_id: 9
+  text: Owner note
