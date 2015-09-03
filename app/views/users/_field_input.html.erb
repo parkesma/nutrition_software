@@ -23,7 +23,10 @@
  				<% if @type=="text" %>
   				<%= @form.text_field @field, class: 'form-control' %>
   			<% elsif @type=="date" %>
-					<%= @form.text_field @field, value: (@date.strftime("%b %d, %Y")),
+  				<% if !@date.blank? %>
+  					<% date_value = @date.strftime("%b %d, %Y") %>
+  				<% end %>
+					<%= @form.text_field @field, value: (date_value),
   						class: 'form-control' %>
   			<% else %>
   				<%= @form.select @field, 

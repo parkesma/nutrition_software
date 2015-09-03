@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 	                                 foreign_key: "sup_id",
 	                                 dependent: :destroy
   has_one :sup, through: :bottom_up_relationship, source: "sup"
+	has_many :notes
 	#has_many :planned_foods, through _
 	#has_many :planned_exercises, through _
 	#has_many :measurements, through _

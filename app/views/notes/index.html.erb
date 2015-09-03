@@ -1,0 +1,22 @@
+<% provide(:title, 'Notes') %>
+<h1>Notes</h1>
+
+<%= form_for(:note, url: notes_path, method: :post, 
+		html: {class: "form-horizontal"}) do |f| %>
+	
+	<%= f.text_field :text, class: 'form-control' %>
+	
+	<%= f.hidden_field :author_id, value: @current_user %>
+
+	<div class="text-center">
+		<%= f.submit "Add Note", class: 'btn btn-primary' %>
+	</div>
+	
+<% end %>
+
+<!-- notes header row -->
+<div class="col-md-1 text-center">Date</div>
+<div class="col-md-1 text-center">Author</div>
+<div class="col-md-10 text-center">Note</div>
+
+<%= render @notes %>
