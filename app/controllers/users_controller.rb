@@ -10,8 +10,13 @@ class UsersController < ApplicationController
 			                        "student",     "unlimited student")
 
 			subs = Relationship.all.pluck(:sub_id)
-			@orphans = User.where("id NOT IN (?) AND (license = ? OR license = ? OR license is null)",
-			                       subs,             "employee",    "client")
+			if subs.length == 0
+				@orphans = User.where("license = ? OR license = ? OR license is null",
+			  	                     "employee",    "client")
+			else
+				@orphans = User.where("id NOT IN (?) AND (license = ? OR license = ? OR license is null)",
+			  	                     subs,             "employee",    "client")
+			end
 
 		elsif current_license == "employer"
 			@clients    = @current_user.clients
