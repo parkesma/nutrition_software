@@ -20,13 +20,13 @@
  		<dd class="form-control">
  			<% if !@field.blank? %>
   			<div class="text-left col-md-6">
- 					
+
  					<% if @precision == 2 %>
- 						<%= sprintf("%0.2f", @field) %>
+	 					<%= sprintf("%0.2f", @field) %>
  					<% elsif @precision == 1 %>
- 						<%= sprintf("%0.1f", @field) %>
+	 					<%= sprintf("%0.1f", @field) %>
  					<% else %>
- 						<%= sprintf("%0.0f", @field) %>
+	 					<%= sprintf("%0.0f", @field) %>
  					<% end %>
  					
  					<% if @right == "kg" %>
@@ -40,10 +40,10 @@
  				<div class="text-right col-md-6">
  				
  					<% if @right=="kg" %>
- 						<%= @user.to_kg(@field) %> Kg
- 					<% else %>
+						<%= @user.to_kg(@field) %> Kg
+					<% else %>
  						<%= @right %>
- 					<% end %>
+					<% end %>
   				
  				</div>
  			<% end %>
