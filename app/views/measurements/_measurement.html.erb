@@ -1,0 +1,25 @@
+<tr>
+	<td><%= measurement.created_at.strftime("%b %d, %Y") %></td>
+	<td><%= measurement.weight %></td>
+	<td><%= measurement.body_fat %></td>
+	<td><%= measurement.chest %></td>
+	<td><%= measurement.waist %></td>
+	<td><%= measurement.rt_arm %></td>
+	<td><%= measurement.rt_forearm %></td>
+	<td><%= measurement.hips %></td>
+	<td><%= measurement.rt_thigh %></td>
+	<td><%= measurement.rt_calf %></td>
+
+	<% if current_license != "client" %>
+		<td><%= link_to "edit",   edit_measurement_path(measurement),
+						method: :get, class: "record-link" %></td>
+	      
+	  <td>
+	  	<%= link_to "delete", measurement, method: :delete,
+					data: { confirm: 
+	  			"Are you sure you want to delete this measurement?" },
+	  			class: "record-link" %>
+	  </td>
+  <% end %>
+  
+</tr>

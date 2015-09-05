@@ -16,10 +16,9 @@ class User < ActiveRecord::Base
 	                                 dependent: :destroy
   has_one :sup, through: :bottom_up_relationship, source: "sup"
 	has_many :notes
+	has_many :measurements
 	#has_many :planned_foods, through _
 	#has_many :planned_exercises, through _
-	#has_many :measurements, through _
-	#has_many :bf_measurements, through _
 	
 	def clients
 

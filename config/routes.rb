@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   patch '/basic_info', to: 'users#update_basic_info',   as: 'recalculate'
 
   resources :notes
+  resources :measurements
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,101 @@
+<% provide(:title, 'Edit Measurement') %>
+<h1>Edit Measurement</h1>
+
+<%= form_for(:measurement, url: measurement_path, method: :patch
+		) do |f| %>
+
+		<% @form = f %>		
+		<table class="table" >
+			
+			<!-- notes header row -->
+			<tr>
+			
+				<% @heading 		= "Date" %>
+				<% @subheading 	= nil %>
+				<%= render 'measurements/header' %>
+			
+				<% @heading 		= "Weight" %>
+				<% @subheading 	= "(lbs)" %>
+				<%= render 'measurements/header' %>
+				
+				<% @heading 		= "Body Fat" %>
+				<% @subheading 	= "(%)" %>
+				<%= render 'measurements/header' %>
+				
+				<% @heading 		= "Chest" %>
+				<% if focussed_user.gender = "M" %>
+					<% @subheading = "At nipple" %>
+				<% else %>
+					<% @subheading = "Above breast" %>
+				<% end %>
+				<%= render 'measurements/header' %>
+
+				<% @heading 		= "Waist" %>
+				<% @subheading 	= "At navel" %>
+				<%= render 'measurements/header' %>
+				
+				<% @heading 		= "Rt Arm" %>
+				<% @subheading 	= "Mid biceps" %>
+				<%= render 'measurements/header' %>
+				
+				<% @heading 		= "Rt Forearm" %>
+				<% @subheading 	= "At widest" %>
+				<%= render 'measurements/header' %>
+				
+				<% @heading 		= "Hips" %>
+				<% @subheading 	= "At widest" %>
+				<%= render 'measurements/header' %>
+				
+				<% @heading 		= "Rt Thigh" %>
+				<% @subheading 	= "At widest" %>
+				<%= render 'measurements/header' %>
+				
+				<% @heading 		= "Rt Calf" %>
+				<% @subheading 	= "At widest" %>
+				<%= render 'measurements/header' %>
+				
+			</tr>
+			
+			<!-- fields row -->
+			<tr>
+				
+				<% @field = :created_at %>
+				<% @default = Date.today.strftime("%b %-d, %y") %>
+				<%= render 'measurements/field' %>
+				
+				<% @default = nil %><!-- set for all other fields -->
+				
+				<% @field = :weight %>
+				<%= render 'measurements/field' %>
+				
+				<% @field = :body_fat %>
+				<%= render 'measurements/field' %>
+				
+				<% @field = :chest %>
+				<%= render 'measurements/field' %>
+	
+				<% @field = :waist %>
+				<%= render 'measurements/field' %>
+
+				<% @field = :rt_arm %>
+				<%= render 'measurements/field' %>
+
+				<% @field = :rt_forearm %>
+				<%= render 'measurements/field' %>
+				
+				<% @field = :hips %>
+				<%= render 'measurements/field' %>
+				
+				<% @field = :rt_thigh %>
+				<%= render 'measurements/field' %>
+				
+				<% @field = :rt_calf %>
+				<%= render 'measurements/field' %>			
+			</tr>
+		</table>
+
+	<div class="text-center">
+		<%= f.submit "Save Changes", class: 'btn btn-primary' %>
+	</div>
+	
+<% end %>

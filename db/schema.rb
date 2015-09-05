@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901221832) do
+ActiveRecord::Schema.define(version: 20150903195533) do
+
+  create_table "measurements", force: :cascade do |t|
+    t.integer  "user_id"
+    t.float    "weight"
+    t.float    "body_fat"
+    t.float    "chest"
+    t.float    "waist"
+    t.float    "rt_arm"
+    t.float    "rt_forearm"
+    t.float    "hips"
+    t.float    "rt_thigh"
+    t.float    "rt_calf"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "measurements", ["user_id"], name: "index_measurements_on_user_id"
 
   create_table "notes", force: :cascade do |t|
     t.integer  "user_id"
