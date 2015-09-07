@@ -101,7 +101,7 @@ class UsersController < ApplicationController
 	
 	def edit
 		@states = states
-		@user = User.find(params[:id])
+		@user = User.find_by(id: params[:id])
 		if authorized_to_edit(@user)
 			
 			@possible_cfns = User.where("license = ? OR license = ?",

@@ -101,8 +101,11 @@
 
 				<div class="col-md-5">
 					<% if !@possible_cfns.blank? %>
+						<% if !@user.trainer.blank? %>
+							<% selected = @user.trainer.id %>
+						<% end %>
 						<%= collection_select nil, :cfns, @possible_cfns, :id, 
-								:name, {selected: @user.trainer.id},
+								:name, {selected: selected},
 								class: "form-control" %>
 					<% end %>
 				</div>
@@ -114,9 +117,14 @@
 				<label class="control-label col-md-2">Employer:</label>
 				
 				<div class="col-md-5">
-					<%= collection_select nil, :employer, @possible_employers,
-							:id, :name, {selected: @user.employer.id},
-							class: "form-control" %>
+					<% if !@possible_employers.blank? %>
+						<% if !@user.employer.blank? %>
+							<% selected = @user.employer.id %>
+						<% end %>
+						<%= collection_select nil, :employer, @possible_employers,
+								:id, :name, {selected: selected},
+								class: "form-control" %>
+					<% end %>
 				</div>
 
 			</div>
