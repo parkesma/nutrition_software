@@ -1,22 +1,32 @@
-<!--Display logged in user-->
-<% if logged_in?  %>
-  <div id="name-left"><%= "Logged In: #{current_user.name}" %></div>
-<% end %>
-    
-<!--If !client, display focussed user-->
-<% if focussed? && current_user.license != "client" %>
-  <div id="name-right"><%= "Focussing On: #{focussed_user.name}" %></div>
-<% end %>
+<div class="row logged-focussed">
+  <!--Display logged in user-->
+  <% if logged_in?  %>
+    <div id="name-left"><%= "Logged In: #{current_user.name}" %></div>
+  <% end %>
+  
+  <!--If !client, display focussed user-->
+  <% if focussed? && current_user.license != "client" %>
+    <div id="name-right"><%= "Focussing On: #{focussed_user.name}" %></div>
+  <% end %>
+</div>
 
 <nav id="menu">
   <ul class="nav navbar-nav navbar-default col-md-12">
   
     <li><%= link_to "Home", root_path %></li>
 
-      <!-- Link to list of subusers -->
-      
+    <!-- Link to list of subusers -->
     <% if logged_in? && current_license != "client" %>
-        <li><%= link_to users_text, users_path(current_user.id) %></li>
+    
+      <% if current_license == "owner" %>
+        <% users_text = "Users" %>
+      <% elsif current_license == "employer" %>
+        <% users_text = "Clients & Employees" %>
+      <% else %>
+        <% users_text = "Clients" %>
+      <% end %>
+      
+      <li><%= link_to users_text, users_path(current_user.id) %></li>
     <% end %>
 
     <!-- Account links dropdown -->
@@ -31,12 +41,13 @@
           <li><%= link_to "My Profile",           current_user %></li>
 
           <!-- client/employee account link -->
-          <% if focussed_license == "client" %>
+          <% if focussed_license == "client" && 
+                current_license != "client" %>
             <li class="divider"></li>
-            <li><%= link_to "Client's Profile",   @focussed_user %></li>
+            <li><%= link_to "Client's Profile",   focussed_user %></li>
           <% elsif focussed_license == "employee" %>
             <li class="divider"></li>
-            <li><%= link_to "Employee's Profile", @focussed_user %></li>
+            <li><%= link_to "Employee's Profile", focussed_user %></li>
           <% end %>
           
           <li class="divider"></li>
@@ -61,7 +72,9 @@
           <li><%= link_to "Body Fat",        '#' %></li>
           <li><%= link_to "Exercise Plan",   '#' %></li>
           <li><%= link_to "Meal Plan",       '#' %></li>
-          <li><%= link_to "Notes",           notes_path %></li>
+          <% if current_license != "client" %>
+            <li><%= link_to "Notes",         notes_path %></li>
+          <% end %>
         </ul>
       </li>
     <% end %>

@@ -1,7 +1,7 @@
 <% provide(:title, 'Certified Trainers') %>
 <h1>Search for Certified Trainers</h1>
 
-<%= form_for(:search, method: :post, html: {class: "form-inline"}) do |s| %>
+<%= form_for(:search, method: :post) do |s| %>
 
 	<!-- city -->
 	<div class="row form-group col-md-offset-3">		
@@ -15,7 +15,8 @@
 	<div class="row form-group col-md-offset-3">		
 		<%= s.label "State: ", class: "control-label col-md-2" %>
 		<div class="col-md-5">
-			<%= s.text_field :state, class: "form-control" %>
+			<%= s.select :state, options_for_select(@states),
+			   {include_blank: true}, class: 'form-control' %>
 		</div>
 	</div>
 	

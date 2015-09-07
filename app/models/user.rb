@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+	before_save		:capitalize
+	before_create :capitalize
 	validates :username,   presence: true,
 	                       uniqueness: { case_sensitive: false }
 	validates :password,   presence: true
@@ -17,6 +19,7 @@ class User < ActiveRecord::Base
   has_one :sup, through: :bottom_up_relationship, source: "sup"
 	has_many :notes
 	has_many :measurements
+	has_many :fat_measurements
 	#has_many :planned_foods, through _
 	#has_many :planned_exercises, through _
 	
@@ -74,87 +77,97 @@ class User < ActiveRecord::Base
 		end
 	end
 	
-	#get/set for expiration date string virtual attribute
-		def expiration_date_string
-			expiration_date.to_s
-		end
+	#get for cfns virtual attribute
+	def cfns
+		trainer
+	end
 	
-		def expiration_date_string=(expiration_date_str)
-			self.expiration_date = Time.parse(expiration_date_str)
-		rescue ArgumentError
-			@starting_date_invalid = true
-		end
+	#get for expiration date string virtual attribute
+	def expiration_date_string
+		expiration_date.to_s
+	end
+	
+	#set for expiration date string virtual attribute
+	def expiration_date_string=(expiration_date_str)
+		self.expiration_date = Time.parse(expiration_date_str)
+	rescue ArgumentError
+		@starting_date_invalid = true
+	end
 		
 	#get/set for home_city_state_zip virtual attribute
-		def home_csz_string
-			home_csz_display
-		end
+#		def home_csz_string
+#			home_csz_display
+#		end
 		
-		def home_csz_display
-			"#{home_city }#{', ' if !home_city.blank?  && !home_state.blank?}#{
-			 	home_state}#{' '  if !home_state.blank? && !home_zip.blank?  }#{
-			 	home_zip.to_s}"
-		end
+#		def home_csz_display
+#			"#{home_city }#{', ' if !home_city.blank?  && !home_state.blank?}#{
+#			 	home_state}#{' '  if !home_state.blank? && !home_zip.blank?  }#{
+#			 	home_zip.to_s}"
+#		end
 	
-		def home_csz_string=(home_csz_str)
-			if !home_csz_str.blank?
-				split_string = home_csz_str.split(' ')
-				self.home_city = split_string[0].remove(",")
-				self.home_state = split_string[1]
-				self.home_zip = split_string[2]
-			end
-		end
+#		def home_csz_string=(home_csz_str)
+#			if !home_csz_str.blank?
+#				split_string = home_csz_str.split(' ')
+#				self.home_city = split_string[0].remove(",")
+#				self.home_state = split_string[1]
+#				self.home_zip = split_string[2]
+#			end
+#		end
 
 	#get/set for work_city_state_zip virtual attribute
-		def work_csz_string
-			work_csz_display
-		end
+#		def work_csz_string
+#			work_csz_display
+#		end
 		
-		def work_csz_display
-			"#{work_city }#{', ' if !work_city.blank?  && !work_state.blank?}#{
-			 	work_state}#{' '  if !work_state.blank? && !work_zip.blank?  }#{
-			 	work_zip.to_s}"
-		end
+#		def work_csz_display
+#			"#{work_city }#{', ' if !work_city.blank?  && !work_state.blank?}#{
+#			 	work_state}#{' '  if !work_state.blank? && !work_zip.blank?  }#{
+#			 	work_zip.to_s}"
+#		end
 	
-		def work_csz_string=(work_csz_str)
-			if !work_csz_str.blank?
-				split_string = work_csz_str.split(' ')
-				self.work_city = split_string[0].remove(",")
-				self.work_state = split_string[1]
-				self.work_zip = split_string[2]
-			end
-		end
+#		def work_csz_string=(work_csz_str)
+#			if !work_csz_str.blank?
+#				split_string = work_csz_str.split(' ')
+#				self.work_city = split_string[0].remove(",")
+#				self.work_state = split_string[1]
+#				self.work_zip = split_string[2]
+#			end
+#		end
 	
 	def link(website)
 		"http://#{website}"
 	end
 
-	#get/set for starting date string virtual attribute
-		def starting_date_string
-			starting_date.to_s
-		end
+	#get for starting date string virtual attribute
+	def starting_date_string
+		starting_date.to_s
+	end
 	
-		def starting_date_string=(starting_date_str)
-			self.starting_date = Time.parse(starting_date_str)
-		rescue ArgumentError
-			@starting_date_invalid = true
-		end
+	#set for starting date string virtual attribute
+	def starting_date_string=(starting_date_str)
+		self.starting_date = Time.parse(starting_date_str)
+	rescue ArgumentError
+		@starting_date_invalid = true
+	end
 		
-	#get/set for date of birth string virtual attribute
-		def date_of_birth_string
-			date_of_birth.to_s
-		end
-		
-		def date_of_birth_string=(date_of_birth_str)
-			self.date_of_birth = Time.parse(date_of_birth_str)
-		rescue ArgumentError
-			@date_of_birth_invalid = true
-		end
+	#get for date of birth string virtual attribute
+	def date_of_birth_string
+		date_of_birth.to_s
+	end
+	
+	#set for date of birth string virtual attribute
+	def date_of_birth_string=(date_of_birth_str)
+		self.date_of_birth = Time.parse(date_of_birth_str)
+	rescue ArgumentError
+		@date_of_birth_invalid = true
+	end
 
-		def validate
-			error.add("That starting date was invalid") if @starting_date_invalid
-			error.add("That birthdate was invalid") if @date_of_birth_invalid		
-		end
+	#validate starting and dates string virtual attributes
+	def validate
+		error.add("That starting date was invalid") if @starting_date_invalid
+		error.add("That birthdate was invalid") if @date_of_birth_invalid
+		error.add("That expiration date was invalid") if @expiration_date_invalid
+	end
 	
 	def age
 		(Date.today - date_of_birth).to_i / 365 if !date_of_birth.blank?
@@ -213,7 +226,9 @@ class User < ActiveRecord::Base
 
 	def tef(body_fat)
 		if !present_body_fat.blank?
-			if gender == "M"
+			if present_body_fat > 30
+				4
+			elsif gender == "M"					
 				if present_body_fat > 15
 					10 - 0.4 * (present_body_fat - 15)
 				else
@@ -251,7 +266,7 @@ class User < ActiveRecord::Base
 	end
 	
 	def to_kg(lbs)
-		sprintf("%0.1f", lbs/2.2) if !lbs.blank?
+		sprintf("%0.2f", lbs/2.2) if !lbs.blank?
 	end
 	
 	def daily_caloric_needs
@@ -347,4 +362,14 @@ class User < ActiveRecord::Base
 		end
 	end
 	
+	private
+	
+		def capitalize
+			self.first_name = self.first_name.titleize if !self.first_name.blank?
+			self.last_name  = self.last_name.titleize  if !self.last_name.blank?
+			self.home_city  = self.home_city.titleize  if !self.home_city.blank?
+			self.work_city  = self.work_city.titleize  if !self.work_city.blank?
+			self.company    = self.company.titleize    if !self.company.blank?
+			return true
+		end
 end

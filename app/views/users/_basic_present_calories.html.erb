@@ -5,106 +5,112 @@
 		</h3>
 	</div>
 	<div class="panel-body">
+		<table class="col-md-12">	
 	
-		<!-- basic metabolic rate -->
-		<% @label = "Basic Metabolic Rate (BMR):" %>
-		<% @field = @user.basic_mr %>
-		<% @precision = 0 %>
-		<% @right = "Kcal" %>
-		<% @popup = "This field is calculated by the Harris Benedict
-								 equation: a calorie formula using the variables
-								 of height, weight, age, and gender to calculate
-								 basal metabolic rate (BMR). This is more accurate
-								 than calculating calorie needs based on total
-								 body weight alone." %>
-		<%= render 'users/field_display'%>
-		
-		<!-- measured metabolic rate -->	
-		<% @label = "Measured Resting MR/Override Value:" %>
-		<% @field = :measured_metabolic_rate %>
-		<% @type = "text" %>
-		<% @right = "Kcal" %>
-		<% @popup = "Input value here only if measured via Metabolic 
-								 Cart, Korr ReeVue, MetaCheck, New Leaf, Body Gem,
-								 or by other means; OTHERWISE LEAVE BLANK.
-								 
-								 You may also enter a value here if you want to 
-								 OVERRIDE the calculated BMR above." %>
-		<%= render 'users/field_input'%>
+			<!-- true for all -->
+			<% @width = "small" %>
+	
+			<!-- basic metabolic rate -->
+			<% @label = "Basic Metabolic Rate (BMR):" %>
+			<% @field = @user.basic_mr %>
+			<% @precision = 0 %>
+			<% @right = " Kcal" %>
+			<% @popup = "This field is calculated by the Harris Benedict
+								 	equation: a calorie formula using the variables
+								 	of height, weight, age, and gender to calculate
+								 	basal metabolic rate (BMR). This is more accurate
+								 	than calculating calorie needs based on total
+								 	body weight alone." %>
+			<%= render 'users/field_display'%>
 			
-		<!-- activity index -->	
-		<% @label = "Activity Index (1-10):" %>
-		<% @field = :activity_index %>
-		<% @precision = "0.0f" %>
-		<% @type = "select" %>
-		<% @options_for_select = [1,2,3,4,5,6,7,8,9,10] %>
-		<% @selected = @user.activity_index %>
-		<% @right = nil %>
-		<% @popup = "Input a value from 1 to 10 based on the activities
-								 of daily living (overal demeanor); NO EXERCISE
-								 included. 1-3 = very calm, very sedentary person
-								 (Mr. Rogers). 9-10 = extremely hyperactive person
-								 (Robin Williams)." %>
-		<%= render 'users/field_input'%>
+			<!-- measured metabolic rate -->	
+			<% @label = "Measured Resting MR/Override Value:" %>
+			<% @field = :measured_metabolic_rate %>
+			<% @type = "text" %>
+			<% @right = " Kcal" %>
+			<% @popup = "Input value here only if measured via Metabolic 
+								 	Cart, Korr ReeVue, MetaCheck, New Leaf, Body Gem,
+								 	or by other means; OTHERWISE LEAVE BLANK.
+									 
+								 	You may also enter a value here if you want to 
+								 	OVERRIDE the calculated BMR above." %>
+			<%= render 'users/field_input'%>
+				
+			<!-- activity index -->	
+			<% @label = "Activity Index (1-10):" %>
+			<% @field = :activity_index %>
+			<% @precision = "0.0f" %>
+			<% @type = "select" %>
+			<% @options_for_select = [1,2,3,4,5,6,7,8,9,10] %>
+			<% @selected = @user.activity_index %>
+			<% @right = nil %>
+			<% @popup = "Input a value from 1 to 10 based on the activities
+								 	of daily living (overal demeanor); NO EXERCISE
+								 	included. 1-3 = very calm, very sedentary person
+								 	(Mr. Rogers). 9-10 = extremely hyperactive person
+								 	(Robin Williams)." %>
+			<%= render 'users/field_input'%>
 			
-		<!-- Sedentary Activity Needs -->
-		<% @label = "Sedentary Activity Needs (SA):" %>
-		<% @field = @user.sa_needs %>
-		<% @precision = 0 %>
-		<% @right = "Kcal" %>
-		<% @popup = nil %>
-		<%= render 'users/field_display'%>
+			<% @selected = nil %>	<!-- true for all others -->
+			
+			<!-- Sedentary Activity Needs -->
+			<% @label = "Sedentary Activity Needs (SA):" %>
+			<% @field = @user.sa_needs %>
+			<% @precision = 0 %>
+			<% @right = " Kcal" %>
+			<% @popup = nil %>
+			<%= render 'users/field_display'%>
+			
+			<!-- BMR + SA -->
+			<% @label = "BMR + Sedentary Activity:" %>
+			<% @field = @user.bmr_plus_sa %>
+			<% @precision = 0 %>
+			<% @right = "Kcal" %>
+			<% @popup = nil %>
+			<%= render 'users/field_display'%>
+			
+			<!-- Estimated Exercise Calories -->
+			<% @label = "Estimated Exercise Calories:" %>
+			<% @field = @user.exercise_calories %>
+			<% @precision = 0 %>
+			<% @right = " Kcal" %>
+			<% @popup = nil %>
+			<%= render 'users/field_display'%>
 		
-		<!-- BMR + SA -->
-		<% @label = "BMR + Sedentary Activity:" %>
-		<% @field = @user.bmr_plus_sa %>
-		<% @precision = 0 %>
-		<% @right = "Kcal" %>
-		<% @popup = nil %>
-		<%= render 'users/field_display'%>
-		
-		<!-- Estimated Exercise Calories -->
-		<% @label = "Estimated Exercise Calories:" %>
-		<% @field = @user.exercise_calories %>
-		<% @precision = 0 %>
-		<% @right = "Kcal" %>
-		<% @popup = nil %>
-		<%= render 'users/field_display'%>
+			<!-- BMR + SA + Exercise -->
+			<% @label = "BMR + SA + Exercise:" %>
+			<% @field = @user.bmr_plus_sa_plus_exercise %>
+			<% @precision = 0 %>
+			<% @right = " Kcal" %>
+			<% @popup = nil %>
+			<%= render 'users/field_display'%>
 	
-		<!-- BMR + SA + Exercise -->
-		<% @label = "BMR + SA + Exercise:" %>
-		<% @field = @user.bmr_plus_sa_plus_exercise %>
-		<% @precision = 0 %>
-		<% @right = "Kcal" %>
-		<% @popup = nil %>
-		<%= render 'users/field_display'%>
+			<!-- Body Structure-TEF Factor -->
+			<% @label = "Body Structure-TEF Factor [4% - 10%]:" %>
+			<% @field = @user.tef(@user.present_body_fat) %>
+			<% @precision = 2 %>
+			<% @right = "%" %>
+			<% @popup = "Calculated based on Body Fat Percentage. As body
+		             	composition changes, this value is automatically
+		             	updated." %>
+			<%= render 'users/field_display'%>
 		
-		gender: <%= @user.gender %>
-		<!-- Body Structure-TEF Factor -->
-		<% @label = "Body Structure-TEF Factor [4% - 10%]:" %>
-		<% @field = @user.tef(@user.present_body_fat) %>
-		<% @precision = 2 %>
-		<% @right = "%" %>
-		<% @popup = "Calculated based on Body Fat Percentage. As body
-		             composition changes, this value is automatically
-		             updated." %>
-		<%= render 'users/field_display'%>
-	
-		<!-- Thermic Effect of Foods (TEF): -->
-		<% @label = "Thermic Effect of Foods (TEF):" %>
-		<% @field = @user.tef_factor %>
-		<% @precision = 0 %>
-		<% @right = "Kcal" %>
-		<% @popup = nil %>
-		<%= render 'users/field_display'%>
-		
-		<!-- Estimated Present Energy Expenditure: -->
-		<% @label = "Estimated PRESENT Energy Expenditure:" %>
-		<% @field = @user.present_energy_expenditure %>
-		<% @precision = 0 %>
-		<% @right = "Kcal" %>
-		<% @popup = nil %>
-		<%= render 'users/field_display'%>
-		
+			<!-- Thermic Effect of Foods (TEF): -->
+			<% @label = "Thermic Effect of Foods (TEF):" %>
+			<% @field = @user.tef_factor %>
+			<% @precision = 0 %>
+			<% @right = " Kcal" %>
+			<% @popup = nil %>
+			<%= render 'users/field_display'%>
+			
+			<!-- Estimated Present Energy Expenditure: -->
+			<% @label = "Estimated PRESENT Energy Expenditure:" %>
+			<% @field = @user.present_energy_expenditure %>
+			<% @precision = 0 %>
+			<% @right = " Kcal" %>
+			<% @popup = nil %>
+			<%= render 'users/field_display'%>
+
+		</table>
 	</div>
 </div>

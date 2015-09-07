@@ -1,57 +1,52 @@
-<div class="form-group">
-	<% if @width == "big" %>
-		<dl class="dl-horizontal col-md-9">
-	<% else %>
-		<dl class="dl-horizontal col-md-7">
-	<% end %>
-	
+<tr class="form-group">
+
 	<% if !@popup.blank? %>
 		<div data-toggle="tooltip" title="<%= @popup %>" >
 	<% end %>
 
-  	<% if @label.length > 18 %>
-  		<dt class="control-label-long">
-  			<div class="control-label"><%= @label %></div>
-  		</dt>
-  	<% else %>
-  		<dt class="control-label"><%= @label %></dt>
-  	<% end %>
+ 			<% if @width=="small" %>
+ 				<td class="control-label control-label-small">
+ 					<%= @label %>
+ 				</td>
+ 			<% else %>
+ 				<td class="control-label"><%= @label %></td>
+ 			<% end %>
   			
- 		<dd class="form-control">
- 			<% if !@field.blank? %>
-  			<div class="text-left col-md-6">
+	 		<td class="form-control">
+ 				<% if !@field.blank? %>
 
- 					<% if @precision == 2 %>
+					<div class="left">
+	 				<% if @precision == 2 %>
 	 					<%= sprintf("%0.2f", @field) %>
  					<% elsif @precision == 1 %>
-	 					<%= sprintf("%0.1f", @field) %>
+		 				<%= sprintf("%0.1f", @field) %>
  					<% else %>
-	 					<%= sprintf("%0.0f", @field) %>
- 					<% end %>
- 					
- 					<% if @right == "kg" %>
- 						<%= " lbs" %>
- 					<% elsif @right == "beats/min" %>
- 						<%= " to " %>
- 						<%= sprintf("%0.0f", @field2) %>
+		 				<%= sprintf("%0.0f", @field) %>
  					<% end %>
 
- 				</div>
- 				<div class="text-right col-md-6">
- 				
+ 					<% if @right == "kg" %>
+	 					<%= " lbs" %>
+ 					<% elsif @right == "b/m" %>
+	 					<%= " to " %>
+ 						<%= sprintf("%0.0f", @field2) %>
+ 					<% end %>
+ 					</div>
+ 				<% end %>
+
+	 			<% if !@field.blank? %>
  					<% if @right=="kg" %>
-						<%= @user.to_kg(@field) %> Kg
+						<div class="right">
+							<%= @user.to_kg(@field) %> Kg
+						</div>
 					<% else %>
- 						<%= @right %>
+						&nbsp
+	 					<%= @right %>
 					<% end %>
-  				
- 				</div>
- 			<% end %>
- 		</dd>
+  			<% end %>	
+ 			</td>
 
 	<% if !@popup.blank? %>
 		</div>
 	<% end %>
 
-	</dl>
-</div>
+</tr>

@@ -13,7 +13,8 @@
 
 	<!-- password -->	
 	<div class="row form-group col-md-offset-3">
-		<%= f.label "Password Reset:", class: "control-label col-md-2" %>
+		<%= f.label "Password Reset:", 
+				class: "control-label col-md-2" %>
 		<div class="col-md-5">
 			<%= text_field "", :reset, class: 'form-control' %>
 		</div>
@@ -36,23 +37,39 @@
 	</div>
 
 	<!-- license -->	
-	<% if current_license == "owner" || current_license == "employer" %>
+	<% if current_license == "owner" || 
+				current_license == "employer" %>
 		<div class="row form-group col-md-offset-3">
 			<%= f.label "License:", class: "control-label col-md-2" %>
 			<div class="col-md-5">
-				<%= f.select :license, options_for_select(current_user.possible_licenses,
-						@user.license), {include_blank: false}, class: "form-control" %>
+				<%= f.select :license, options_for_select(
+						current_user.possible_licenses, @user.license),
+						{include_blank: false}, class: "form-control" %>
 			</div>
 		</div>
 	<% elsif current_license != "client" %>
 		<%= f.hidden_field :license, value: "client" %>
 	<% end %>
 
+	<!-- starting date -->
+	<div class="row form-group col-md-offset-3">
+		<%= f.label "Starting Date:",
+				class: "control-label col-md-1" %>
+		<div class="col-md-5">
+			<% date_value = @user.starting_date.strftime(
+				"%b %d, %Y") if !@user.starting_date.blank? %>
+			<%= f.text_field :starting_date_string, 
+					value: date_value, class: "form-control" %>
+		</div>
+	</div>
+	
 	<!-- expiration -->	
 	<div class="row form-group col-md-offset-3">
-		<%= f.label "Expiration Date:", class: "control-label col-md-1" %>
+		<%= f.label "Expiration Date:",
+				class: "control-label col-md-1" %>
 		<div class="col-md-5">
-			<%= f.text_field :expiration_date_string, class: "form-control" %>
+			<%= f.text_field :expiration_date_string,
+					class: "form-control" %>
 		</div>
 	</div>
 		
@@ -65,7 +82,8 @@
 	</div>
 
 	<!-- graduated -->	
-	<% if @user.license == "student" || @user.license == "ustudent" %>	
+	<% if @user.license == "student" ||
+				@user.license == "ustudent" %>	
 		<div class="row form-group col-md-offset-3">
 			<%= f.label :graduated?, class: "control-label col-md-2" %>
 			<div class="col-md-5">
@@ -73,28 +91,38 @@
 			</div>
 		</div>
 	<% end %>
-
-	<!-- trainer/employer -->	
+	
+	<!-- trainer/employer select -->
 	<% if current_license == "owner" %>
 		<% if @user.license == "client" %>
 			<div class="row form-group col-md-offset-3">
-				<%= f.label :trainer, class: "control-label col-md-2" %>
+
+				<label class="control-label col-md-2">CFNS:</label>
+
 				<div class="col-md-5">
-					<%= f.select :trainer, options_for_select(@possible_trainers.name),
-							include_blank: false, class: 'form-control' %>
+					<% if !@possible_cfns.blank? %>
+						<%= collection_select nil, :cfns, @possible_cfns, :id, 
+								:name, {selected: @user.trainer.id},
+								class: "form-control" %>
+					<% end %>
 				</div>
+
 			</div>
 		<% elsif @user.license == "employee" %>
 			<div class="row form-group col-md-offset-3">
-				<%= f.label :employer, class: "control-label col-md-2" %>
+
+				<label class="control-label col-md-2">Employer:</label>
+				
 				<div class="col-md-5">
-					<%= f.select :employer, options_for_select(@possible_employers.name),
-							include_blank: false, class: 'form-control' %>
+					<%= collection_select nil, :employer, @possible_employers,
+							:id, :name, {selected: @user.employer.id},
+							class: "form-control" %>
 				</div>
+
 			</div>
 		<% end %>
 	<% end %>
-
+	
 	<!-- client info / trainer listing -->
 	<% if @user.license != "owner" &&
       	@user.license != "employee" &&%>

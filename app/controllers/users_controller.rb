@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 	
 	def show
 		@user = User.find_by(id: params[:id])
-		focus(@user)
+		focus(@user) if @user.license == "client"
 	end
 	
 	def new
@@ -42,7 +42,6 @@ class UsersController < ApplicationController
 	end
 	
 	def create
-		capitalize_params
 		existing = User.find_by(first_name: user_params[:first_name], 
 		                        last_name:  user_params[:last_name])
 		if !existing.nil?
@@ -88,39 +87,28 @@ class UsersController < ApplicationController
 				if current_license != "owner"
 					@new_relationship = Relationship.create(sup_id: current_user.id,
 																							 		sub_id: @new_user.id)
+				
 				end
+				redirect_to edit_user_url(@new_user.id)
 
 			else
 				flash[:danger] = "New user failed to save."
 				redirect_to new_user_url
 				
-			end
-			
-			redirect_to edit_user_url(@new_user.id)
-			
+			end			
 		end
 	end
 	
 	def edit
+		@states = states
 		@user = User.find(params[:id])
-		if  @user == current_user ||
-				
-				current_user.license == "owner" ||
-				
-				(current_license != "client" &&
-					
-					(@user.license == "client" && 
-					 current_user.clients.include?(@user)) ||
-					
-					(@user.license == "employee" &&
-					 current_user.employees.include?(@user))
-					
-				)
+		if authorized_to_edit(@user)
 			
-			@possible_trainers  = User.where("license = ? OR license = ?",
-			                                 "employer",    "CFNS")
+			@possible_cfns = User.where("license = ? OR license = ?",
+	                     "employer",    "CFNS").order(:last_name)
 			
-			@possible_employers = User.where("license = ?", "employer")
+			@possible_employers = User.where("license = ?", 
+														"employer").order(:last_name)
 		else
 			
 			flash[:danger] = "You are not authorized to edit that account"
@@ -130,19 +118,31 @@ class UsersController < ApplicationController
 	end
 	
 	def update
-		capitalize_params
-    @user = User.find(params[:id])
-		@user.password = params[:reset] if !params[:reset].blank?
+   	@user = User.find(params[:id])
+		if authorized_to_edit(@user)
 
-    if @user.update_attributes(user_params)
-    	flash[:success] = "Profile updated"
-    	redirect_to @user
+			@user.password = params[:reset] if !params[:reset].blank?
 
-    else
-    	flash.now[:danger] = "Changes failed to save"
-      render :edit
+			if !params[:cfns].blank?
+				reset_relationship(@user.id, params[:cfns])
+			elsif !params[:employer].blank?
+				reset_relationship(@user.id, params[:employer])
+			end
 
-    end
+			if @user.update_attributes(user_params)
+	    	flash[:success] = "Profile updated"
+   			redirect_to @user
+
+   		else
+	    	flash.now[:danger] = "Changes failed to save"
+     		render :edit
+			end
+		
+		else
+			flash[:danger] = "You are not authorized to edit that account"
+			redirect_to root_url
+			
+		end
 	end
 
   def destroy
@@ -181,6 +181,7 @@ class UsersController < ApplicationController
   end
   
   def search
+  	@states = states
   end
   
   def find
@@ -193,7 +194,7 @@ class UsersController < ApplicationController
   	end	
 
   	if !search_params[:state].blank?
-  		@listings = @listings.where("work_state=?", unabbreviate(search_params[:state]))
+  		@listings = @listings.where("work_state=?", search_params[:state])
   	end
   	
   	if !search_params[:zip].blank?
@@ -207,14 +208,19 @@ class UsersController < ApplicationController
 	end
 	
 	def update_basic_info
-		@user = focussed_user
+		if current_license == "client"
+			flash[:danger] = "You are not authorized to make these changes"
+			
+		else
+			@user = focussed_user
     
-		if @user.update_attributes(basic_info_params)
-    	flash[:success] = "Basic info updated"
+			if @user.update_attributes(basic_info_params)
+    		flash[:success] = "Basic info updated"
 
-    else
-    	flash[:danger] = "Changes failed to save"
+    	else
+	    	flash[:danger] = "Changes failed to save"
 
+			end
 		end
 		redirect_to :basic_info
 	end
@@ -224,12 +230,14 @@ class UsersController < ApplicationController
 		def user_params
 			params.require(:user).permit(
 				:creator_id, :username, :password, :license, :first_name, 
-				:last_name, :logged_in, :expiration_date_string,
+				:last_name, :logged_in, :starting_date_string, 
+				:expiration_date_string, :cfns, :employer,
 
-				:home_address_1, :home_address_2, :home_csz_string, 
-				:home_country, :work_address_1, :work_address_2,
-				:work_csz_string, :work_country, :email, :home_phone, 
-				:mobile_phone, :work_phone, :other_phone,
+				:home_address_1, :home_address_2, :home_city, :home_state,
+				:home_zip, :home_country, :work_address_1, 
+				:work_address_2, :work_city, :work_state, :work_zip,
+				:work_country, :email, :home_phone, :mobile_phone, 
+				:work_phone, :other_phone,
 				
 				:company, :website1, :website2
 			)
@@ -237,9 +245,10 @@ class UsersController < ApplicationController
 		
 		def basic_info_params
 			params.require(:user).permit(
-				:starting_date_string, :gender, :resting_heart_rate, :present_weight, 
-				:clothing, :present_body_fat, :height, :date_of_birth_string, 
-				:desired_weight, :desired_body_fat, :measured_metabolic_rate, 
+				:gender, :resting_heart_rate, :present_weight, 
+				:clothing, :present_body_fat, :height, 
+				:date_of_birth_string, :desired_weight, 
+				:desired_body_fat, :measured_metabolic_rate, 
 				:activity_index
 			)
 		end
@@ -248,75 +257,37 @@ class UsersController < ApplicationController
 			params.require(:search).permit(:city, :state, :zip)
 		end
 
-		def capitalize_params
-			to_capitalize = [:first_name, :last_name, :home_city, :home_state, 
-				:home_country, :work_city, :work_state, :work_country, :company]
-				
-			to_capitalize.each do |field|
-				user_params[field] = user_params[field].capitalize if 
-					!user_params[field].blank?
+		def reset_relationship(subid, supid)
+			
+			Relationship.where("sub_id = ?", subid).each do |r|
+				r.delete
 			end
+			
+			Relationship.create(sub_id: subid, sup_id: supid)
+		end
+	
+		def authorized_to_edit(user)
+			user == current_user ||
+				
+			current_user.license == "owner" ||
+				
+			(current_license != "client" &&
+					
+				(user.license == "client" && 
+				 current_user.clients.include?(user)) ||
+					
+				(user.license == "employee" &&
+				 current_user.employees.include?(user))
+					
+			)
 		end
 		
-		def unabbreviate(state)
-			states = [
-				{'AL'=>'Alabama'},
-				{'AK'=>'Alaska'},
-				{'AZ'=>'Arizona'},
-				{'AR'=>'Arkansas'},
-				{'CA'=>'California'},
-				{'CO'=>'Colorado'},
-				{'CT'=>'Connecticut'},
-				{'DE'=>'Delaware'},	
-				{'FL'=>'Florida'},
-				{'GA'=>'Georgia'},
-				{'HI'=>'Hawaii'},	
-				{'ID'=>'Idaho'},
-				{'IL'=>'Illinois'},
-				{'IN'=>'Indiana'},
-				{'KS'=>'Kansas'},
-				{'KY'=>'Kentucky'},
-				{'LA'=>'Louisiana'},
-				{'ME'=>'Maine'},
-				{'MD'=>'Maryland'},
-				{'MA'=>'Massachusetts'},
-				{'MI'=>'Michigan'},
-				{'MN'=>'Minnesota'},
-				{'MS'=>'Mississippi'},
-				{'MO'=>'Missouri'},	
-				{'MT'=>'Montana'},
-				{'NE'=>'Nebraska'},
-				{'NV'=>'Nevada'},
-				{'NH'=>'New Hampshire'},
-				{'NJ'=>'New Jersey'},
-				{'NM'=>'New Mexico'},	
-				{'NY'=>'New York'},
-				{'NC'=>'North Carolina'},
-				{'ND'=>'North Dakota'},
-				{'OH'=>'Ohio'},
-				{'OK'=>'Oklahoma'},
-				{'OR'=>'Oregon'},
-				{'PA'=>'Pennsylvania'},
-				{'RI'=>'Rhode Island'},
-				{'SC'=>'South Carolina'},
-				{'SD'=>'South Dakota'},
-				{'TN'=>'Tennessee'},
-				{'TX'=>'Texas'},
-				{'UT'=>'Utah'},
-				{'VT'=>'Vermont'},
-				{'VA'=>'Virginia'},
-				{'WA'=>'Washington'},
-				{'WV'=>'West Virginia'},
-				{'WI'=>'Wisconsin'},
-				{'WY'=>'Wyoming'}
-			]
-		
-			if state.size == 2
-				states[state]
-			else
-				state.capitalized
-			end
-		
+		def states
+			['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI',
+  		'ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI',
+  		'MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC',
+  		'ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT',
+  		'VT','VA','WA','WV','WI','WY']
 		end
 		
 end

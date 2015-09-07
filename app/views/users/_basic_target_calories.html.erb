@@ -4,60 +4,61 @@
 			Target Calorie and Fluid Requirements
 		</h3>
 	</div>
-	<div class="panel-body">
+	<div class="panel-body">	
+		<table class="col-md-12">
 
-		<!-- true for all -->
-		<% @width = "small" %>
-		<% @precision = 0 %>
+			<!-- true for all -->
+			<% @width = "small" %>
+			<% @precision = 0 %>
+			
+			<!-- NEW Daily Caoloric Needs -->
+			<% @label = "NEW Daily Caloric Needs:" %>
+			<% @field = @user.daily_caloric_needs %>
+			<% @right = " Kcal" %>
+			<% @popup = "This value is 80% of 'Estimated Present Energy
+		           		Expenditure' for fat/weight loss, or the average
+		           		daily calories prescribed in the diet plan." %>
+			<%= render 'users/field_display'%>
+			
+			<!-- Daily Deficit -->
+			<% @label = "Daily Deficit:" %>
+			<% @field = @user.daily_deficit %>
+			<% @right = " Kcal" %>
+			<% @popup = nil %>
+			<%= render 'users/field_display'%>
 		
-		<!-- NEW Daily Caoloric Needs -->
-		<% @label = "NEW Daily Caloric Needs:" %>
-		<% @field = @user.daily_caloric_needs %>
-		<% @right = "Kcal" %>
-		<% @popup = "This value is 80% of 'Estimated Present Energy
-		             Expenditure' for fat/weight loss, or the average
-		             daily calories prescribed in the diet plan." %>
-		<%= render 'users/field_display'%>
-
+			<!-- Weekly Deficit -->
+			<% @label = "Weekly Deficit:" %>
+			<% if !@user.daily_deficit.blank? %>
+				<% @field = @user.daily_deficit * 7 %>
+			<% else %>
+				<% @field = nil %>
+			<% end %>
+			<% @right = " Kcal" %>
+			<% @popup = nil %>
+			<%= render 'users/field_display'%>
+			
+			<!-- Weekly Weight / Fat Loss -->
+			<% @label = "Weekly Weight/Fat Loss:" %>
+			<% if !@user.daily_deficit.blank? %>
+				<% @field = @user.daily_deficit * 7 / 3500 %>
+			<% else %>
+				<% @field = nil %>
+			<% end %>
+			<% @right = " lbs/week" %>
+			<% @popup = nil %>
+			<%= render 'users/field_display'%>
+				
+		</table>
+		
 		<br>
-		
-		<!-- Daily Deficit -->
-		<% @label = "Daily Deficit:" %>
-		<% @field = @user.daily_deficit %>
-		<% @right = "Kcal" %>
-		<% @popup = nil %>
-		<%= render 'users/field_display'%>
-
-		<!-- Weekly Deficit -->
-		<% @label = "Weekly Deficit:" %>
-		<% if !@user.daily_deficit.blank? %>
-			<% @field = @user.daily_deficit * 7 %>
-		<% else %>
-			<% @field = nil %>
-		<% end %>
-		<% @right = "Kcal" %>
-		<% @popup = nil %>
-		<%= render 'users/field_display'%>
-		
-		<!-- Weekly Weight / Fat Loss -->
-		<% @label = "Weekly Weight/Fat Loss:" %>
-		<% if !@user.daily_deficit.blank? %>
-			<% @field = @user.daily_deficit * 7 / 3500 %>
-		<% else %>
-			<% @field = nil %>
-		<% end %>
-		<% @right = "lbs/week" %>
-		<% @popup = nil %>
-		<%= render 'users/field_display'%>
-		
-		<br>
-		
+	
 		<!-- Fluid Requirements -->
 		<div class="form-group total text-center">
-		  <div>ESTIMATED Fluid Requirements:</div>
-	  	<div><%= "#{@user.fluid_min.to_i}.....to.....#{@user.fluid_max.to_i}" %></div>
+			<div>ESTIMATED Fluid Requirements:</div>
+	 		<div><%= "#{@user.fluid_min.to_i}.....to.....#{@user.fluid_max.to_i}" %></div>
 			<div>OUNCES OF FLUID PER DAY</div>
 		</div>
-		
+				
 	</div>
 </div>

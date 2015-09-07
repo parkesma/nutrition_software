@@ -19,6 +19,16 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
       last_name:  "doe",
     }
     
+    @possible_users = [
+      @eclient1,
+      @student,
+      @ustudent,
+      @trainer,
+      @employee,
+      @employer,
+      @owner,
+    ]
+    
     @possible_licenses = [
       "client", 
       "student",
@@ -45,6 +55,34 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
     assert is_logged_in?
     delete logout_path, session: {username: @eclient1.username}
     assert_not is_logged_in?
+  end
+  
+  test "different licenses see the right menu options" do
+    @possible_users.each do |u|
+      login_as(u)
+      assert_select "a", "Home"
+      assert_select "a", "Account"
+      assert_select "a", "Log out"
+      if u.license == "client"
+        assert_select "a", text: "Client's Profile", count: 0
+      elsif u.license == "client" || !session[:focussed_id].blank?
+        assert_select "a", "What Works"
+        assert_select "a", "Basic Info"
+        assert_select "a", "Measurements"
+        assert_select "a", "Body Fat"
+        assert_select "a", "Exercise Plan"
+        assert_select "a", "Meal Plan"
+      elsif u.license != "client" && !session[:focussed_id].blank?
+        assert_select "a", "Notes"
+        assert_select "a", "Client Profile"
+      elsif u.license != "owner" && u.license != "employer"
+        assert_select "a", "Clients"
+      elsif u.license == "employer"
+        assert_select "a", "Clients & Employers"
+      elsif u.license == "owner"
+        assert_select "a", "Users"
+      end
+    end
   end
   
   test "client shouldn't be able to create any user" do
@@ -106,6 +144,18 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
     end
   end
 
+	test 'users name should be capitalized upon creation' do
+    login_as(@owner)
+    post users_path, user: @new_user_params
+    @new_user = User.find_by(username: @new_user_params[:username])
+    to_capitalize = [:first_name, :last_name]
+    to_capitalize.each do |field|
+      field_string = field.to_s
+      assert_equal  @new_user.send(field_string),
+                    @new_user_params[field].capitalize
+    end
+	end
+
   def login_as(user)
     post_via_redirect login_path, session: { 
       username: user.username, 
@@ -138,7 +188,4 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
       cannot_create(@possible_licenses[i])
     end
   end
-    
-
-
 end

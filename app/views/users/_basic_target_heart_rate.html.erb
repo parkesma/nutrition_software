@@ -2,29 +2,31 @@
 	<div class="panel-heading">
 		<h3 class="panel-title">
 			Karvonen Equation for Target Heart Rate
-			<small>(RHR Adjusted Formula: SD+/-11 beats)</small>			
 		</h3>
+		<small>(RHR Adjusted Formula: SD+/-11 beats)</small>
 	</div>
 	<div class="panel-body">
-
-	<!-- true for all fields -->
-	<% @width = "big" %>
-	<% @popup = nil %>
-	<% @precision = 0 %>
-	
-	<!-- Target Heart Rate -->
-	<% @label = "Fat-Burning Target Heart Rate:" %>
-	<% @field = @user.target_heart_rate_min %>
-	<% @field2 = @user.target_heart_rate_max %>
-	<% @right = "beats/min" %>
-	<%= render 'users/field_display'%>
-
-	<!-- VO2MAX Endurance, etc. -->
-	<% @label = "VO2MAX Endurance, etc.:" %>
-	<% @field = @user.vo2max_endurance_min %>
-	<% @field2 = @user.vo2max_endurance_max %>
-	<% @right = "beats/min" %>
-	<%= render 'users/field_display'%>
-
+		<table class="col-md-12">
+		
+			<!-- true for all fields -->
+			<% @width = "small" %>
+			<% @popup = nil %>
+			<% @precision = 0 %>
+			
+			<!-- Target Heart Rate -->
+			<% @label = "Fat-Burning Target Heart Rate:" %>
+			<% @field = @user.target_heart_rate_min %>
+			<% @field2 = @user.target_heart_rate_max %>
+			<% @right = "b/m" %>
+			<%= render 'users/field_display'%>
+		
+			<!-- VO2MAX Endurance, etc. -->
+			<% @label = "VO2MAX Endurance, etc.:" %>
+			<% @field = @user.vo2max_endurance_min %>
+			<% @field2 = @user.vo2max_endurance_max %>
+			<% @right = "b/m" %>
+			<%= render 'users/field_display'%>
+		
+		</table>
 	</div>
 </div>

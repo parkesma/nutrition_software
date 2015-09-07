@@ -64,6 +64,11 @@ class MeasurementsController < ApplicationController
     redirect_to measurements_path
 	end
 	
+	def show_history
+		@measurements = focussed_user.measurements.all
+		@body_fat_history = {}
+	end
+	
 	private
 	
 		def measurement_params

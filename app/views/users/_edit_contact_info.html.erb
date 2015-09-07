@@ -13,14 +13,33 @@
 	</div>
 </div>
 
-<!-- home city state zip country -->
+<!-- home city -->
 <div class="row form-group col-md-offset-3">		
-	<%= @form.label "City, State, Zip: ", class: "control-label col-md-2" %>
+	<%= @form.label "City: ", class: "control-label col-md-2" %>
 	<div class="col-md-5">
-		<%= @form.text_field :home_csz_string, class: 'form-control'  %>
+		<%= @form.text_field :home_city, class: 'form-control'  %>
 	</div>
 </div>
 
+<!-- home state -->
+<div class="row form-group col-md-offset-3">		
+	<%= @form.label "State: ", class: "control-label col-md-2" %>
+	<div class="col-md-5">
+		<%= @form.select :home_state, 
+				options_for_select(@states, selected: @user.home_state),
+		   {include_blank: true}, class: 'form-control' %>
+	</div>
+</div>
+
+<!-- home zip -->
+<div class="row form-group col-md-offset-3">		
+	<%= @form.label "Zip Code: ", class: "control-label col-md-2" %>
+	<div class="col-md-5">
+		<%= @form.text_field :home_zip, class: 'form-control'  %>
+	</div>
+</div>
+
+<!-- home country -->
 <div class="row form-group col-md-offset-3">
 	<%= @form.label "Country: ", class: "control-label col-md-2" %>
 	<div class="col-md-5">
@@ -43,14 +62,33 @@
 	</div>
 </div>
 
-<!-- work city state zip country -->
+<!-- work city -->
 <div class="row form-group col-md-offset-3">		
-	<%= @form.label "City, State, Zip: ", class: "control-label col-md-2" %>
+	<%= @form.label "City: ", class: "control-label col-md-2" %>
 	<div class="col-md-5">
-		<%= @form.text_field :work_csz_string, class: 'form-control'  %>
+		<%= @form.text_field :work_city, class: 'form-control'  %>
 	</div>
 </div>
 
+<!-- work state -->
+<div class="row form-group col-md-offset-3">		
+	<%= @form.label "State: ", class: "control-label col-md-2" %>
+	<div class="col-md-5">
+		<%= @form.select :work_state, 
+				options_for_select(@states, selected: @user.work_state),
+		   {include_blank: false}, class: 'form-control' %>
+	</div>
+</div>
+
+<!-- work zip -->
+<div class="row form-group col-md-offset-3">		
+	<%= @form.label "Zip Code: ", class: "control-label col-md-2" %>
+	<div class="col-md-5">
+		<%= @form.text_field :work_zip, class: 'form-control'  %>
+	</div>
+</div>
+
+<!-- work country -->
 <div class="row form-group col-md-offset-3">
 	<%= @form.label "Country: ", class: "control-label col-md-2" %>
 	<div class="col-md-5">

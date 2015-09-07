@@ -1,7 +1,11 @@
 class NotesController < ApplicationController
 	
 	def index
-	  @notes = focussed_user.notes.order("updated_at DESC")
+    if current_license != "client"
+	    @notes = focussed_user.notes.order("updated_at DESC")
+    else
+	    redirect_to root_path
+    end
 	end
 	
 	def create
@@ -24,7 +28,11 @@ class NotesController < ApplicationController
 	end
 	
 	def edit
-	  @note = Note.find_by(id: params[:id])
+    if current_license != "client"
+	    @note = Note.find_by(id: params[:id])
+    else
+	    redirect_to root_path
+    end
 	end
 	
 	def update
@@ -39,11 +47,13 @@ class NotesController < ApplicationController
       else
       	flash[:danger] = "Note didn't save!"
       end
-    
+      redirect_to notes_path
+      
     else
       flash[:danger] = "You are not authorized to edit this note!"
+      redirect_to root_path
+      
     end
-    redirect_to notes_path
 	end
   
   def destroy
@@ -55,10 +65,12 @@ class NotesController < ApplicationController
 
       @note.destroy
       flash[:success] = "Note deleted"
+      redirect_to notes_path
     else
       flash[:danger] = "You are not authorized to delete this note!"
+      redirect_to root_path
+      
     end
-    redirect_to notes_path
   end
 
 	private

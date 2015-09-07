@@ -42,10 +42,4 @@ module SessionsHelper
     focussed_user.license if focussed?
   end
   
-  def users_text
-    "Users"               if current_license == "owner"
-    "Clients & Employees" if current_license == "employer"
-    "Clients"             if current_license != "client"
-  end
-  
 end

@@ -15,6 +15,7 @@ ustudent:
   password:        password
   license:         unlimited student
   first_name:      ustudent
+  last_name:       last
 
 trainer:
   id:              3
@@ -23,6 +24,7 @@ trainer:
   license:         CFNS
   expiration_date: 01/01/2500
   first_name:      trainer
+  last_name:       last
 
 expired:
   id:              4
@@ -31,6 +33,7 @@ expired:
   license:         student
   expiration_date: 01/01/1900
   first_name:      expired
+  last_name:       last
 
 eclient1:
   id:              5
@@ -38,6 +41,7 @@ eclient1:
   password:        password
   license:         client
   first_name:      eclient1
+  last_name:       last
 
 eclient2:
   id:              6
@@ -45,6 +49,7 @@ eclient2:
   password:        password
   license:         client
   first_name:      eclient2
+  last_name:       last
   
 employer:
   id:              7
@@ -52,6 +57,7 @@ employer:
   password:        password
   license:         employer
   first_name:      employer
+  last_name:       last
 
 employee:
   id:              8
@@ -59,6 +65,7 @@ employee:
   password:        password
   license:         employee
   first_name:      employee
+  last_name:       last
   
 owner:
   id:              9
@@ -66,6 +73,7 @@ owner:
   password:        password
   license:         owner
   first_name:      owner
+  last_name:       last
   
 sclient1:
   id:              10
@@ -73,6 +81,7 @@ sclient1:
   password:        password
   license:         client
   first_name:      sclient1
+  last_name:       last
 
 sclient2:
   id:              11
@@ -80,6 +89,7 @@ sclient2:
   password:        password
   license:         client
   first_name:      sclient2
+  last_name:       last
   
 uclient:
   id:              12
@@ -87,6 +97,7 @@ uclient:
   password:        password
   license:         client
   first_name:      uclient
+  last_name:       last
   
 tclient:
   id:              13
@@ -94,6 +105,7 @@ tclient:
   password:        password
   license:         client
   first_name:      tclient
+  last_name:       last
   
 orphan_client:
   id:              14

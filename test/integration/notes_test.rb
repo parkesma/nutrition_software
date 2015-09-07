@@ -46,7 +46,7 @@ class NotesTest < ActionDispatch::IntegrationTest
     focus_on(@eclient)
     get notes_path
     assert_equal @eclient.notes.length, 2
-    assert_match @employer.name, response.body, count: 1
+    assert_match @employer.name.titleize, response.body, count: 1
     post_via_redirect notes_path, note: {
       user_id: @eclient.id,
       text: "new note"
@@ -58,18 +58,13 @@ class NotesTest < ActionDispatch::IntegrationTest
       assert_match n.author.name, response.body
       assert_match n.text, response.body
     end
-    assert_match @employer.name, response.body, count: 2
+    assert_match @employer.name.titleize, response.body, count: 2
   end
   
-  test "client should see his own notes, but not add form, edit, 
-        or delete options" do
+  test "client should not see his own notes" do
     login_as(@eclient)
     get notes_path
-    assert_match @note1.text, response.body
-    assert_match @note2.text, response.body
-    assert_select "form", count: 0
-    assert_select "a", text: "edit", count: 0
-    assert_select "a", text: "delete", count: 0
+    assert_redirected_to root_path
   end
   
   test "client shouldn't be able to add, edit, or delete notes" do

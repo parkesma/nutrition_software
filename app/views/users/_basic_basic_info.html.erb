@@ -5,70 +5,68 @@
 		</h3>
 	</div>
 	<div class="panel-body">
+		<table class="col-md-8 col-md-offset-1">
 
-	<% @width = "big" %>
-	
-		<!-- starting date -->
-		<% @label = "Starting Date:" %>
-		<% @field = :starting_date_string %>
-		<% @date = @user.starting_date %>
-		<% @type = "date" %>
-		<% @right = nil %>
-		<% @popup = nil %>
-		<%= render 'users/field_input'%>
-	
-		<!-- gender -->
-		<% @label = "Gender:" %>
-		<% @field = :gender %>
-		<% @type = "select" %>
-		<% @options_for_select = [["M"],["F"]] %>
-		<% @selected = @user.gender %>
-		<% @right = nil %>
-		<% @popup = nil %>
-		<%= render 'users/field_input'%>
-	
-		<!-- resting heart rate -->
-		<% @label = "Resting Heart Rate:" %>
-		<% @field = :resting_heart_rate %>
-		<% @type = "text" %>
-		<% @right = "beats/min" %>
-		<% @popup = nil %>
-		<%= render 'users/field_input'%>
-	
-		<!-- present weight -->
-		<% @label = "Present Weight:" %>
-		<% @field = :present_weight %>
-		<% @type = "text" %>
-		<% @right = "lbs" %>
-		<% @popup = nil %>
-		<%= render 'users/field_input'%>
-			
-		<% @label = "" %>
-		<% @field = :clothing %>
-		<% @type = "select" %>
-		<% @options_for_select = [
-							["in the morning with NO clothes on",1],
-							["with workout clothes on and NO shoes",2],
-							["with workout clothes on and shoes",3],
-							["with work clothes on and NO shoes",4],
-							["with work clothes on and shoes",5]] %>
-		<% @right = nil %>
-		<% @popup = "Select correct attire client is wearing at first
-									session. Make sure same or similar clothing is 
-									worn for follow ups.
-									
-									When different attire is worn, adjust weight 
-									accordingly when entering future body fat
-									measurements." %>
-	
-		<%= render 'users/field_input'%>
+			<% @width = "big" %>
 		
+			<!-- gender -->
+			<% @label = "Gender:" %>
+			<% @field = :gender %>
+			<% @type = "select" %>
+			<% @options_for_select = [["M"],["F"]] %>
+			<% @selected = @user.gender %>
+			<% @right = nil %>
+			<% @popup = nil %>
+			<%= render 'users/field_input'%>
+		
+			<!-- resting heart rate -->
+			<% @label = "Resting Heart Rate:" %>
+			<% @field = :resting_heart_rate %>
+			<% @type = "number" %>
+			<% @precision = 0 %>
+			<% @default = @user.resting_heart_rate %>
+			<% @right = "beats/min" %>
+			<% @popup = nil %>
+			<%= render 'users/field_input'%>
+		
+			<!-- present weight -->
+			<% @label = "Present Weight:" %>
+			<% @field = :present_weight %>
+			<% @type = "number" %>
+			<% @precision = 2 %>
+			<% @default = @user.present_weight %>
+			<% @right = "lbs" %>
+			<% @popup = nil %>
+			<%= render 'users/field_input'%>
+				
+			<% @label = "" %>
+			<% @field = :clothing %>
+			<% @type = "select" %>
+			<% @options_for_select = [
+								["in the morning with NO clothes on",1],
+								["with workout clothes on and NO shoes",2],
+								["with workout clothes on and shoes",3],
+								["with work clothes on and NO shoes",4],
+								["with work clothes on and shoes",5]] %>
+			<% @right = nil %>
+			<% @popup = "Select correct attire client is wearing at first
+										session. Make sure same or similar clothing is 
+										worn for follow ups.
+										
+										When different attire is worn, adjust weight 
+										accordingly when entering future body fat
+										measurements." %>
+			<%= render 'users/field_input'%>			
+
+		</table>
+			
 		<div class="col-md-6">
 			<%= render 'users/basic_body_fat' %>
 		</div>
 		<div class="col-md-6">
 			<%= render 'users/basic_ideal_weight' %>
 		</div>
-		
+
+
 	</div>
 </div>
