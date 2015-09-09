@@ -4,8 +4,26 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one:
+  created_at:   2000-01-01 00:00:00 UTC
+  user_id:      5
+  bf_method:    Sloan
+  weight:       150
+  thigh:        10
+  subscapular:  10
+
+two:
+  created_at:   2010-01-01 00:00:00 UTC
+  user_id:      5
+  bf_method:    Sloan
+  weight:       155
+  thigh:        15
+  subscapular:  15
+
+three:
+  created_at:   2020-01-01 00:00:00 UTC
+  user_id:      5
+  bf_method:    Sloan
+  weight:       160
+  thigh:        20
+  subscapular:  20

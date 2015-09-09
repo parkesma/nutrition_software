@@ -11,24 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907193805) do
+ActiveRecord::Schema.define(version: 20150908231256) do
 
   create_table "fat_measurements", force: :cascade do |t|
     t.integer  "user_id"
     t.float    "weight"
     t.float    "chest"
-    t.float    "abdominal"
+    t.float    "abdomen"
     t.float    "thigh"
-    t.float    "triceps"
+    t.float    "tricep"
     t.float    "subscapular"
     t.float    "iliac_crest"
     t.float    "calf"
     t.float    "bicep"
     t.float    "lower_back"
     t.float    "neck"
-    t.float    "other_bf"
+    t.float    "measured_bf"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "bf_method"
+    t.float    "midaxillary"
+    t.float    "hip"
   end
 
   add_index "fat_measurements", ["user_id"], name: "index_fat_measurements_on_user_id"

@@ -6,9 +6,7 @@ class MeasurementsController < ApplicationController
 	end
 	
 	def create
-		if (current_license != "client" && 
-        current_user.clients.include?(focussed_user)) ||
-        current_license == "owner"
+		if authorized_to_edit(focussed_user)
       
       @measurement = focussed_user.measurements.build(
       								measurement_params)
@@ -31,10 +29,8 @@ class MeasurementsController < ApplicationController
 	
 	def update
 	  @measurement = Measurement.find_by(id: params[:id])
-		if (current_license != "client" && 
-        current_user.clients.include?(@measurement.user)) ||
-        current_license == "owner"
-        
+		if authorized_to_edit(focussed_user)
+		    
       if @measurement.update_attributes(measurement_params)
         flash[:success] = "Measurements updated"
       else
@@ -51,10 +47,7 @@ class MeasurementsController < ApplicationController
 	def destroy
     @measurement = Measurement.find_by(id: params[:id])
 
-		if (current_license != "client" && 
-        current_user.clients.include?(@measurement.user)) ||
-        current_license == "owner"
-
+		if authorized_to_edit(@measurement.user)
       @measurement.destroy
       flash[:success] = "Measurements deleted"
     else
@@ -62,11 +55,6 @@ class MeasurementsController < ApplicationController
       									measurements!"
 		end
     redirect_to measurements_path
-	end
-	
-	def show_history
-		@measurements = focussed_user.measurements.all
-		@body_fat_history = {}
 	end
 	
 	private
@@ -85,4 +73,11 @@ class MeasurementsController < ApplicationController
 	    	:rt_calf
 			)
 		end
+		
+		def authorized_to_edit(user)
+			(current_license != "client" && 
+       current_user.clients.include?(user)) ||
+       current_license == "owner"
+		end
+			
 end

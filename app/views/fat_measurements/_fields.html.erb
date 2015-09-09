@@ -1,0 +1,40 @@
+<table class="table" >
+
+	<!-- header row -->
+	<tr>
+	<% @fat_measurement.method_fields.each do |mf| %>
+
+		<% @heading = mf.to_s.titleize %>
+		<%= render 'fat_measurements/header' %>
+
+	<% end %>		
+	</tr>
+			
+	<!-- fields row -->
+	<tr>
+	<% @fat_measurement.method_fields.each do |mf| %>		
+		
+		<% @field = mf %>
+
+		<% if @field == :created_at %>
+			
+			<% if @fat_measurement.created_at.blank? %>
+				<% @default = Date.today.strftime("%b %-d, %Y") %>
+			<% else %>
+				<% @default = @fat_measurement.created_at.strftime("%b %-d, %y") %>
+			<% end %>
+		
+		<% else %>
+
+			<% @default = @fat_measurement.send(@field) %>
+
+		<% end %>
+		<%= render 'fat_measurements/field' %>
+	<% end %>		
+
+	</tr>
+</table>
+	
+<div class="text-center">
+	<%= @form.submit @submit_text, class: 'btn btn-primary' %>
+</div>

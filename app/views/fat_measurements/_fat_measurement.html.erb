@@ -1,0 +1,38 @@
+<tr>
+	<td><%= fat_measurement.created_at.strftime("%b %-d") %></td>
+
+	<td><%= sprintf("%0.02f", fat_measurement.weight) if  
+					fat_measurement.weight %></td>
+
+	<td><%= fat_measurement.bf_method %></td>
+
+	<td><%= sprintf("%0.02f", fat_measurement.calculated_bf) if 
+					!fat_measurement.calculated_bf.blank? %></td>
+
+	<td><%= sprintf("%0.02f", fat_measurement.lean_mass) if  
+					!fat_measurement.lean_mass.blank? %></td>
+
+	<td><%= sprintf("%0.02f", fat_measurement.fat_mass) if  
+					!fat_measurement.fat_mass.blank? %></td>
+
+	<td><%= sprintf("%0.02f", fat_measurement.bf_change) if  
+					!fat_measurement.bf_change.blank? %></td>
+
+	<td><%= sprintf("%0.02f", fat_measurement.lean_mass_change) if  
+					!fat_measurement.lean_mass_change.blank? %></td>
+
+	<td><%= sprintf("%0.02f", fat_measurement.fat_mass_change) if  
+					!fat_measurement.fat_mass_change.blank? %></td>
+
+	<% if current_license != "client" %>
+		<td><%= link_to "edit",   edit_fat_measurement_path(fat_measurement),
+						method: :get, class: "record-link" %></td>
+	      
+	  <td>
+	  	<%= link_to "delete", fat_measurement, method: :delete,
+					data: { confirm: 
+	  			"Are you sure you want to delete this measurement?" },
+	  			class: "record-link" %>
+	  </td>
+  <% end %>
+</tr>

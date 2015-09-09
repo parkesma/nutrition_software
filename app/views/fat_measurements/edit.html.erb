@@ -1,0 +1,24 @@
+<% provide(:title, 'Edit Fat Measurement') %>
+<h1>Edit Body Fat Measurement</h1>
+<h1><small>Method: <%= @fat_measurement.bf_method %></small></h1>
+
+<ul class="nav navbar-nav navbar-default col-md-12">  
+	<% @fat_measurement.bf_options.each do |bf_option| %>
+	  <li>
+		 	<%= link_to bf_option, change_method_path(bf_method: bf_option, 
+		 			id: @fat_measurement.id, view: "edit"), method: :post %>
+	  </li>
+	<% end %>
+</ul><br><br><br>
+
+<% @submit_text = "save Changes" %>
+<% if current_license != "client" %>
+	<%= form_for(:fat_measurement, url: fat_measurement_path, 
+			method: :patch, html: {class: "form-horizontal"}) do |f| %>
+		<%= f.hidden_field :bf_method, value: @fat_measurement.bf_method %>
+
+		<% @form = f %>		
+		<%= render 'fat_measurements/fields' %>
+
+	<% end %>
+<% end %>

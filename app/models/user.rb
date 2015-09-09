@@ -94,46 +94,6 @@ class User < ActiveRecord::Base
 		@starting_date_invalid = true
 	end
 		
-	#get/set for home_city_state_zip virtual attribute
-#		def home_csz_string
-#			home_csz_display
-#		end
-		
-#		def home_csz_display
-#			"#{home_city }#{', ' if !home_city.blank?  && !home_state.blank?}#{
-#			 	home_state}#{' '  if !home_state.blank? && !home_zip.blank?  }#{
-#			 	home_zip.to_s}"
-#		end
-	
-#		def home_csz_string=(home_csz_str)
-#			if !home_csz_str.blank?
-#				split_string = home_csz_str.split(' ')
-#				self.home_city = split_string[0].remove(",")
-#				self.home_state = split_string[1]
-#				self.home_zip = split_string[2]
-#			end
-#		end
-
-	#get/set for work_city_state_zip virtual attribute
-#		def work_csz_string
-#			work_csz_display
-#		end
-		
-#		def work_csz_display
-#			"#{work_city }#{', ' if !work_city.blank?  && !work_state.blank?}#{
-#			 	work_state}#{' '  if !work_state.blank? && !work_zip.blank?  }#{
-#			 	work_zip.to_s}"
-#		end
-	
-#		def work_csz_string=(work_csz_str)
-#			if !work_csz_str.blank?
-#				split_string = work_csz_str.split(' ')
-#				self.work_city = split_string[0].remove(",")
-#				self.work_state = split_string[1]
-#				self.work_zip = split_string[2]
-#			end
-#		end
-	
 	def link(website)
 		"http://#{website}"
 	end
