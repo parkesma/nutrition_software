@@ -60,6 +60,11 @@
       <li><%= link_to "Find Certified Fitness & Nutritional Specialist (CFNS)", search_path %></li>
     <% end %>
     
+    <!-- Exercises dropdown -->        
+    <% if logged_in? && current_license != "client" %>
+      <li><%= link_to "Exercises", exercises_path %></li>
+    <% end %>
+    
     <!-- What Works links dropdown -->        
     <% if current_license == "client" || focussed_license == "client" %>
       <li class="dropdown">

@@ -20,27 +20,29 @@ class User < ActiveRecord::Base
 	has_many :notes
 	has_many :measurements
 	has_many :fat_measurements
+	has_many :exercises
 	#has_many :planned_foods, through _
 	#has_many :planned_exercises, through _
 	
 	def clients
 
-	  trainer_id = self.id
 	  if self.license == "employee" && !self.employer.nil?
 			trainer_id = self.employer.id
+		else
+			trainer_id = self.id
 	  end
 
 		all_subs = "SELECT sub_id FROM relationships
-		            WHERE sup_id = #{trainer_id}"
+	            	WHERE sup_id = #{trainer_id}"
 		User.where("id IN (#{all_subs})
-		            AND license = 'client'")
+	            	AND license = 'client'")
 	end
 
 	def employees
 		all_subs = "SELECT sub_id FROM relationships
-		            WHERE sup_id = #{self.id}"
+	            	WHERE sup_id = #{self.id}"
 		User.where("id IN (#{all_subs})
-		            AND license = 'employee'")
+	            	AND license = 'employee'")
 	end
 	
 	def employer
@@ -51,10 +53,12 @@ class User < ActiveRecord::Base
 	end
 
 	def trainer
-		all_sups = "SELECT sup_id FROM relationships
-		            WHERE sub_id = #{self.id}"
-		User.where("id IN (#{all_sups})
-		            AND license != 'employee'").first
+		if self.license == "client"
+			all_sups = "SELECT sup_id FROM relationships
+		            	WHERE sub_id = #{self.id}"
+			User.where("id IN (#{all_sups})
+		            	AND license != 'employee'").first
+		end
 	end
 	
 	def name

@@ -1,0 +1,50 @@
+<%= form_for(:exercise, url: exercises_path, 
+			method: :post, html: {class: "form-horizontal"}) do |f| %>
+  <% if @exercise.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@exercise.errors.count, "error") %> prohibited this exercise from being saved:</h2>
+
+      <ul>
+      <% @exercise.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div class="row form-group col-md-offset-3 padded-5">
+		<%= f.label :name, class: "control-label col-md-1" %>
+		<div class="col-md-8 col-md-offset-1">
+			<%= f.text_field :name, class: 'form-control' %>
+		</div>
+	</div>
+	
+	<div class="row form-group col-md-offset-3 padded-5">
+		<%= f.label :category, class: "control-label col-md-1" %>
+		<div class="col-md-8 col-md-offset-1">
+			<%= f.select :category, options_for_select(
+          ["Cardiovascular", "Resistance"], @exercise.category),
+          {include_blank: false}, class: "control-form" %>
+		</div>
+	</div>
+	
+	<div class="row form-group col-md-offset-3 padded-5">
+		<%= f.label :description, class: "control-label col-md-1" %>
+		<div class="col-md-8 col-md-offset-1">
+			<%= f.text_area :description, cols: 3, rows: 3,
+		    	class: 'form-control' %>
+		</div>
+	</div>
+	
+	<div class="row form-group col-md-offset-3 padded-5">
+		<%= f.label "Kcal/kg/hr", class: "control-label col-md-1" %>
+		<div class="col-md-8 col-md-offset-1">
+			<%= f.text_field :Kcal_per_kg_per_hr, class: 'form-control' %>
+		</div>
+	</div>
+
+  <div class="text-center">
+		<%= f.submit @submit_text, class: 'btn btn-primary' %>
+	</div>
+
+<% end %>

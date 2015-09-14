@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908231256) do
+ActiveRecord::Schema.define(version: 20150911225930) do
+
+  create_table "exercises", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "description"
+    t.float    "Kcal_per_kg_per_hr"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "category"
+  end
+
+  add_index "exercises", ["user_id"], name: "index_exercises_on_user_id"
 
   create_table "fat_measurements", force: :cascade do |t|
     t.integer  "user_id"

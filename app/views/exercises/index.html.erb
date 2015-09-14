@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Exercises</h1>
+
+<h2 class="text-left">Cardiovascular Exercises</h2>
+<% @show = @cardio %>
+<%= render 'index_table' %>
+
+<br>
+<br>
+
+<h2 class="text-left">Resistance Exercises</h2>
+<% @show = @resistance %>
+<%= render 'index_table' %>
+
+<div class="text-center">
+  <%= link_to 'New Exercise', new_exercise_path, 
+      class: 'btn btn-primary' %>
+</div>

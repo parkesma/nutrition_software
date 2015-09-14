@@ -122,3 +122,11 @@ orphan_employee:
   license:         employee
   first_name:      employee
   last_name:       orphan
+
+other_user:
+  id:             16
+  license:        owner
+
+other_CFNS:       
+  id:             17
+  license:        CFNS

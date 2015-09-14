@@ -1,0 +1,12 @@
+<h1><%= @exercise.name %></h1>
+<div class="text-center">Description: <%= @exercise.description %></div>
+<div class="text-center">KCal/kg/hr: <%= @exercise.Kcal_per_kg_per_hr %></div>
+
+<div class="text-center">
+	<% if @authorized_to_change %>
+		<%= link_to 'Edit', edit_exercise_path(@exercise), 
+				class: 'btn btn-primary' %>
+	<% end %>
+	<br>
+	<%= link_to 'Back', exercises_path %>
+</div>
