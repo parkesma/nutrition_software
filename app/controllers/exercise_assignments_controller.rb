@@ -46,6 +46,7 @@ class ExerciseAssignmentsController < ApplicationController
 		all_assignments.each do |a|
 			@daily_average_kcal += a.daily_kcal if a.daily_kcal
 		end
+		@daily_average_kcal = @daily_average_kcal.round(2)
 
 	end
 	
