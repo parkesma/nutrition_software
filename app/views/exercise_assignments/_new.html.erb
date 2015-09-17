@@ -1,0 +1,30 @@
+<%= form_for(:exercise_assignment, url: exercise_assignments_path, 
+		method: :post, html: {class: "form-horizontal"}) do |f| %>
+
+	<table class="table table-striped table-bordered">
+	  <!-- <thead> -->
+    <tr>
+      <th class="text-center col-md-10">Exercise</th>
+      <th class="text-center col-md-2">Hrs/Wk</th>
+    </tr>
+  	<!-- </thead> -->
+
+  	<!-- <tbody> -->
+    <tr>
+			<td>
+				<%= f.collection_select(:exercise_id, @possible_exercises, :id, 
+						:name_description, {include_blank: true}, class: "control-form") %>
+			</td>
+			<td>
+				<%= f.text_field :hrs_per_wk, class: "control-form" %>
+			</td>
+    </tr>
+  	<!-- </tbody> -->
+  	
+	</table>
+	
+	<div class="text-center">
+		<%= f.submit "Add Exercise", class: 'btn btn-primary' %>
+	</div>
+	
+<% end %>

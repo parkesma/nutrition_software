@@ -14,11 +14,14 @@ Rails.application.routes.draw do
   resources :notes
   resources :measurements
   resources :fat_measurements
-  resources :exercises
   
   post '/change_method', to: 'fat_measurements#change_method', as: 'change_method'
   
+  resources :exercises
+  resources :exercise_assignments, only: [:index, :create, :update, :destroy]
   
+  post '/move_up',    to: 'exercise_assignments#move_up',   as: 'move_up'
+  post '/move_down',  to: 'exercise_assignments#move_down', as: 'move_down'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

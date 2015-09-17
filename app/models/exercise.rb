@@ -5,4 +5,11 @@ class Exercise < ActiveRecord::Base
 	
 	belongs_to :user
 	
+	def name_description
+		if description
+			name + ": " + description
+		else
+			name
+		end
+	end
 end

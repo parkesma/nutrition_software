@@ -125,12 +125,12 @@ class UserTest < ActiveSupport::TestCase
     assert_equal @eclient1.bmr_plus_sa_plus_exercise.to_i, 
       2017 + @eclient1.exercise_calories
     assert_equal @eclient1.tef(@eclient1.present_weight).to_i, 8
-    assert_equal @eclient1.tef_factor.to_i, 241
-    assert_equal @eclient1.present_energy_expenditure.to_i, 3258
+    assert_equal @eclient1.tef_factor.to_i, 161
+    assert_equal @eclient1.present_energy_expenditure.to_i, 2178
 
     #adding diet plan will mess these up
-      assert_equal @eclient1.daily_caloric_needs.to_i, 2607
-      assert_equal @eclient1.daily_deficit.to_i, -651
+      assert_equal @eclient1.daily_caloric_needs.to_i, 1743
+      assert_equal @eclient1.daily_deficit.to_i, -435
 
     assert_equal @eclient1.fluid_min.to_i, 80
     assert_equal @eclient1.fluid_max.to_i, 160

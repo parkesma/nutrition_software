@@ -105,7 +105,7 @@
 							<% selected = @user.trainer.id %>
 						<% end %>
 						<%= collection_select nil, :cfns, @possible_cfns, :id, 
-								:name, {selected: selected},
+								:name, {selected: selected, include_blank: true},
 								class: "form-control" %>
 					<% end %>
 				</div>

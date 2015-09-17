@@ -5,22 +5,29 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
+  id: 1
   user_id: 16
   name: one
   category: "Resistance"
+  Kcal_per_kg_per_hr: 0
   
 two: 
+  id: 2
   user_id: 17
   name: two
   category: "Cardiovascular"
+  Kcal_per_kg_per_hr: 0
 
-owners: 
+owners:
+  id: 3
   user_id: 9
   name: owners exercise
   category: "Resistance"
-
+  Kcal_per_kg_per_hr: 0
 
 employers: 
+  id: 4
   user_id: 7
   name: employers exercise
   category: "Resistance"
+  Kcal_per_kg_per_hr: 0

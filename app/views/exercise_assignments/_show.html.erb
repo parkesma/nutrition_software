@@ -1,0 +1,27 @@
+<table class="table table-striped table-bordered">
+  <!-- <thead> -->
+   <tr>
+     <th class="text-center col-md-2">Exercise</th>
+     <th class="text-center col-md-8">Hrs per Week</th>
+     <th class="text-center col-md-1">Kcal/kg/hr</th>
+     <th class="text-center col-md-1">Kcal/hr</th>
+     <th class="text-center col-md-1">Weekly</th>
+     <th class="text-center col-md-1">Daily Avg.</th>
+     <th colspan="3"></th>
+   </tr>
+ 	<!-- </thead> -->
+	
+ 	<!-- <tbody> -->
+   <% @show.each do |exercise_assignment| %>
+     <tr>
+       <td><%= link_to exercise_assignment.exercise.name %></td>
+       <td><%= exercise_assignment.hrs_per_wk %></td>
+       <td><%= exercise_assignment.exercise.Kcal_per_kg_per_hr %></td>
+       <td><%= exercise_assignment.kcal_per_hr %></td>
+       <td><%= exercise_assignment.weekly_kcal %></td>
+       <td><%= exercise_assignment.daily_kcal %></td>
+     </tr>
+   <% end %>
+ 	<!-- </tbody> -->
+ 	
+</table>

@@ -1,0 +1,32 @@
+<h1>Exercise Plan</h1>
+
+<% if current_license != "client" %>
+	<%= form_for(:exercise_assignment, url: exercise_assignments_path, 
+			method: :post, html: {class: "form-horizontal"}) do |f| %>
+		
+		<% @form = f %>
+		<%= render 'new' %>
+
+	<% end %>
+<% end %>
+
+<div class="bold big">Avg. Daily KCal: <%= @daily_average_kcal %></div>
+
+<h2 class="text-left">Cardiovascular Exercises</h2>
+<% @show = @cardio %>
+<% if current_license == "client" %>
+  <%= render 'show' %>
+<% else %>
+  <%= render 'edit' %>
+<% end %>
+
+<br>
+<br>
+
+<h2 class="text-left">Resistance Exercises</h2>
+<% @show = @resistance %>
+<% if current_license == "client" %>
+  <%= render 'show' %>
+<% else %>
+  <%= render 'edit' %>
+<% end %>

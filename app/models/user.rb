@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
 	has_many :measurements
 	has_many :fat_measurements
 	has_many :exercises
+	has_many :exercise_assignments
 	#has_many :planned_foods, through _
-	#has_many :planned_exercises, through _
 	
 	def clients
 
@@ -177,10 +177,11 @@ class User < ActiveRecord::Base
 	end
 
 	def exercise_calories
-		#if !average_daily_calories_burned
-			#average_daily_calories_burned
-		#end
-		1000 #fix
+		total = 0
+		self.exercise_assignments.each do |a|
+			total += a.daily_kcal if a.daily_kcal
+		end
+		total
 	end
 
 	def bmr_plus_sa_plus_exercise
