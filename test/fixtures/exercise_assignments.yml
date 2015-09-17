@@ -8,3 +8,8 @@ one:
   user_id: 5
   exercise_id: 3
   hrs_per_wk: 10
+  
+broken:
+  user_id: 5
+  exercise_id: nil
+  hrs_per_wk: 10

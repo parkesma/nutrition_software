@@ -15,6 +15,7 @@ class ExerciseAssignmentsTest < ActionDispatch::IntegrationTest
     @owners_exercise = exercises(:owners)
     @employers_exercise = exercises(:employers)
     @exercise_assignment1 = exercise_assignments(:one)
+    @broken_assignment = exercise_assignments(:broken)
     
     @possible_users = [
       @eclient1,
@@ -26,7 +27,7 @@ class ExerciseAssignmentsTest < ActionDispatch::IntegrationTest
       @owner
     ]
   end
-  
+
   test "client should be able to index, but not create, update, or
     delete exercises" do
     login_as(@eclient1)
@@ -63,6 +64,15 @@ class ExerciseAssignmentsTest < ActionDispatch::IntegrationTest
     can_index(@exercise_assignment1)
     can_update(@exercise_assignment1)
     can_delete(@exercise_assignment1)
+  end
+  
+  test "assignment with no associated exercise should rescue" do
+    login_as(@owner)
+    focus_on(@eclient1)
+    get exercise_assignments_path
+    assert_response :success
+    get basic_info_path
+    assert_response :success
   end
   
   def login_as(user)
