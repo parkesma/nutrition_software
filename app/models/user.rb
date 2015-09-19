@@ -16,13 +16,17 @@ class User < ActiveRecord::Base
 	has_one :bottom_up_relationship, class_name: "Relationship",
 	                                 foreign_key: "sup_id",
 	                                 dependent: :destroy
-  has_one :sup, through: :bottom_up_relationship, source: "sup"
-	has_many :notes
-	has_many :measurements
-	has_many :fat_measurements
-	has_many :exercises
-	has_many :exercise_assignments
-	#has_many :planned_foods, through _
+  has_one :sup, through: :bottom_up_relationship, source: "sup", 
+  							dependent: :destroy
+	has_many :notes, dependent: :destroy
+	has_many :measurements, dependent: :destroy
+	has_many :fat_measurements, dependent: :destroy
+	has_many :exercises, dependent: :destroy
+	has_many :exercise_assignments, dependent: :destroy
+	has_many :exchanges, dependent: :destroy
+	has_many :sub_exchanges, dependent: :destroy
+	has_many :foods, dependent: :destroy
+	has_many :meals, dependent: :destroy
 	
 	def clients
 

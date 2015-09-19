@@ -22,6 +22,12 @@ Rails.application.routes.draw do
   
   post '/move_up',    to: 'exercise_assignments#move_up',   as: 'move_up'
   post '/move_down',  to: 'exercise_assignments#move_down', as: 'move_down'
+  
+  resources :exchanges, only: [:index, :create, :update, :destroy]
+  resources :sub_exchanges, only: [:create, :update, :destroy]
+  resources :foods, only: [:new, :create, :edit, :update, :destroy]
+  resources :meals, only: [:index, :create, :update, :destroy]
+  resources :food_assignments, only: [:create, :update, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

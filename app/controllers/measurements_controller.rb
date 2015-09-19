@@ -1,8 +1,13 @@
 class MeasurementsController < ApplicationController
 
 	def index
-		@measurements = focussed_user.measurements.order(
-			"created_at DESC")
+		if authorized_to_see(focussed_user)
+			@measurements = focussed_user.measurements.order(
+				"created_at DESC")
+		else
+			flash[:danger] = "You are not authorized to view measurements for this client"
+			redirect_to root_path
+		end
 	end
 	
 	def create
@@ -29,7 +34,7 @@ class MeasurementsController < ApplicationController
 	
 	def update
 	  @measurement = Measurement.find_by(id: params[:id])
-		if authorized_to_edit(focussed_user)
+		if authorized_to_edit(@measurement.user)
 		    
       if @measurement.update_attributes(measurement_params)
         flash[:success] = "Measurements updated"
@@ -78,6 +83,13 @@ class MeasurementsController < ApplicationController
 			(current_license != "client" && 
        current_user.clients.include?(user)) ||
        current_license == "owner"
+		end
+		
+		def authorized_to_see(user)
+			(current_license != "client" && 
+       current_user.clients.include?(user)) ||
+       current_license == "owner" ||
+       current_user == user
 		end
 			
 end

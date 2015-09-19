@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914211405) do
+ActiveRecord::Schema.define(version: 20150919202515) do
+
+  create_table "exchanges", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
 
   create_table "exercise_assignments", force: :cascade do |t|
     t.integer  "user_id"
@@ -60,6 +67,45 @@ ActiveRecord::Schema.define(version: 20150914211405) do
 
   add_index "fat_measurements", ["user_id"], name: "index_fat_measurements_on_user_id"
 
+  create_table "food_assignments", force: :cascade do |t|
+    t.integer  "meal_id"
+    t.integer  "food_id"
+    t.float    "number_of_exchanges"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "food_assignments", ["food_id"], name: "index_food_assignments_on_food_id"
+  add_index "food_assignments", ["meal_id"], name: "index_food_assignments_on_meal_id"
+
+  create_table "foods", force: :cascade do |t|
+    t.integer  "sub_exchange_id"
+    t.string   "name"
+    t.float    "carbs_per_serving"
+    t.float    "protein_per_serving"
+    t.float    "fat_per_serving"
+    t.float    "kcals_per_serving"
+    t.float    "servings_per_exchange"
+    t.string   "serving_type"
+    t.float    "supplement_servings_per_bottle"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "user_id"
+  end
+
+  add_index "foods", ["sub_exchange_id"], name: "index_foods_on_sub_exchange_id"
+
+  create_table "meals", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.time     "time"
+    t.text     "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "meals", ["user_id"], name: "index_meals_on_user_id"
+
   create_table "measurements", force: :cascade do |t|
     t.integer  "user_id"
     t.float    "weight"
@@ -97,6 +143,16 @@ ActiveRecord::Schema.define(version: 20150914211405) do
   add_index "relationships", ["sub_id", "sup_id"], name: "index_relationships_on_sub_id_and_sup_id", unique: true
   add_index "relationships", ["sub_id"], name: "index_relationships_on_sub_id"
   add_index "relationships", ["sup_id"], name: "index_relationships_on_sup_id"
+
+  create_table "sub_exchanges", force: :cascade do |t|
+    t.integer  "exchange_id"
+    t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "user_id"
+  end
+
+  add_index "sub_exchanges", ["exchange_id"], name: "index_sub_exchanges_on_exchange_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username"

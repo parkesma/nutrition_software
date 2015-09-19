@@ -1,0 +1,29 @@
+eclient1_food_assignment:
+  id: 1
+  meal_id: 1
+  food_id: 2
+  number_of_exchanges: 1
+  
+sclient1_food_assignment:
+  id: 2
+  meal_id: 2
+  food_id: 1
+  number_of_exchanges: 2
+  
+uclient_food_assignment:
+  id: 3
+  meal_id: 3
+  food_id: 1
+  number_of_exchanges: 3
+  
+tclient_food_assignment:
+  id: 4
+  meal_id: 4
+  food_id: 1
+  number_of_exchanges: 4
+  
+orphan_food_assignment:
+  id: 5
+  meal_id: 5
+  food_id: 1
+  number_of_exchanges: 5

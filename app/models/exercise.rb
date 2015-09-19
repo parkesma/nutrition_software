@@ -4,6 +4,7 @@ class Exercise < ActiveRecord::Base
 	validates :Kcal_per_kg_per_hr,	presence: true
 	
 	belongs_to :user
+	has_many :exercise_assignments, dependent: :destroy
 	
 	def name_description
 		if description

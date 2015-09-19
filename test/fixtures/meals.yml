@@ -1,0 +1,24 @@
+eclient1_meal:
+  id: 1
+  user_id: 5
+  name: Eclient1 Meal
+  
+sclient1_meal:
+  id: 2
+  user_id: 10
+  name: Sclient Meal
+  
+uclient_meal:
+  id: 3
+  user_id: 12
+  name: Uclient Meal
+  
+tclient_meal:
+  id: 4
+  user_id: 13
+  name: Tclient Meal
+  
+orphan_meal:
+  id: 5
+  user_id: 14
+  name: Orphan Meal

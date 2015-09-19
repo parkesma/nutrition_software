@@ -1,0 +1,27 @@
+owners: 
+  id: 1
+  user_id: 9
+  sub_exchange_id: 1
+  name: Owners Food
+  servings_per_exchange: 1
+  serving_type: slice
+  
+employers:
+  id: 2
+  user_id: 7
+  sub_exchange_id: 1
+  name: Employers Food
+  servings_per_exchange: 1
+  serving_type: slice
+  carbs_per_serving: 1
+  protein_per_serving: 1
+  fat_per_serving: 1
+  kcals_per_serving: 1
+  
+others:
+  id: 3
+  user_id: 17
+  sub_exchange_id: 1
+  name: Others Food
+  servings_per_exchange: 1
+  serving_type: slice

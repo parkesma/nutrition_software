@@ -1,0 +1,17 @@
+<% if !@meals.nil? %>
+	<table>
+		<% @meals.each do |m| %>
+			<td>
+				<%= "#{m.name}   #{m.time}" %>
+				<% if !m.food_assignments.nil? %>
+					<table>
+						<% m.food_assignments.each do |f| %>
+							<td><%= "#{f.servings} of #{f.food.name}" %></td>
+						<% end %>
+					</table>
+				<% end %>
+				<%= "Notes: #{m.notes}" %>
+			</td>
+		<% end %>
+	</table>
+<% end %>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+owners: 
+  id: 1
+  user_id: 9
+  exchange_id: 1
+  name: Owners SubExchange
+  
+employers:
+  id: 2
+  user_id: 7
+  exchange_id: 1
+  name: Employers SubExchange
+  
+others:
+  id: 3
+  user_id: 17
+  exchange_id: 1
+  name: Others SubExchange
