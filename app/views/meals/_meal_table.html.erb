@@ -1,0 +1,78 @@
+<table class="table">
+			
+	<!-- table header -->
+	<tr>
+		<div onchange='$("#title_form<%= @meal.id %>").submit();'>
+			<% if current_license == "client" %>
+				<th colspan="2"><%= "#{@meal.name} - #{@meal.time.to_s(:standard_time)}" %></th>
+			<% else %>
+				<%= form_for :meal, url: meal_path(@meal), method: :patch, id: "title_form#{@meal.id}" do |f| %>
+					<th><%= f.text_field :name, value: @meal.name %></th>
+					<th><%= f.text_field :time, value: @meal.time.to_s(:standard_time) %></th>
+				<% end %>
+			<% end %>
+		</div>
+		</td>
+		<th class="text-right"># of</th>
+		<th>Exchanges</th>
+		<th>Carbs</th>
+		<th>Protein</th>
+		<th>Fat</th>
+		<th>Kcals</th>
+		<th colspan="2"></th>
+		<% if current_license != "client" %>
+			<th><%= link_to 'Delete Meal', @meal, method: :delete, data: { confirm: 'Are you sure?' } %></th>
+		<% end %>
+	</tr>
+	
+	<!-- list of foods assigned to the meal -->
+	<% if !@meal.food_assignments.nil? %>
+		<% @meal.food_assignments.order(:position).each do |fa| %>			
+			<%= form_for :food_assignment, url: food_assignment_path(fa), method: :patch,
+					html: {id: "food_form#{fa.id}"} do |f| %>
+	
+				<% @fa, @f = fa, f %>
+				<% if current_license == "client" %>
+					<%= render 'client_food_form' %>
+				<% else %>
+					<%= render 'non_client_food_form' %>
+				<% end %>
+
+			<% end %>
+		<% end %>
+	<% end %>
+
+	<!-- meal notes and totals -->
+	<tr>
+		<td colspan="3" onchange='$("#notes_form<%= @meal.id %>").submit();'>
+			<% if current_license == "client" %>
+				<%= "Notes: #{@meal.notes}" %>
+			<% else %>
+				<%= form_for :meal, url: meal_path(@meal), method: :patch, id: "notes_form#{@meal.id}" do |f| %>
+					Notes: <%= f.text_field :notes, value: @meal.notes %>
+				<% end %>
+			<% end %>
+		</td>
+		<td class="text-right"><%= "#{@meal.name} Totals"%></td>
+		<td><%= @meal.carbs %></td>
+		<td><%= @meal.protein %></td>
+		<td><%= @meal.fat %></td>
+		<td><%= @meal.kcals %></td>
+	</tr>
+
+	<!-- form to add new food to the meal -->
+	<% if current_license != "client" %>
+		<%= form_for :food_assignment, url: food_assignments_path, method: :post do |f| %>
+			<tr>
+				<td colspan="2">Add new food to <%= @meal.name %></td>
+				<td class="text-right number-field"><%= f.number_field :number_of_exchanges, min: 0 %></td>
+				<td>
+					<%= f.collection_select :food_id, @meal.non_empty_sub_exchanges, :first_food_id, :drop_down_text %>
+					<%= f.hidden_field(:meal_id, value: @meal.id) %>
+				</td>
+				<td></td>
+				<td><%= f.submit "Add", class: "btn-sm btn-primary" %></td>
+			</tr>
+		<% end %>
+	<% end %>
+</table>

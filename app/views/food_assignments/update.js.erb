@@ -1,0 +1,2 @@
+<% @meal = @food_assignment.meal %>
+$('#meal<%= @meal.id %>').html("<%= escape_javascript(render 'meals/meal_table') %>");

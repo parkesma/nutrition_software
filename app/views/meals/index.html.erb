@@ -1,17 +1,28 @@
+<!-- list of meals -->
 <% if !@meals.nil? %>
-	<table>
-		<% @meals.each do |m| %>
-			<td>
-				<%= "#{m.name}   #{m.time}" %>
-				<% if !m.food_assignments.nil? %>
-					<table>
-						<% m.food_assignments.each do |f| %>
-							<td><%= "#{f.servings} of #{f.food.name}" %></td>
-						<% end %>
-					</table>
-				<% end %>
-				<%= "Notes: #{m.notes}" %>
-			</td>
-		<% end %>
-	</table>
+	<% @meals.each do |meal| %>
+		<% @meal = meal %>
+		<div id="meal<%= meal.id %>" class="meal-table">
+			<%= render 'meal_table' %>
+		</div>
+	<% end %>
+<% end %>
+
+<!-- form to add new meals -->
+<% if current_license != "client" %>
+	<%= form_for :meal, url: meals_path, method: :post do |f| %>
+		<table class="table menu-table">
+			<tr>
+				<th class="text-center">New Meal Name</th>
+				<th class="text-center">New Meal Time</th>
+			</tr>
+			<tr>
+				<td><%= f.text_field :name %></td>
+				<td><%= f.text_field :time, value: @new_meal.time.to_s(:standard_time) %></td>
+			</tr>
+		</table>
+		<div class="text-center">
+			<%= f.submit "Create New Meal", class: "btn btn-primary" %>
+		</div>
+	<% end %>
 <% end %>

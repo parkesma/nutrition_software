@@ -5,6 +5,10 @@ owners:
   name: Owners Food
   servings_per_exchange: 1
   serving_type: slice
+  carbs_per_serving: 1
+  protein_per_serving: 1
+  fat_per_serving: 1
+  kcals_per_serving: 1
   
 employers:
   id: 2
@@ -25,3 +29,7 @@ others:
   name: Others Food
   servings_per_exchange: 1
   serving_type: slice
+  carbs_per_serving: 1
+  protein_per_serving: 1
+  fat_per_serving: 1
+  kcals_per_serving: 1

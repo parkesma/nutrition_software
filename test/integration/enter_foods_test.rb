@@ -108,7 +108,7 @@ class EnterFoodsTest < ActionDispatch::IntegrationTest
       
   def cannot_create
     assert_difference 'Food.count', 0 do
-      get new_food_path
+      get new_food_path(sub_exchange: 1)
       post foods_path, food: {
         sub_exchange_id: 1,
         name: "new food",
@@ -126,7 +126,7 @@ class EnterFoodsTest < ActionDispatch::IntegrationTest
   
   def can_create
     assert_difference 'Food.count', 1 do
-      get new_food_path
+      get new_food_path(sub_exchange: 1)
       post foods_path, food: {
         sub_exchange_id: 1,
         name: "new food",

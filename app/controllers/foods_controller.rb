@@ -2,6 +2,9 @@ class FoodsController < ApplicationController
 	before_action :set_food, only: [:edit, :update, :destroy]
 	
 	def new
+	  @food = Food.new
+	  @sub_exchange = SubExchange.find_by(id: params[:sub_exchange])
+	  @exchange = @sub_exchange.exchange
 	end
 	
 	def create
@@ -17,10 +20,10 @@ class FoodsController < ApplicationController
 
       if @food.save
         flash[:success] = 'Food was successfully created.'
-        redirect_to foods_path
+        redirect_to exchanges_path
       else
         flash.now[:danger] = "Food failed to save!"
-        render :index
+        render new_food_path
       end
     end
 	end
@@ -36,7 +39,7 @@ class FoodsController < ApplicationController
     
       if @food.update(food_params)
         flash[:success] = 'Food was successfully updated.'
-        redirect_to foods_path
+        redirect_to exchanges_path
       else
         flash.now[:danger] = "Changes failed to save"
         render :edit

@@ -26,10 +26,9 @@ class ExerciseAssignmentsController < ApplicationController
 			
 		i = 0
 		@cardio.map { 
-			|e| e.position = i
+			|e| e.position = i if e.position.nil?
 			e.save
 			i += 1
-
 		}
 		
 		@resistance = all_assignments.joins(:exercise).

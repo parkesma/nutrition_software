@@ -112,7 +112,10 @@ class EnterMealsTest < ActionDispatch::IntegrationTest
       
   def cannot_create(user)
     assert_difference 'Meal.count', 0 do
-      post meals_path, meal: {name: "new meal by #{user.username}"}
+      post meals_path, meal: {
+        name: "new meal by #{user.username}",
+        time: "7:00 am"
+      }
     end
     assert !flash[:danger].blank?
     assert_redirected_to meals_path
@@ -120,7 +123,10 @@ class EnterMealsTest < ActionDispatch::IntegrationTest
   
   def can_create(user)
     assert_difference 'Meal.count', 1 do
-      post meals_path, meal: {name: "new meal by #{user.username}"}
+      post meals_path, meal: {
+        name: "new meal by #{user.username}",
+        time: "7:00 am"
+      }
     end
   end
     

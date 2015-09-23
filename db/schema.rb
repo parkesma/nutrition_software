@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150919202515) do
+ActiveRecord::Schema.define(version: 20150923201706) do
 
   create_table "exchanges", force: :cascade do |t|
     t.string   "name"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20150919202515) do
     t.float    "number_of_exchanges"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "position"
   end
 
   add_index "food_assignments", ["food_id"], name: "index_food_assignments_on_food_id"

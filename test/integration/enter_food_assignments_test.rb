@@ -102,14 +102,12 @@ class EnterFoodAssignmentsTest < ActionDispatch::IntegrationTest
   
   def cannot_index(food_assignment)
     get meals_path
-    assert_no_match "#{food_assignment.servings} of #{food_assignment.food.name}",
-      response.body
+    assert_no_match food_assignment.servings_text, response.body
   end
   
   def can_index(food_assignment)
     get meals_path
-    assert_match "#{food_assignment.servings} of #{food_assignment.food.name}",
-      response.body
+    assert_match food_assignment.servings_text, response.body
   end
       
   def cannot_create(meal)

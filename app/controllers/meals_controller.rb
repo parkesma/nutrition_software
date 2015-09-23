@@ -2,8 +2,21 @@ class MealsController < ApplicationController
 	before_action :set_meal, only: [:update, :destroy]
 	
 	def index
+		@new_meal = Meal.new(time: "7:00 AM")
 		if authorized_to_see(focussed_user)
 			@meals = focussed_user.meals.order("time ASC")
+			
+      if @meals
+			  @meals.each do |m|
+			    i = 0
+			    m.food_assignments.each do |fa|
+			      fa.position = i if fa.position.nil?
+			      fa.save
+			      i += 1
+          end
+        end
+      end
+      
 		else
 			flash[:danger] = "You are not authorized to view meals for this client"
 			redirect_to root_path
@@ -28,16 +41,21 @@ class MealsController < ApplicationController
 	def update
 		if authorized_to_edit(@meal.user)
 		  
-      if @meal.update_attributes(meal_params)
-        flash[:success] = "Meal updated"
-      else
-      	flash[:danger] = "Meal didn't save!"
+      respond_to do |format|
+        if @meal.update_attributes(meal_params)
+          format.html { redirect_to meals_path }
+          format.js
+          format.json { render :show, status: :ok, location: @food_assignment }
+        else
+          flash[:danger] = "Changes didn't save!"
+          format.html { redirect_to meals_path }
+        end
       end
     
     else
       flash[:danger] = "You are not authorized to edit this meal!"
+      redirect_to meals_path
 		end
-    redirect_to meals_path
 	end
 	
 	def destroy

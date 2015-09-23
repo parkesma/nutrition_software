@@ -1,0 +1,48 @@
+<h1>Edit Food</h1>
+<div class="exchange">Exchange: <%= @food.sub_exchange.exchange.name %></div>
+<div class="sub-exchange">Category: <%= @food.sub_exchange.name %></div>
+<br>
+<br>
+<%= form_for(:food, url: food_path(@food), method: :patch) do |f| %>
+
+	<% @f = f %>
+
+	<% @label = 'Name' %>
+	<% @field = :name %>
+	<% @default = @food.name %>
+	<%= render 'field' %>
+	
+	<% @label = 'Servings per Exchange' %>
+	<% @field = :servings_per_exchange %>
+	<% @default = @food.servings_per_exchange %>	
+	<%= render 'field' %>
+	
+	<% @label = 'Serving Type (cup, slice, ounce, etc)' %>
+	<% @field = :serving_type %>
+	<% @default = @food.serving_type %>	
+	<%= render 'field' %>
+	
+	<% @label = 'Carbs per Serving' %>
+	<% @field = :carbs_per_serving %>
+	<% @default = @food.carbs_per_serving %>	
+	<%= render 'field' %>
+	
+	<% @label = 'Protein per Serving' %>
+	<% @field = :protein_per_serving %>
+	<% @default = @food.protein_per_serving %>	
+	<%= render 'field' %>
+	
+	<% @label = 'Fat per Serving' %>
+	<% @field = :fat_per_serving %>
+	<% @default = @food.fat_per_serving %>	
+	<%= render 'field' %>
+	
+	<% @label = 'Kcals per Serving' %>
+	<% @field = :kcals_per_serving %>
+	<% @default = @food.kcals_per_serving %>	
+	<%= render 'field' %>
+	
+	<div class="text-center">
+		<%= f.submit 'Update', class: "btn btn-primary" %>
+	</div>
+<% end %>

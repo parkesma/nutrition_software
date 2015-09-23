@@ -2,23 +2,28 @@ eclient1_meal:
   id: 1
   user_id: 5
   name: Eclient1 Meal
+  time: 7:00 am
   
 sclient1_meal:
   id: 2
   user_id: 10
   name: Sclient Meal
+  time: 7:00 am
   
 uclient_meal:
   id: 3
   user_id: 12
   name: Uclient Meal
+  time: 7:00 am
   
 tclient_meal:
   id: 4
   user_id: 13
   name: Tclient Meal
+  time: 7:00 am
   
 orphan_meal:
   id: 5
   user_id: 14
   name: Orphan Meal
+  time: 7:00 am

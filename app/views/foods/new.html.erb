@@ -1,0 +1,44 @@
+<h1>Add New Food</h1>
+<div class="exchange">Exchange: <%= @exchange.name %></div>
+<div class="sub-exchange">Category: <%= @sub_exchange.name %></div>
+<br>
+<br>
+<%= form_for(:food, url: foods_path, method: :post) do |f| %>
+
+	<% @f = f %>
+	<% @default = nil %>
+
+	<% @label = 'Name' %>
+	<% @field = :name %>
+	<%= render 'field' %>
+	
+	<% @label = 'Servings per Exchange' %>
+	<% @field = :servings_per_exchange %>
+	<%= render 'field' %>
+	
+	<% @label = 'Serving Type (cup, slice, ounce, etc)' %>
+	<% @field = :serving_type %>
+	<%= render 'field' %>
+	
+	<% @label = 'Carbs per Serving' %>
+	<% @field = :carbs_per_serving %>
+	<%= render 'field' %>
+	
+	<% @label = 'Protein per Serving' %>
+	<% @field = :protein_per_serving %>
+	<%= render 'field' %>
+	
+	<% @label = 'Fat per Serving' %>
+	<% @field = :fat_per_serving %>
+	<%= render 'field' %>
+	
+	<% @label = 'Kcals per Serving' %>
+	<% @field = :kcals_per_serving %>
+	<%= render 'field' %>
+	
+	<%= f.hidden_field :sub_exchange_id, value: @sub_exchange.id %>
+	
+	<div class="text-center">
+		<%= f.submit 'Create', class: "btn btn-primary" %>
+	</div>
+<% end %>

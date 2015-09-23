@@ -1,27 +1,45 @@
-<% if !@exchanges.nil? %>
-	<table>
+<h1>Foods</h1>
+
+<table class="table">
+	<tr>
+		<th>Exchanges</th>
+		<th>Subexchanges</th>
+		<th>Foods</th>
+		<th col-span="3"></th>
+	</tr>
+	<% if !@exchanges.nil? %>
 		<% @exchanges.each do |e| %>
-			<td>
-				<%= e.name %>
-				<% if !e.sub_exchanges.nil? && !@sub_exchanges.nil? && !(e.sub_exchanges & @sub_exchanges).nil? %>
-					<table>
-						<% (e.sub_exchanges & @sub_exchanges).each do |s| %>
-							<td>
-								<%= s.name %>
-								<% if !s.foods.nil? && !@foods.nil? && !(s.foods & @foods).nil? %>
-									<table>
-										<% (s.foods & @foods).each do |f| %>
-											<td>
-												<%= f.name %>
-											</td>
-										<% end %>
-									</table>
-								<% end %>
-							</td>
-						<% end %>
-					</table>
+			<tr>
+				<% if current_user == e.user %>
+				
+					<%= form_for(:exchange, url: exchange_path(e), 
+							method: :patch, html: {class: "form-horizontal"}) do |f| %>
+						<td colspan="4"><%= f.text_field :name, value: e.name, 
+																class: "table-text" %></td>
+						<td><a><%= f.submit 'Update', class: "submit-link" %></a></td>
+						<td>
+							<%= link_to 'Delete', exchange_path(e), method: :delete, 
+									data: {confirm: 'Are you sure? This will also delete all associated Categories, Foods, and Meal Plan entries.'} %>
+						</td>
+					<% end %>
+					
+				<% else %>
+					<td colspan="6"><%= e.name %></td>
 				<% end %>
-			</td>
+
+				<% @e = e %>
+				<%= render 'sub_exchanges' %>
+			</tr>
 		<% end %>
-	</table>
+	<% end %>
+	<%= form_for(:exchange, url: exchanges_path, method: :post) do |f| %>
+		<tr>
+			<td colspan="5"><%= f.text_field :name, class: "table-text" %></td>
+			<td><a><%= f.submit 'Add New Exchange', class: "submit-link" %></a></td>
+		</tr>
+	<% end %>
+</table>
+
+<% if !@supplements.nil? %>
+	<% render 'supplements' %>
 <% end %>

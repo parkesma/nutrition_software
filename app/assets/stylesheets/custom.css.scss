@@ -145,7 +145,6 @@ footer {
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
-  margin-bottom: 15px;
   @include box_sizing;
 }
 
@@ -320,8 +319,18 @@ tr .control-label-small {
   padding: 5px;
 }
 
-table select {
-  height: 1.75em;
+.table-text {
+  margin: 0px;
+}
+
+.exchange {
+  text-align: center;
+  font-size: 1.75em;
+}
+
+.sub-exchange {
+  text-align: center;
+  font-size: 1.5em;
 }
 
 .submit-link {
@@ -338,6 +347,11 @@ table select {
   //color: #428BCA;
   cursor: pointer;
   width: auto;
+}
+
+.number-field {
+  width: 60px;
+  margin-bottom: 0px;
 }
 
 /* Users index */
@@ -360,4 +374,16 @@ li {
   font-size: small;
   float: right;
   width: 15px;
+}
+
+/* Meals */
+
+.meal-table {
+  border: 1px solid gray;
+  padding: 10px;
+  margin: 20px;
+}
+
+.meal-table select, .meal-table input {
+  height: 1.75em;
 }

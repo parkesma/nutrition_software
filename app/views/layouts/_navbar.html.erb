@@ -10,7 +10,7 @@
   <% end %>
 </div>
 
-<nav id="menu">
+<nav class="row" id="menu">
   <ul class="nav navbar-nav navbar-default col-md-12">
   
     <li><%= link_to "Home", root_path %></li>
@@ -65,6 +65,11 @@
       <li><%= link_to "Exercises", exercises_path %></li>
     <% end %>
     
+    <!-- Foods dropdown -->        
+    <% if logged_in? && current_license != "client" %>
+      <li><%= link_to "Foods", exchanges_path %></li>
+    <% end %>
+    
     <!-- What Works links dropdown -->        
     <% if current_license == "client" || focussed_license == "client" %>
       <li class="dropdown">
@@ -76,7 +81,7 @@
           <li><%= link_to "Measurements",    measurements_path %></li>
           <li><%= link_to "Body Fat",        fat_measurements_path %></li>
           <li><%= link_to "Exercise Plan",   exercise_assignments_path %></li>
-          <li><%= link_to "Meal Plan",       '#' %></li>
+          <li><%= link_to "Meal Plan",       meals_path %></li>
           <% if current_license != "client" %>
             <li><%= link_to "Notes",         notes_path %></li>
           <% end %>

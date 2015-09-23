@@ -12,25 +12,24 @@ class ExchangesController < ApplicationController
       @my_foods = current_user.foods
 		end
     
-    @owner_exchanges = Exchange.joins(:user).
+    owner_exchanges = Exchange.joins(:user).
       where(users: { license: "owner" })
-    @owner_sub_exchanges = SubExchange.joins(:user).
+    owner_sub_exchanges = SubExchange.joins(:user).
       where(users: { license: "owner" })
-    @owner_foods = Food.joins(:user).
+    owner_foods = Food.joins(:user).
       where(users: { license: "owner" })
 
     if current_license != "owner" 
 			if current_license != "client"
-      	@exchanges = (@my_exchanges || []) + (@owner_exchanges || [])
-      	@sub_exchanges = (@my_sub_exchanges || []) + (@owner_sub_exchanges || [])
-      	@foods = (@my_foods || []) + (@owner_foods || [])
+      	@exchanges = (@my_exchanges || []) + (owner_exchanges || [])
+      	@sub_exchanges = (@my_sub_exchanges || []) + (owner_sub_exchanges || [])
+      	@foods = (@my_foods || []) + (owner_foods || [])
 			end
     else
       @exchanges = Exchange.all
       @sub_exchanges = SubExchange.all
       @foods = Food.all
     end
-
 	end
 	
 	def create

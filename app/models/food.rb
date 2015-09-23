@@ -12,19 +12,31 @@ class Food < ActiveRecord::Base
 	has_many :food_assignments, dependent: :destroy
 
   def carbs_per_exchange
-    :carbs_per_serving / :servings_per_exchange
+    self.carbs_per_serving * self.servings_per_exchange
   end
   
   def protein_per_exchange
-    :protein_per_serving / :servings_per_exchange
+    self.protein_per_serving * self.servings_per_exchange
   end
   
   def fat_per_exchange
-    :fat_per_serving / :servings_per_exchange
+    self.fat_per_serving * self.servings_per_exchange
   end
   
   def kcals_per_exchange
-    :kcals_per_serving / :servings_per_exchange
+    self.kcals_per_serving * self.servings_per_exchange
+  end
+  
+  def serving_type_text(exchanges)
+    if exchanges * servings_per_exchange == 1
+      serving_type
+    else
+      serving_type.pluralize
+    end
+  end
+  
+  def servings_per_exchange_text
+    "#{servings_per_exchange} #{serving_type_text(1)} per exchange"
   end
 
 end

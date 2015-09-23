@@ -1,0 +1,24 @@
+<% if !(@s.foods & @foods).nil? %>
+	<% (@s.foods & @foods).each do |f| %>
+		<tr>
+			<td></td>
+			<td></td>
+			<td><%= f.name %></td>
+			<td><%= f.servings_per_exchange_text %></td>
+			<% if @my_foods.include?(f) %>
+				<td><%= link_to 'Edit', edit_food_path(f) %></td>
+				<td>
+					<%= link_to 'Delete', food_path(f), 
+							method: :delete, data: {confirm: 'Are you sure? This will also delete all associated Meal Plan entries.'}%>
+				</td>
+			<% else %>
+				<td colspan="2"></td>
+			<% end %>
+		</tr>
+	<% end %>
+<% end %>
+<tr>
+	<td colspan="2"></td>
+	<td><%= link_to 'Add New Food', new_food_path(exchange: @e, sub_exchange: @s),
+					method: :get, class: "btn btn-primary" %></td>
+</tr>
