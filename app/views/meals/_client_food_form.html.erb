@@ -1,7 +1,7 @@
 <tr>
 	<td class="text-right"><%= @fa.servings_text %></td>	
 	<td onchange='$("#food_form<%= @fa.id %>").submit();'>
-		<%= @f.collection_select :food_id, @fa.food.sub_exchange.foods, :id, :name,
+		<%= @f.collection_select :food_id, @fa.available_foods, :id, :name,
 				{selected: @fa.food.id}, {} %>
 	</td>
 	<td class="text-right"><%= @fa.number_of_exchanges %></td>

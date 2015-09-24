@@ -36,8 +36,4 @@ class Meal < ActiveRecord::Base
 		total
 	end
 	
-	def non_empty_sub_exchanges
-		SubExchange.joins(:foods).uniq.all
-	end
-	
 end

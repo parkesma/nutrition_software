@@ -2,7 +2,7 @@ class MealsController < ApplicationController
 	before_action :set_meal, only: [:update, :destroy]
 	
 	def index
-		@new_meal = Meal.new(time: "7:00 AM")
+		@new_meal = focussed_user.meals.build(time: "7:00 AM")
 		if authorized_to_see(focussed_user)
 			@meals = focussed_user.meals.order("time ASC")
 			
@@ -17,6 +17,11 @@ class MealsController < ApplicationController
         end
       end
       
+		  @available_sub_exchanges = SubExchange.joins(foods: :user).where("users.license = ? OR users.id = ?", 
+		    "owner", @new_meal.user.trainer.id )
+#		  non_empty_sub_exchanges = SubExchange.joins(:foods).where("foods.users.license = ? OR foods.users.id = ?",
+#		    "owner", @new_meal.user.trainer.id )
+#		  @available_sub_exchanges = sups_sub_exchanges.merge(non_empty_sub_exchanges)
 		else
 			flash[:danger] = "You are not authorized to view meals for this client"
 			redirect_to root_path

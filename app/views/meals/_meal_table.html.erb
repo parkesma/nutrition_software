@@ -67,7 +67,7 @@
 				<td colspan="2">Add new food to <%= @meal.name %></td>
 				<td class="text-right number-field"><%= f.number_field :number_of_exchanges, min: 0 %></td>
 				<td>
-					<%= f.collection_select :food_id, @meal.non_empty_sub_exchanges, :first_food_id, :drop_down_text %>
+					<%= f.collection_select :food_id, @available_sub_exchanges, :first_food_id, :drop_down_text %>
 					<%= f.hidden_field(:meal_id, value: @meal.id) %>
 				</td>
 				<td></td>

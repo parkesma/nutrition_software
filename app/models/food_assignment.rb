@@ -8,7 +8,18 @@ class FoodAssignment < ActiveRecord::Base
 	end
 	
 	def servings_text
-		"#{self.servings} #{self.food.serving_type.pluralize} of"
+		if servings == 1
+			"#{self.servings} #{self.food.serving_type} of"
+		else
+			"#{self.servings} #{self.food.serving_type.pluralize} of"
+		end
+	end
+	
+	def available_foods
+		sups_foods = Food.joins(:user).where("users.license = ? OR users.id = ?", 
+			"owner", self.meal.user.trainer.id )
+		same_category_foods = self.food.sub_exchange.foods
+		same_category_foods.merge(sups_foods)
 	end
 
 end

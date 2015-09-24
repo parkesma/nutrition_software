@@ -5,6 +5,7 @@ class FoodAssignmentsController < ApplicationController
 		if authorized_to_edit(focussed_user)
       
       meal = Meal.find(food_assignment_params[:meal_id])
+      params[:food_assignment][:number_of_exchanges] = 1 if !params[:food_assignment][:number_of_exchanges]
       @food_assignment = meal.food_assignments.build(food_assignment_params)
 
       if !@food_assignment.save
@@ -25,6 +26,11 @@ class FoodAssignmentsController < ApplicationController
 		    above = @food_assignment.meal.food_assignments.where(
 			          "position = ?", @food_assignment.position - 1)
 		    above.update_all(position: @food_assignment.position) if above.size > 0
+		  end
+		  
+		  if params[:sub_exchange] && params[:sub_exchange] != @food_assignment.food.sub_exchange.id
+		  		new_sub_exchange = SubExchange.find_by(id: params[:sub_exchange])
+		  		params[:food_assignment][:food_id] = new_sub_exchange.first_food_id
 		  end
 		  
 		  respond_to do |format|

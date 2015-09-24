@@ -1,14 +1,14 @@
 <tr>
 	<td class="text-right"><%= @fa.servings_text %></td>
 	<td onchange='$("#food_form<%= @fa.id %>").submit();'>
-		<%= @f.collection_select :food_id, @fa.food.sub_exchange.foods, :id, :name,
+		<%= @f.collection_select :food_id, @fa.available_foods, :id, :name,
 				{selected: @fa.food.id}, {} %>
 	</td>
 	<td class="text-right number-field" onchange='$("#food_form<%= @fa.id %>").submit();'>
 		<%= @f.text_field :number_of_exchanges, value: @fa.number_of_exchanges %>
 	</td>
 	<td class="text-left" onchange='$("#food_form<%= @fa.id %>").submit();'>
-		<%= @f.collection_select :sub_exchange, @meal.non_empty_sub_exchanges, :id, :drop_down_text, 
+		<%= collection_select nil, :sub_exchange, @available_sub_exchanges, :id, :drop_down_text, 
 				value: @fa.food.sub_exchange %>
 	</td>
 	<td><%= @fa.food.carbs_per_serving * @fa.servings if @fa.food && @fa.servings %></td>
