@@ -1,16 +1,16 @@
-<div class="meal-table">
-	<table class="table">
-		<tr>
-			<th>Brand</th>
-			<th>Product</th>
-			<th>Package Type<br/>(e.g. box, bottle, etc.)</th>
-			<th>Serving Type<br/>(e.g. pill, bar, etc.)</th>
-			<th>Servings Per Package</th>
-			<% if current_license == "owner" %>
-				<th colspan="3" class="text-right">(Creator)</th>
-			<% end %>
-		</tr>
-		<% if !@supplement_brands.nil? %>
+<% if !@supplement_brands.nil? %>
+	<div class="meal-table">
+		<table class="table">
+			<tr>
+				<th>Brand</th>
+				<th>Product</th>
+				<th>Package Type<br/>(e.g. box, bottle, etc.)</th>
+				<th>Serving Type<br/>(e.g. pill, bar, etc.)</th>
+				<th>Servings Per Package</th>
+				<% if current_license == "owner" %>
+					<th colspan="3" class="text-right">(Creator)</th>
+				<% end %>
+			</tr>
 			<% @supplement_brands.each do |b| %>
 				<tr>
 					<% if @my_supplement_brands && @my_supplement_brands.include?(b) %>

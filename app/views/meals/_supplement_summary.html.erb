@@ -1,4 +1,4 @@
-<% if !focussed_user.supplements_per_month.nil? %>
+<% if !focussed_user.supplements_per_month.blank? %>
 	<h1 class="text-center">Supplements Needed Each Month</h1>
 	<% focussed_user.supplements_per_month.each do |supplements_string| %>
 		<p class="text-center big"><%= supplements_string %></p>
