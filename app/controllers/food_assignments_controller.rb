@@ -2,25 +2,42 @@ class FoodAssignmentsController < ApplicationController
 	before_action :set_food_assignment, only: [:update, :move_food_up, :move_food_down, :destroy]
 	
 	def create
-		if authorized_to_edit(focussed_user)
-      
+		if !authorized_to_create_for(focussed_user)
+	  	flash[:danger] = "You are not authorized to enter food assignments for this client"
+		else
       meal = Meal.find(food_assignment_params[:meal_id])
       params[:food_assignment][:number_of_exchanges] = 1 if !params[:food_assignment][:number_of_exchanges]
-      @food_assignment = meal.food_assignments.build(food_assignment_params)
 
-      if !@food_assignment.save
-      	flash[:danger] = "Food assignments didn't save!"
+      sub_exchange = SubExchange.find_by(name: params[:category])
+
+      if sub_exchange.nil?
+      	supplement_product_id = SupplementProduct.find_by(name: params[:category]).id
+      	number_of_servings = params[:food_assignment][:number_of_exchanges]
+      	
+      	@supplement_assignment = meal.supplement_assignments.build(
+      		supplement_product_id: supplement_product_id,
+      		number_of_servings: number_of_servings
+      	)
+
+      	if !@supplement_assignment.save
+	      	flash[:danger] = "Supplement assignment didn't save!"
+      	end
+
+      else
+      	params[:food_assignment][:food_id] = sub_exchange.first_food_id
+
+	      @food_assignment = meal.food_assignments.build(food_assignment_params)
+
+				if !@food_assignment.save
+      		flash[:danger] = "Food assignments didn't save!"
+				end
       end
-    
-    else
-      flash[:danger] = "You are not authorized to enter food assignments for this 
-      client"
 		end
-    redirect_to meals_path
+		redirect_to meals_path
 	end
 	
 	def update
-		if authorized_to_edit(@food_assignment.meal.user)
+		if authorized_to_edit_for(@food_assignment.meal.user)
 		  
 		  if food_assignment_params[:position]
 		    above = @food_assignment.meal.food_assignments.where(
@@ -73,7 +90,7 @@ class FoodAssignmentsController < ApplicationController
   end
 	
 	def destroy
-		if authorized_to_edit(@food_assignment.meal.user)
+		if authorized_to_delete_for(@food_assignment.meal.user)
       @food_assignment.destroy
       flash[:success] = "Food assignment deleted"
     else
@@ -97,7 +114,7 @@ class FoodAssignmentsController < ApplicationController
       )
     end
     
-    def authorized_to_edit(user)
+    def authorized_to_create_for(user)
 			current_license == "owner" ||
 			
 			(current_license != "client" && 
@@ -105,14 +122,13 @@ class FoodAssignmentsController < ApplicationController
       )
     end
     
-    def authorized_to_see(food_assignment)
-			current_license == "owner" ||
-			 
-			current_user == food_assignment.meal.user ||
-			
-			(current_license != "client" && 
-       current_user.clients.include?(food_assignment.meal.user)
-      )
+    def authorized_to_edit_for(user)
+    	authorized_to_create_for(user) || 
+    	current_user == user
     end
-	
+    
+    def authorized_to_delete_for(user)
+    	authorized_to_create_for(user) &&
+    	current_license != "employee"
+    end
 end

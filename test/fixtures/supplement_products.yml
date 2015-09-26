@@ -1,0 +1,28 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+owners: 
+  id: 1
+  user_id: 9
+  supplement_brand_id: 1
+  name: Owners Supplement Product
+  serving_type: pill
+  servings_per_bottle: 100
+  supplement_brand_id: 1
+  
+employers:
+  id: 2
+  user_id: 7
+  supplement_brand_id: 1
+  name: Employers Supplement Product
+  serving_type: pill
+  servings_per_bottle: 100
+  supplement_brand_id: 1
+  
+others:
+  id: 3
+  user_id: 17
+  supplement_brand_id: 1
+  name: Others Supplement Product
+  serving_type: pill
+  servings_per_bottle: 100
+  supplement_brand_id: 1

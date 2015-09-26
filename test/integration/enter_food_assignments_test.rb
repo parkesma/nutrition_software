@@ -15,6 +15,7 @@ class EnterFoodAssignmentsTest < ActionDispatch::IntegrationTest
     @uclient_food_assignment = food_assignments(:uclient_food_assignment)
     @tclient_food_assignment = food_assignments(:tclient_food_assignment)
     @orphan_food_assignment = food_assignments(:orphan_food_assignment)
+    @new_food_sub_exchange = sub_exchanges(:owners)
     
     @possible_users = [
       @student,
@@ -51,7 +52,7 @@ class EnterFoodAssignmentsTest < ActionDispatch::IntegrationTest
     can_delete(@eclient_food_assignment)
   end
   
-  test "Employee can index, create, update, and destroy food_assignments for 
+  test "Employee can index, create, and update, but not destroy food assignments for 
         employer's clients" do
     login_as(@employee)
     focus_on(@eclient1)
@@ -61,7 +62,7 @@ class EnterFoodAssignmentsTest < ActionDispatch::IntegrationTest
       100 + @@count)
     assert @employer.clients.include?(employees_food_assignment.meal.user)
     can_update(@eclient_food_assignment)
-    can_delete(@eclient_food_assignment)
+    cannot_delete(@eclient_food_assignment)
   end
   
   test "!client && !employee can index, create, update, and destroy 
@@ -113,11 +114,12 @@ class EnterFoodAssignmentsTest < ActionDispatch::IntegrationTest
   def cannot_create(meal)
     @@count += 1
     assert_difference 'FoodAssignment.count', 0 do
-      post food_assignments_path, food_assignment: {
-        meal_id: meal.id,
-        food_id: 1,
-        number_of_exchanges: 100 + @@count
-      }
+      post food_assignments_path, 
+        category: @new_food_sub_exchange.name,
+        food_assignment: {
+          meal_id: meal.id,
+          number_of_exchanges: 100 + @@count
+        }
     end
     assert !flash[:danger].blank?
     assert_redirected_to meals_path
@@ -126,11 +128,12 @@ class EnterFoodAssignmentsTest < ActionDispatch::IntegrationTest
   def can_create(meal)
     @@count += 1
     assert_difference 'FoodAssignment.count', 1 do
-      post food_assignments_path, food_assignment: {
-        meal_id: meal.id,
-        food_id: 1,
-        number_of_exchanges: 100 + @@count
-      }
+      post food_assignments_path, 
+        category: @new_food_sub_exchange.name,
+        food_assignment: {
+          meal_id: meal.id,
+          number_of_exchanges: 100 + @@count
+        }
     end
   end
     

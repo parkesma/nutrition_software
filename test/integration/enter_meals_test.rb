@@ -49,7 +49,7 @@ class EnterMealsTest < ActionDispatch::IntegrationTest
     can_delete(@eclient_meal)
   end
   
-  test "Employee can index, create, update, and destroy meals for employer's 
+  test "Employee can index, create, and update, but not destroy meals for employer's 
         clients" do
     login_as(@employee)
     focus_on(@eclient1)
@@ -58,7 +58,7 @@ class EnterMealsTest < ActionDispatch::IntegrationTest
     employees_meal = Meal.find_by(name: "new meal by #{@employee.username}")
     assert @employer.clients.include?(employees_meal.user)
     can_update(@eclient_meal)
-    can_delete(@eclient_meal)
+    cannot_delete(@eclient_meal)
   end
   
   test "!client && !employee can index, create, update, and destroy meals for their

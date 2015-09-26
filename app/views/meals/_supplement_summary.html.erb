@@ -1,0 +1,6 @@
+<% if !current_user.supplements_per_month.nil? %>
+	<h2 class="text-center">Supplements Needed Per Month</h2>
+	<% current_user.supplements_per_month.each do |s, n| %>
+		<div class="col-md-offset-5"><%= "#{n} bottles of #{s}" %></div>
+	<% end %>
+<% end %>

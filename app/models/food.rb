@@ -1,5 +1,5 @@
 class Food < ActiveRecord::Base
-	validates :name, presence: true
+	validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :sub_exchange_id }
   validates :carbs_per_serving, presence: true
   validates :protein_per_serving, presence: true
   validates :fat_per_serving, presence: true

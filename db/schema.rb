@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923201706) do
+ActiveRecord::Schema.define(version: 20150924193912) do
 
   create_table "exchanges", force: :cascade do |t|
     t.string   "name"
@@ -154,6 +154,31 @@ ActiveRecord::Schema.define(version: 20150923201706) do
   end
 
   add_index "sub_exchanges", ["exchange_id"], name: "index_sub_exchanges_on_exchange_id"
+
+  create_table "supplement_assignments", force: :cascade do |t|
+    t.integer  "supplement_product_id"
+    t.integer  "meal_id"
+    t.integer  "number_of_servings"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "supplement_brands", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "supplement_products", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "supplement_brand_id"
+    t.string   "name"
+    t.string   "serving_type"
+    t.integer  "servings_per_bottle"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "username"

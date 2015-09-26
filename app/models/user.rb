@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
 	has_many :sub_exchanges, dependent: :destroy
 	has_many :foods, dependent: :destroy
 	has_many :meals, dependent: :destroy
+	has_many :supplement_brands, dependent: :destroy
+	has_many :supplement_products, dependent: :destroy
 	
 	def clients
 
@@ -329,6 +331,27 @@ class User < ActiveRecord::Base
 		if !(resting_heart_rate.blank? || age.blank?)
 			0.8 * (220 - age - resting_heart_rate) + resting_heart_rate
 		end
+	end
+	
+	def supplements_per_month
+		all_supplement_assignments =  SupplementAssignment.joins(meal: :user).where(:user == self)
+
+		uniq_assigned_products = []
+		all_supplement_assignments.each do |assigned|
+			uniq_assigned_products.push(assigned.supplement_product) if 
+				!uniq_assigned_products.include?(assigned.supplement_product)
+		end
+		
+		supplements_per_day = {}
+
+		uniq_assigned_products.each do |uniq|
+			all_supplement_assignments.each do |assigned|
+				supplements_per_day[uniq] += assigned.number_of_servings if 
+					assigned.supplement_product.name == uniq
+			end
+		end
+		
+		supplements_per_day.map {|s, n| {s => n * 365 / 12}}.reduce(:merge)
 	end
 	
 	private

@@ -17,11 +17,12 @@ class MealsController < ApplicationController
         end
       end
       
-		  @available_sub_exchanges = SubExchange.joins(foods: :user).where("users.license = ? OR users.id = ?", 
+		  @my_sub_exchanges = SubExchange.joins(foods: :user).where("users.license = ? OR users.id = ?", 
 		    "owner", @new_meal.user.trainer.id )
-#		  non_empty_sub_exchanges = SubExchange.joins(:foods).where("foods.users.license = ? OR foods.users.id = ?",
-#		    "owner", @new_meal.user.trainer.id )
-#		  @available_sub_exchanges = sups_sub_exchanges.merge(non_empty_sub_exchanges)
+		  
+		  @my_supplement_products = SupplementProduct.joins(:user).where("users.license = ? OR users.id = ?", 
+		    "owner", @new_meal.user.trainer.id )
+		    
 		else
 			flash[:danger] = "You are not authorized to view meals for this client"
 			redirect_to root_path
@@ -29,7 +30,7 @@ class MealsController < ApplicationController
 	end
 	
 	def create
-		if authorized_to_edit(focussed_user)
+		if authorized_to_create_for(focussed_user)
       
       @meal = focussed_user.meals.build(meal_params)
 
@@ -44,7 +45,7 @@ class MealsController < ApplicationController
 	end
 	
 	def update
-		if authorized_to_edit(@meal.user)
+		if authorized_to_edit_for(@meal.user)
 		  
       respond_to do |format|
         if @meal.update_attributes(meal_params)
@@ -64,7 +65,7 @@ class MealsController < ApplicationController
 	end
 	
 	def destroy
-		if authorized_to_edit(@meal.user)
+		if authorized_to_delete_for(@meal.user)
       @meal.destroy
       flash[:success] = "meals deleted"
     else
@@ -88,17 +89,24 @@ class MealsController < ApplicationController
       )
     end
     
-		def authorized_to_edit(user)
-			(current_license != "client" && 
+    def authorized_to_create_for(user)
+      (current_license != "client" && 
        current_user.clients.include?(user)) ||
        current_license == "owner"
+    end
+	
+		def authorized_to_edit_for(user)
+			authorized_to_create_for(user)
+		end
+		
+		def authorized_to_delete_for(user)
+		  authorized_to_create_for(user) &&
+		  current_license != "employee"
 		end
     
     def authorized_to_see(user)
-			(current_license != "client" && 
-       current_user.clients.include?(user)) ||
-       current_license == "owner" ||
-       current_user == user
+			authorized_to_create_for(user) ||
+      current_user == user
     end
 
 end

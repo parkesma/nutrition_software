@@ -5,7 +5,11 @@
 		<th>Exchanges</th>
 		<th>Categories</th>
 		<th>Foods</th>
-		<th col-span="3"></th>
+		<th colspan="3" class="text-right">
+			<% if current_license == "owner" %>
+				(Creator)
+			<% end %>
+		</th>
 	</tr>
 	<% if !@exchanges.nil? %>
 		<% @exchanges.each do |e| %>
@@ -24,7 +28,12 @@
 					<% end %>
 					
 				<% else %>
-					<td colspan="6"><%= e.name %></td>
+					<td colspan="5"><%= e.name %></td>
+					<td class="text-right">
+						<% if current_license == "owner" %>
+							<%= "(#{e.user.name})" %>
+						<% end %>
+					</td>
 				<% end %>
 
 				<% @e = e %>
@@ -40,6 +49,6 @@
 	<% end %>
 </table>
 
-<% if !@supplements.nil? %>
-	<% render 'supplements' %>
-<% end %>
+<table class="table">
+	<%= render 'supplement_brands' %>
+</table>

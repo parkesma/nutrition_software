@@ -1,5 +1,5 @@
 class SubExchange < ActiveRecord::Base
-	validates :name,   presence: true
+	validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :exchange_id }
 	belongs_to :user
 	belongs_to :exchange
 	has_many :foods, dependent: :destroy
