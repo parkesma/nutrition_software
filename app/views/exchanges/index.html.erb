@@ -42,10 +42,10 @@
 	<% end %>
 <% end %>
 <table class="table">
-	<%= form_for(:exchange, url: exchanges_path, method: :post) do |f| %>
+	<%= form_for(:exchange, url: exchanges_path, method: :post) do |g| %>
 		<tr>
-			<td colspan="5"><%= f.text_field :name, class: "table-text" %></td>
-			<td><%= f.submit 'Add New Exchange', class: "btn-md btn-primary" %></td>
+			<td colspan="5"><%= g.text_field :name, class: "table-text" %></td>
+			<td><%= g.submit "Add New Exchange", class: "btn-sm btn-primary" %></td>
 		</tr>
 	<% end %>
 </table>

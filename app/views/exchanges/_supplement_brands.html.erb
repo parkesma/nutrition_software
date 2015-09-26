@@ -1,4 +1,4 @@
-<% if !@supplement_brands.nil? %>
+<% if !@supplement_brands.blank? %>
 	<div class="meal-table">
 		<table class="table">
 			<tr>
@@ -15,11 +15,11 @@
 				<tr>
 					<% if @my_supplement_brands && @my_supplement_brands.include?(b) %>
 							
-						<%= form_for(:supplement_brand, url: supplement_brands_path(b), method: :patch) do |f| %>
+						<%= form_for(:supplement_brand, url: supplement_brand_path(b), method: :patch) do |f| %>
 							<td colspan="5"><%= f.text_field :name, value: b.name, class: "table-text" %></td>
 							<td><a><%= f.submit 'Update', class: "submit-link" %></a></td>
 							<td>
-								<%= link_to 'Delete', supplement_brands_path(b), method: :delete, 
+								<%= link_to 'Delete', supplement_brand_path(b), method: :delete, 
 										data: {confirm: 'Are you sure? This will also delete all associated supplement products and Meal Plan entries.'} %>
 							</td>
 							<% if current_license == "owner" %>
@@ -36,14 +36,14 @@
 				<% @b = b %>
 				<%= render 'supplement_products' %>
 			<% end %>
-		<% end %>
-	</table>
-</div>
+		</table>
+	</div>
+<% end %>
 <table class="table">
 	<%= form_for(:supplement_brand, url: supplement_brands_path, method: :post) do |f| %>
 	<tr>
 			<td><%= f.text_field :name, class: "table-text" %></td>
-			<td><%= f.submit 'Add New Supplement Brand', class: "btn-md btn-primary" %></td>
+			<td><%= f.submit 'Add New Supplement Brand', class: "btn-sm btn-primary" %></td>
 		</tr>
 	<% end %>
 </table>
