@@ -1,10 +1,10 @@
 <tr>
-	<td class="text-right"><%= @fa.servings_text %></td>
-	<td onchange='$("#food_form<%= @fa.id %>").submit();'>
+	<td colspan="2" class="text-right"><%= @fa.servings_text %></td>
+	<td class="col-md-2" onchange='$("#food_form<%= @fa.id %>").submit();'>
 		<%= @f.collection_select :food_id, @fa.available_foods, :id, :name,
 				{selected: @fa.food.id}, {} %>
 	</td>
-	<td class="text-right number-field" onchange='$("#food_form<%= @fa.id %>").submit();'>
+	<td class="text-right" onchange='$("#food_form<%= @fa.id %>").submit();'>
 		<%= @f.text_field :number_of_exchanges, value: @fa.number_of_exchanges %>
 	</td>
 	<td class="text-left" onchange='$("#food_form<%= @fa.id %>").submit();'>
@@ -29,7 +29,9 @@
 			<% end %>
 		<% end %>
 	</td>
-	<td>
-		<%= link_to 'Remove', @fa, method: :delete %>
-	</td>
+	<% if current_license != "employee" %>
+		<td>
+			<%= link_to 'Remove', @fa, method: :delete %>
+		</td>
+	<% end %>
 </tr>

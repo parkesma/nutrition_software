@@ -2,25 +2,32 @@
 	<% (@b.supplement_products & @supplement_products).each do |s| %>
 		<tr>
 			<td></td>
-			<% if current_user == @b.user %>
+			<% if @my_supplement_products && @my_supplement_products.include?(s) %>
 					
-				<%= form_for(:supplement_product, url: supplement_products_path(s), 
-						method: :patch) do |f| %>
-					<td colspan="3"><%= f.text_field :name, value: s.name, class: "table-text" %></td>
+				<%= form_for(:supplement_product, url: supplement_product_path(s), method: :patch) do |f| %>
+					<td><%= f.text_field :name, value: s.name, class: "table-text" %></td>
+					<td><%= f.text_field :retail_package_type, value: s.retail_package_type, class: "table-text" %></td>
+					<td><%= f.text_field :serving_type, value: s.serving_type, class: "table-text" %></td>
+					<td><%= f.text_field :servings_per_bottle, value: s.servings_per_bottle, class: "table-text" %></td>
 					<td><a><%= f.submit 'Update', class: "submit-link" %></a></td>
 					<td>
-						<%= link_to 'Delete', sub_exchange_path(s), method: :delete, 
+						<%= link_to 'Delete', supplement_product_path(s), method: :delete, 
 								data: {confirm: 'Are you sure? This will also delete all associated Meal Plan entries.'} %>
 					</td>
+					<% if current_license == "owner" %>
+						<td class="text-right">
+							<%= "(#{s.user.name})" %>
+						</td>
+					<% end %>
 				<% end %>
 								
 			<% else %>
-				<td colspan="4"><%= s.name %></td>
-				<td class="text-right">
-					<% if current_license == "owner" %>
-						<%= "(#{s.user.name})" %>
-					<% end %>
-				</td>
+				<td><%= s.name %></td>
+				<td><%= s.retail_package_type %></td>
+				<td><%= s.serving_type %></td>
+				<td><%= s.servings_per_bottle %></td>
+				<td></td>
+				<td></td>
 			<% end %>
 		</tr>
 	<% end %>
@@ -29,7 +36,10 @@
 	<tr>
 		<%= f.hidden_field :supplement_brand_id, value: @b.id %>
 		<td></td>
-		<td colspan="4"><%= f.text_field :name, class: "table-text" %></td>
-		<td><%= f.submit 'Add New Product', class: "submit-link" %></td>
+		<td><%= f.text_field :name, class: "table-text" %></td>
+		<td><%= f.text_field :retail_package_type, class: "table-text" %></td>
+		<td><%= f.text_field :serving_type, class: "table-text" %></td>
+		<td><%= f.text_field :servings_per_bottle, class: "table-text" %></td>
+		<td colspan="2"><%= f.submit 'Add New Product', class: "btn-sm btn-primary" %></td>
 	</tr>
 <% end %>

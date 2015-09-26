@@ -1,10 +1,10 @@
 <%= form_for :supplement_assignment, url: supplement_assignment_path(@sa), method: :patch,
 		html: {id: "supplement_form#{@sa.id}"} do |f| %>
-	<td onchange='$("#supplement_form<%= @sa.id %>").submit();' class="text-right number-field">
-		<%= f.number_field :number_of_servings, min: 0, value: @sa.number_of_servings, 
-				html: {id: "number_of_servings"} %>
-	</td>
 	<td onchange='$("#supplement_form<%= @sa.id %>").submit();'>
+		<%= f.text_field :number_of_servings, value: @sa.number_of_servings, class: "text-right" %>
+	</td>
+	<td><%= @sa.serving_type_text %></td>
+	<td colspan="10" onchange='$("#supplement_form<%= @sa.id %>").submit();'>
 		<%= f.collection_select :supplement_product_id, @my_supplement_products, :id, :drop_down_text, 
 				{selected: @sa.supplement_product.id}, {} %>
 	</td>

@@ -32,11 +32,16 @@ class ExchangesController < ApplicationController
       	@supplement_products  = (@my_supplement_products  || []) + (owner_supplement_products || [])
 			end
     else
-      @exchanges            = Exchange.all
-      @sub_exchanges        = SubExchange.all
-      @foods                = Food.all
-      @supplement_brands    = SupplementBrand.all
-      @supplement_products  = SupplementProduct.all
+      @exchanges              = Exchange.all
+      @sub_exchanges          = SubExchange.all
+      @foods                  = Food.all
+      @supplement_brands      = SupplementBrand.all
+      @supplement_products    = SupplementProduct.all
+      @my_exchanges           = @exchanges            
+      @my_sub_exchanges       = @sub_exchanges
+      @my_foods               = @foods
+      @my_supplement_brands   = @supplement_brands
+      @my_supplement_products = @supplement_products
     end
 	end
 	

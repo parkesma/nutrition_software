@@ -1,34 +1,49 @@
-<% if !@supplement_brands.nil? %>
-	<% @supplement_brands.each do |b| %>
+<div class="meal-table">
+	<table class="table">
 		<tr>
-			<% if current_user == b.user %>
-					
-				<%= form_for(:supplement_brand, url: supplement_brands_path(b), method: :patch) do |f| %>
-					<td colspan="3"><%= f.text_field :name, value: b.name, class: "table-text" %></td>
-					<td><a><%= f.submit 'Update', class: "submit-link" %></a></td>
-					<td>
-						<%= link_to 'Delete', supplement_brands_path(b), method: :delete, 
-								data: {confirm: 'Are you sure? This will also delete all associated supplement products and Meal Plan entries.'} %>
-					</td>
-				<% end %>
-								
-			<% else %>
-				<td colspan="5"><%= b.name %></td>
-				<td class="text-right">
-					<% if current_license == "owner" %>
-						<%= "(#{b.user.name})" %>
-					<% end %>
-				</td>
+			<th>Brand</th>
+			<th>Product</th>
+			<th>Package Type<br/>(e.g. box, bottle, etc.)</th>
+			<th>Serving Type<br/>(e.g. pill, bar, etc.)</th>
+			<th>Servings Per Package</th>
+			<% if current_license == "owner" %>
+				<th colspan="3" class="text-right">(Creator)</th>
 			<% end %>
-								
-			<% @b = b %>
-			<%= render 'supplement_products' %>
+		</tr>
+		<% if !@supplement_brands.nil? %>
+			<% @supplement_brands.each do |b| %>
+				<tr>
+					<% if @my_supplement_brands && @my_supplement_brands.include?(b) %>
+							
+						<%= form_for(:supplement_brand, url: supplement_brands_path(b), method: :patch) do |f| %>
+							<td colspan="5"><%= f.text_field :name, value: b.name, class: "table-text" %></td>
+							<td><a><%= f.submit 'Update', class: "submit-link" %></a></td>
+							<td>
+								<%= link_to 'Delete', supplement_brands_path(b), method: :delete, 
+										data: {confirm: 'Are you sure? This will also delete all associated supplement products and Meal Plan entries.'} %>
+							</td>
+							<% if current_license == "owner" %>
+								<td class="text-right">
+									<%= "(#{b.user.name})" %>
+								</td>
+							<% end %>
+						<% end %>
+										
+					<% else %>
+						<td colspan="7"><%= b.name %></td>
+					<% end %>
+				</tr>								
+				<% @b = b %>
+				<%= render 'supplement_products' %>
+			<% end %>
+		<% end %>
+	</table>
+</div>
+<table class="table">
+	<%= form_for(:supplement_brand, url: supplement_brands_path, method: :post) do |f| %>
+	<tr>
+			<td><%= f.text_field :name, class: "table-text" %></td>
+			<td><%= f.submit 'Add New Supplement Brand', class: "btn-md btn-primary" %></td>
 		</tr>
 	<% end %>
-<% end %>
-<%= form_for(:supplement_brand, url: supplement_brands_path, method: :post) do |f| %>
-	<tr>
-		<td colspan="4"><%= f.text_field :name, class: "table-text" %></td>
-		<td><a><%= f.submit 'Add New Supplement Brand', class: "submit-link" %></a></td>
-	</tr>
-<% end %>
+</table>

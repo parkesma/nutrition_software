@@ -39,13 +39,13 @@ class FoodAssignmentsController < ApplicationController
 	def update
 		if authorized_to_edit_for(@food_assignment.meal.user)
 		  
-		  if food_assignment_params[:position]
+		  if food_assignment_params[:position] != @food_assignment.position
 		    above = @food_assignment.meal.food_assignments.where(
 			          "position = ?", @food_assignment.position - 1)
 		    above.update_all(position: @food_assignment.position) if above.size > 0
 		  end
-		  
-		  if params[:sub_exchange] && params[:sub_exchange] != @food_assignment.food.sub_exchange.id
+
+		  if params[:sub_exchange] && params[:sub_exchange].to_i != @food_assignment.food.sub_exchange.id
 		  		new_sub_exchange = SubExchange.find_by(id: params[:sub_exchange])
 		  		params[:food_assignment][:food_id] = new_sub_exchange.first_food_id
 		  end

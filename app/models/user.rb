@@ -67,6 +67,14 @@ class User < ActiveRecord::Base
 		end
 	end
 	
+	def trainer_id
+		if self.trainer
+			self.trainer.id
+		else
+			0
+		end
+	end
+	
 	def name
 		"#{first_name} #{last_name}"
 	end
@@ -334,24 +342,27 @@ class User < ActiveRecord::Base
 	end
 	
 	def supplements_per_month
-		all_supplement_assignments =  SupplementAssignment.joins(meal: :user).where(:user == self)
-
-		uniq_assigned_products = []
-		all_supplement_assignments.each do |assigned|
-			uniq_assigned_products.push(assigned.supplement_product) if 
-				!uniq_assigned_products.include?(assigned.supplement_product)
-		end
-		
+		all_supplement_assignments = SupplementAssignment.joins(meal: :user).where("user_id = ?", self.id)
 		supplements_per_day = {}
 
-		uniq_assigned_products.each do |uniq|
-			all_supplement_assignments.each do |assigned|
-				supplements_per_day[uniq] += assigned.number_of_servings if 
-					assigned.supplement_product.name == uniq
+		all_supplement_assignments.each do |sa|
+			supplement_name = sa.supplement_product.drop_down_text
+			if supplements_per_day[supplement_name].nil?
+				supplements_per_day[supplement_name] = 
+					[sa.supplement_product.servings_per_bottle, sa.number_of_servings, sa.supplement_product]
+			else
+				supplements_per_day[supplement_name][1] += sa.number_of_servings
 			end
 		end
 		
-		supplements_per_day.map {|s, n| {s => n * 365 / 12}}.reduce(:merge)
+		supplements_per_month = supplements_per_day.map { |sa, array| 
+			number = (array[1] * 365 / 12.00 / array[0]).round(2)
+			[sa, number, array[2].package_text(number)]
+		}
+		
+		supplements_per_month.map! { |sa, number, package_text| 
+			"#{number} #{package_text} of #{sa}"
+		}
 	end
 	
 	private

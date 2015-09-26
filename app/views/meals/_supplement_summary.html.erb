@@ -1,6 +1,6 @@
-<% if !current_user.supplements_per_month.nil? %>
-	<h2 class="text-center">Supplements Needed Per Month</h2>
-	<% current_user.supplements_per_month.each do |s, n| %>
-		<div class="col-md-offset-5"><%= "#{n} bottles of #{s}" %></div>
+<% if !focussed_user.supplements_per_month.nil? %>
+	<h1 class="text-center">Supplements Needed Each Month</h1>
+	<% focussed_user.supplements_per_month.each do |supplements_string| %>
+		<p class="text-center big"><%= supplements_string %></p>
 	<% end %>
 <% end %>

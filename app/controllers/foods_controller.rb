@@ -54,7 +54,7 @@ class FoodsController < ApplicationController
       redirect_to root_path
     elsif @food.destroy
       flash[:success] = 'Food was deleted.'
-      redirect_to foods_path
+      redirect_to exchanges_path
     end
 	end
 	

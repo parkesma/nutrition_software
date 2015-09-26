@@ -1,5 +1,6 @@
 <!-- list of meals -->
 <% if !@meals.nil? %>
+	<h1>Meal Plan</h1>
 	<% @meals.each do |meal| %>
 		<% @meal = meal %>
 		<div id="meal<%= meal.id %>" class="meal-table">

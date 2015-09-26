@@ -6,6 +6,7 @@ owners:
   supplement_brand_id: 1
   name: Owners Supplement Product
   serving_type: pill
+  retail_package_type: bottle
   servings_per_bottle: 100
   supplement_brand_id: 1
   
@@ -15,6 +16,7 @@ employers:
   supplement_brand_id: 1
   name: Employers Supplement Product
   serving_type: pill
+  retail_package_type: bottle
   servings_per_bottle: 100
   supplement_brand_id: 1
   
@@ -24,5 +26,6 @@ others:
   supplement_brand_id: 1
   name: Others Supplement Product
   serving_type: pill
+  retail_package_type: bottle
   servings_per_bottle: 100
   supplement_brand_id: 1

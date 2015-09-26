@@ -4,18 +4,18 @@ class SupplementAssignment < ActiveRecord::Base
 	belongs_to :supplement_product
 	
 	def servings_text
-		if self.number_of_servings = 1
+		if self.number_of_servings == 1
 			"1 #{self.supplement_product.serving_type} of "
 		else
-			"#{self.number_of_servings} #{self.supplement_product.serving_type.pluralized} of "
+			"#{self.number_of_servings} #{self.supplement_product.serving_type.pluralize} of "
 		end
 	end
 	
 	def serving_type_text
-		if self.number_of_servings = 1
+		if self.number_of_servings == 1
 			"#{self.supplement_product.serving_type} of "
 		else
-			"#{self.supplement_product.serving_type.pluralized} of "
+			"#{self.supplement_product.serving_type.pluralize} of "
 		end
 	end
 end

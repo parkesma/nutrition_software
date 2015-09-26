@@ -17,7 +17,7 @@ class FoodAssignment < ActiveRecord::Base
 	
 	def available_foods
 		sups_foods = Food.joins(:user).where("users.license = ? OR users.id = ?", 
-			"owner", self.meal.user.trainer.id )
+			"owner", self.meal.user.trainer_id )
 		same_category_foods = self.food.sub_exchange.foods
 		same_category_foods.merge(sups_foods)
 	end

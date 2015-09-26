@@ -59,7 +59,7 @@ class SupplementProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def supplement_product_params
       params.require(:supplement_product).permit(
-        :name, :serving_type, :servings_per_bottle, :supplement_brand_id
+        :name, :serving_type, :servings_per_bottle, :supplement_brand_id, :retail_package_type
       )
     end
     

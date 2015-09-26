@@ -1,54 +1,55 @@
 <h1>Foods</h1>
-
-<table class="table">
-	<tr>
-		<th>Exchanges</th>
-		<th>Categories</th>
-		<th>Foods</th>
-		<th colspan="3" class="text-right">
-			<% if current_license == "owner" %>
-				(Creator)
-			<% end %>
-		</th>
-	</tr>
-	<% if !@exchanges.nil? %>
-		<% @exchanges.each do |e| %>
-			<tr>
-				<% if current_user == e.user %>
-				
-					<%= form_for(:exchange, url: exchange_path(e), 
-							method: :patch, html: {class: "form-horizontal"}) do |f| %>
-						<td colspan="4"><%= f.text_field :name, value: e.name, 
-																class: "table-text" %></td>
-						<td><a><%= f.submit 'Update', class: "submit-link" %></a></td>
-						<td>
-							<%= link_to 'Delete', exchange_path(e), method: :delete, 
-									data: {confirm: 'Are you sure? This will also delete all associated Categories, Foods, and Meal Plan entries.'} %>
-						</td>
-					<% end %>
-					
-				<% else %>
-					<td colspan="5"><%= e.name %></td>
-					<td class="text-right">
-						<% if current_license == "owner" %>
-							<%= "(#{e.user.name})" %>
+<% if !@exchanges.nil? %>
+	<% @exchanges.each do |e| %>
+		<div class="meal-table">
+			<table class="table">
+				<tr>
+					<% if @my_exchanges && @my_exchanges.include?(e) %>
+						<%= form_for(:exchange, url: exchange_path(e), method: :patch) do |f| %>
+							<td colspan="3" class="big"><%= f.text_field :name, value: e.name, class: "table-text text-center" %></td>
+							<td><a><%= f.submit 'Update', class: "submit-link" %></a></td>
+							<td>
+								<%= link_to 'Delete', exchange_path(e), method: :delete, 
+										data: {confirm: 'Are you sure? This will also delete all associated Categories, Foods, and Meal Plan entries.'} %>
+							</td>
+							<% if current_license == "owner" %>
+								<td class="text-right">
+									<%= "(#{e.user.name})" %>
+								</td>
+							<% end %>
 						<% end %>
-					</td>
-				<% end %>
-
+							
+					<% else %>
+						<td colspan="3" class="big text-center"><%= e.name %></td>
+						<td></td>
+						<td></td>
+					<% end %>
+				</tr>
+				<tr>
+					<th>Categories</th>
+					<th>Foods</th>
+					<th>Servings per Exchange</th>
+					<% if current_license == "owner" %>
+						<th colspan="3" class="text-right">(Creator)</th>
+					<% else %>
+						<th colspan="2" class="text-right"></th>
+					<% end %>
+				</tr>
 				<% @e = e %>
 				<%= render 'sub_exchanges' %>
-			</tr>
-		<% end %>
+			</table>
+		</div>
 	<% end %>
+<% end %>
+<table class="table">
 	<%= form_for(:exchange, url: exchanges_path, method: :post) do |f| %>
 		<tr>
 			<td colspan="5"><%= f.text_field :name, class: "table-text" %></td>
-			<td><a><%= f.submit 'Add New Exchange', class: "submit-link" %></a></td>
+			<td><%= f.submit 'Add New Exchange', class: "btn-md btn-primary" %></td>
 		</tr>
 	<% end %>
 </table>
 
-<table class="table">
+<h1>Supplements</h2>
 	<%= render 'supplement_brands' %>
 </table>

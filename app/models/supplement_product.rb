@@ -10,4 +10,13 @@ class SupplementProduct < ActiveRecord::Base
 	def drop_down_text
 		"#{self.supplement_brand.name}: #{self.name}"
 	end
+	
+	def package_text(number)
+		if number == 1
+			self.retail_package_type
+		else
+			self.retail_package_type.pluralize
+		end
+	end
+		
 end
