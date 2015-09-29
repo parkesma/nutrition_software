@@ -57,7 +57,7 @@ class EnterFoodsTest < ActionDispatch::IntegrationTest
     login_as(@employee)
     can_index(@employers)
     can_create
-    employees_food = Food.find_by(name: "new food")
+    employees_food = Food.find_by(name: "New Food")
     assert_equal employees_food.user, @employer
     can_update(@employers)
     cannot_delete(@employers)
@@ -79,6 +79,27 @@ class EnterFoodsTest < ActionDispatch::IntegrationTest
         cannot_delete(@others)
       end
     end
+  end
+  
+  test "name should capitalize on create and save" do
+    login_as(@owner)
+    post foods_path, food: {
+      sub_exchange_id: 1,
+      name: "lowercase",
+      carbs_per_serving: 10,
+      protein_per_serving: 10,
+      fat_per_serving: 10,
+      kcals_per_serving: 10,
+      servings_per_exchange: 1,
+      serving_type: "slice"
+    }
+    assert @owner.foods.pluck(:name).include?("Lowercase")
+    assert !@owner.foods.pluck(:name).include?("lowercase")
+    
+    @owners.name = "downcase"
+    @owners.save
+    assert @owner.foods.pluck(:name).include?("Downcase")
+    assert !@owner.foods.pluck(:name).include?("downcase")
   end
 
   def login_as(user)
@@ -153,7 +174,7 @@ class EnterFoodsTest < ActionDispatch::IntegrationTest
     assert food.name != "changed food"
     patch food_path(food), 
       food: {name: "changed food"}
-    assert food.reload.name == "changed food"
+    assert food.reload.name == "Changed Food"
   end
   
   def cannot_delete(food)

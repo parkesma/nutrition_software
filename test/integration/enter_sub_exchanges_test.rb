@@ -56,7 +56,7 @@ class EnterSubExchangesTest < ActionDispatch::IntegrationTest
     login_as(@employee)
     can_index(@employers)
     can_create
-    employees_sub_exchange = SubExchange.find_by(name: "new sub_exchange")
+    employees_sub_exchange = SubExchange.find_by(name: "New Sub Exchange")
     assert_equal employees_sub_exchange.user, @employer
     can_update(@employers)
     cannot_delete(@employers)
@@ -78,6 +78,21 @@ class EnterSubExchangesTest < ActionDispatch::IntegrationTest
         cannot_delete(@others)
       end
     end
+  end
+  
+  test "name should capitalize on create and save" do
+    login_as(@owner)
+    post sub_exchanges_path, sub_exchange: {
+      name: "lowercase",
+      exchange_id: 1
+    }
+    assert @owner.sub_exchanges.pluck(:name).include?("Lowercase")
+    assert !@owner.sub_exchanges.pluck(:name).include?("lowercase")
+    
+    @owners.name = "downcase"
+    @owners.save
+    assert @owner.sub_exchanges.pluck(:name).include?("Downcase")
+    assert !@owner.sub_exchanges.pluck(:name).include?("downcase")
   end
 
   def login_as(user)
@@ -136,7 +151,7 @@ class EnterSubExchangesTest < ActionDispatch::IntegrationTest
     assert sub_exchange.name != "changed sub_exchange"
     patch sub_exchange_path(sub_exchange), 
       sub_exchange: {name: "changed sub_exchange"}
-    assert sub_exchange.reload.name == "changed sub_exchange"
+    assert sub_exchange.reload.name == "Changed Sub Exchange"
   end
   
   def cannot_delete(sub_exchange)

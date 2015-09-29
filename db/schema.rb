@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926180742) do
+ActiveRecord::Schema.define(version: 20150928212347) do
 
   create_table "exchanges", force: :cascade do |t|
     t.string   "name"
@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 20150926180742) do
     t.integer  "user_id"
     t.string   "name"
     t.string   "description"
-    t.float    "Kcal_per_kg_per_hr"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.decimal  "Kcal_per_kg_per_hr", precision: 10, scale: 2
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "category"
   end
 
@@ -46,23 +46,23 @@ ActiveRecord::Schema.define(version: 20150926180742) do
 
   create_table "fat_measurements", force: :cascade do |t|
     t.integer  "user_id"
-    t.float    "weight"
-    t.float    "chest"
-    t.float    "abdomen"
-    t.float    "thigh"
-    t.float    "tricep"
-    t.float    "subscapular"
-    t.float    "iliac_crest"
-    t.float    "calf"
-    t.float    "bicep"
-    t.float    "lower_back"
-    t.float    "neck"
-    t.float    "measured_bf"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.decimal  "weight",      precision: 10, scale: 2
+    t.decimal  "chest",       precision: 10, scale: 2
+    t.decimal  "abdomen",     precision: 10, scale: 2
+    t.decimal  "thigh",       precision: 10, scale: 2
+    t.decimal  "tricep",      precision: 10, scale: 2
+    t.decimal  "subscapular", precision: 10, scale: 2
+    t.decimal  "iliac_crest", precision: 10, scale: 2
+    t.decimal  "calf",        precision: 10, scale: 2
+    t.decimal  "bicep",       precision: 10, scale: 2
+    t.decimal  "lower_back",  precision: 10, scale: 2
+    t.decimal  "neck",        precision: 10, scale: 2
+    t.decimal  "measured_bf", precision: 10, scale: 2
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "bf_method"
-    t.float    "midaxillary"
-    t.float    "hip"
+    t.decimal  "midaxillary", precision: 10, scale: 2
+    t.decimal  "hip",         precision: 10, scale: 2
   end
 
   add_index "fat_measurements", ["user_id"], name: "index_fat_measurements_on_user_id"
@@ -70,9 +70,9 @@ ActiveRecord::Schema.define(version: 20150926180742) do
   create_table "food_assignments", force: :cascade do |t|
     t.integer  "meal_id"
     t.integer  "food_id"
-    t.float    "number_of_exchanges"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.decimal  "number_of_exchanges", precision: 10, scale: 2
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "position"
   end
 
@@ -82,15 +82,14 @@ ActiveRecord::Schema.define(version: 20150926180742) do
   create_table "foods", force: :cascade do |t|
     t.integer  "sub_exchange_id"
     t.string   "name"
-    t.float    "carbs_per_serving"
-    t.float    "protein_per_serving"
-    t.float    "fat_per_serving"
-    t.float    "kcals_per_serving"
-    t.float    "servings_per_exchange"
+    t.decimal  "carbs_per_serving",     precision: 10, scale: 2
+    t.decimal  "protein_per_serving",   precision: 10, scale: 2
+    t.decimal  "fat_per_serving",       precision: 10, scale: 2
+    t.decimal  "kcals_per_serving",     precision: 10, scale: 2
+    t.decimal  "servings_per_exchange", precision: 10, scale: 2
     t.string   "serving_type"
-    t.float    "supplement_servings_per_bottle"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.integer  "user_id"
   end
 
@@ -109,17 +108,17 @@ ActiveRecord::Schema.define(version: 20150926180742) do
 
   create_table "measurements", force: :cascade do |t|
     t.integer  "user_id"
-    t.float    "weight"
-    t.float    "body_fat"
-    t.float    "chest"
-    t.float    "waist"
-    t.float    "rt_arm"
-    t.float    "rt_forearm"
-    t.float    "hips"
-    t.float    "rt_thigh"
-    t.float    "rt_calf"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.decimal  "weight",     precision: 10, scale: 2
+    t.decimal  "body_fat",   precision: 10, scale: 2
+    t.decimal  "chest",      precision: 10, scale: 2
+    t.decimal  "waist",      precision: 10, scale: 2
+    t.decimal  "rt_arm",     precision: 10, scale: 2
+    t.decimal  "rt_forearm", precision: 10, scale: 2
+    t.decimal  "hips",       precision: 10, scale: 2
+    t.decimal  "rt_thigh",   precision: 10, scale: 2
+    t.decimal  "rt_calf",    precision: 10, scale: 2
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "measurements", ["user_id"], name: "index_measurements_on_user_id"
@@ -158,9 +157,9 @@ ActiveRecord::Schema.define(version: 20150926180742) do
   create_table "supplement_assignments", force: :cascade do |t|
     t.integer  "supplement_product_id"
     t.integer  "meal_id"
-    t.decimal  "number_of_servings"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.decimal  "number_of_servings",    precision: 10, scale: 2
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
   end
 
   create_table "supplement_brands", force: :cascade do |t|
@@ -187,7 +186,7 @@ ActiveRecord::Schema.define(version: 20150926180742) do
     t.string   "license"
     t.integer  "trainer_id"
     t.date     "expiration_date"
-    t.boolean  "graduated",               default: false
+    t.boolean  "graduated",                                        default: false
     t.string   "website1"
     t.string   "website2"
     t.string   "first_name"
@@ -208,22 +207,22 @@ ActiveRecord::Schema.define(version: 20150926180742) do
     t.string   "mobile_phone"
     t.string   "work_phone"
     t.string   "other_phone"
-    t.float    "resting_heart_rate"
-    t.float    "present_weight"
-    t.float    "height"
-    t.float    "desired_weight"
-    t.float    "desired_body_fat"
-    t.float    "measured_metabolic_rate"
+    t.decimal  "resting_heart_rate",      precision: 10, scale: 2
+    t.decimal  "present_weight",          precision: 10, scale: 2
+    t.decimal  "height",                  precision: 10, scale: 2
+    t.decimal  "desired_weight",          precision: 10, scale: 2
+    t.decimal  "desired_body_fat",        precision: 10, scale: 2
+    t.decimal  "measured_metabolic_rate", precision: 10, scale: 2
     t.integer  "activity_index"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.boolean  "logged_in"
     t.string   "work_city"
     t.string   "work_state"
     t.integer  "work_zip"
     t.string   "work_country"
     t.string   "company"
-    t.float    "present_body_fat"
+    t.decimal  "present_body_fat",        precision: 10, scale: 2
     t.string   "clothing"
   end
 

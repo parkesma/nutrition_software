@@ -1,52 +1,52 @@
-<tr class="form-group">
+<% if !@popup.blank? %>
+	<tr data-toggle="tooltip" title="<%= @popup %>" class="form-group" >
+<% else %>
+	<tr class="form-group">
+<% end %>
 
-	<% if !@popup.blank? %>
-		<div data-toggle="tooltip" title="<%= @popup %>" >
+	<% if @width=="small" %>
+		<td class="control-label control-label-small">
+			<%= @label %>
+		</td>
+	<% elsif @width=="big" %>
+		<td class="control-label control-label-big"><%= @label %></td>
+	<% else %>
+		<td class="control-label"><%= @label %></td>
 	<% end %>
+ 			
+	<% if @width=="big" %>
+		<td class="form-control form-control-big">
+	<% else %>
+		<td class="form-control">
+	<% end %>
+		<% if !@field.blank? %>
+			<div class="left">
+				<% if @precision == 2 %>
+					<%= sprintf("%0.2f", @field) %>
+				<% elsif @precision == 1 %>
+	 				<%= sprintf("%0.1f", @field) %>
+				<% else %>
+	 				<%= sprintf("%0.0f", @field) %>
+				<% end %>
 
- 			<% if @width=="small" %>
- 				<td class="control-label control-label-small">
- 					<%= @label %>
- 				</td>
- 			<% else %>
- 				<td class="control-label"><%= @label %></td>
- 			<% end %>
-  			
-	 		<td class="form-control">
- 				<% if !@field.blank? %>
-
-					<div class="left">
-	 				<% if @precision == 2 %>
-	 					<%= sprintf("%0.2f", @field) %>
- 					<% elsif @precision == 1 %>
-		 				<%= sprintf("%0.1f", @field) %>
- 					<% else %>
-		 				<%= sprintf("%0.0f", @field) %>
- 					<% end %>
-
- 					<% if @right == "kg" %>
-	 					<%= " lbs" %>
- 					<% elsif @right == "b/m" %>
-	 					<%= " to " %>
- 						<%= sprintf("%0.0f", @field2) %>
- 					<% end %>
- 					</div>
+ 				<% if @right == "kg" %>
+					<%= " lbs" %>
+ 				<% elsif @right == "b/m" %>
+					<%= " to " %>
+ 					<%= sprintf("%0.0f", @field2) %>
  				<% end %>
+ 			</div>
+ 		<% end %>
 
-	 			<% if !@field.blank? %>
- 					<% if @right=="kg" %>
-						<div class="right">
-							<%= @user.to_kg(@field) %> Kg
-						</div>
-					<% else %>
-						&nbsp
-	 					<%= @right %>
-					<% end %>
-  			<% end %>	
- 			</td>
-
-	<% if !@popup.blank? %>
-		</div>
-	<% end %>
-
+		<% if !@field.blank? %>
+ 			<% if @right=="kg" %>
+				<div class="right">
+					<%= @user.to_kg(@field) %> Kg
+				</div>
+			<% else %>
+				&nbsp
+	 			<%= @right %>
+			<% end %>
+		<% end %>	
+	</td>
 </tr>

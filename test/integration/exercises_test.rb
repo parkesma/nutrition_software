@@ -77,7 +77,7 @@ class ExercisesTest < ActionDispatch::IntegrationTest
       category: "Resistance",
       Kcal_per_kg_per_hr: 10
     }
-    employees_exercise = Exercise.find_by(name: "employees exercise")
+    employees_exercise = Exercise.find_by(name: "Employees Exercise")
     assert employees_exercise.user = @employer
   end
   
@@ -103,11 +103,11 @@ class ExercisesTest < ActionDispatch::IntegrationTest
       
       if u.license != "client"
         post exercises_path, exercise: {
-          name: "#{u.username}s exercise",
+          name: "#{u.username}s new exercise",
           category: "Resistance",
           Kcal_per_kg_per_hr: 10
         }
-        my_exercise = Exercise.find_by(name: "#{u.username}s exercise" )
+        my_exercise = Exercise.find_by(name: "#{u.username.titleize}s New Exercise" )
         can_index(my_exercise)
         can_show(my_exercise)
         can_edit(my_exercise)
@@ -116,6 +116,22 @@ class ExercisesTest < ActionDispatch::IntegrationTest
 
       end
     end
+  end
+  
+  test "name should capitalize on create and save" do
+    login_as(@owner)
+    post exercises_path, exercise: {
+      name: "lowercase",
+      category: "Resistance",
+      Kcal_per_kg_per_hr: 10
+    }
+    assert @owner.exercises.pluck(:name).include?("Lowercase")
+    assert !@owner.exercises.pluck(:name).include?("lowercase")
+    
+    @owners_exercise.name = "downcase"
+    @owners_exercise.save
+    assert @owner.exercises.pluck(:name).include?("Downcase")
+    assert !@owner.exercises.pluck(:name).include?("downcase")
   end
 
   def login_as(user)

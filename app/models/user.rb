@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
 	before_save		:capitalize
 	before_create :capitalize
-	validates :username,   presence: true,
-	                       uniqueness: { case_sensitive: false }
+	validates :username,   presence: true, uniqueness: { case_sensitive: false }
 	validates :password,   presence: true
 	validates :license,    presence: true
 	validates :last_name,  presence: true
@@ -249,18 +248,15 @@ class User < ActiveRecord::Base
 	end
 	
 	def daily_caloric_needs
-		#if !daily_average_calories.blank?
-			#daily_average_calories
-		#elsif
-		if !present_energy_expenditure.blank?
+		if !daily_kcals.blank?
+			daily_kcals
+		elsif !present_energy_expenditure.blank?
 			present_energy_expenditure * 0.8
 		end
-			
 	end
 	
 	def daily_deficit
-		if !(daily_caloric_needs.blank? || 
-				 present_energy_expenditure.blank?)
+		if !(daily_caloric_needs.blank? || present_energy_expenditure.blank?)
 			daily_caloric_needs - present_energy_expenditure
 		end
 	end
@@ -361,8 +357,40 @@ class User < ActiveRecord::Base
 		}
 		
 		supplements_per_month.map! { |sa, number, package_text| 
-			"#{number} #{package_text} of #{sa}"
+			"#{"%g" % ("%.2f" % number)} #{package_text} of #{sa}"
 		}
+	end
+	
+	def daily_carbs
+		total = 0
+		self.meals.each do |meal|
+			total += meal.carbs
+		end
+		total
+	end
+	
+	def daily_protein
+		total = 0
+		self.meals.each do |meal|
+			total += meal.protein
+		end
+		total
+	end
+	
+	def daily_fat
+		total = 0
+		self.meals.each do |meal|
+			total += meal.fat
+		end
+		total
+	end
+	
+	def daily_kcals
+		total = 0
+		self.meals.each do |meal|
+			total += meal.kcals
+		end
+		total
 	end
 	
 	private

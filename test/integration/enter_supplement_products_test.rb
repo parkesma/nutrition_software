@@ -56,7 +56,7 @@ class EnterSupplementProductsTest < ActionDispatch::IntegrationTest
     login_as(@employee)
     can_index(@employers)
     can_create
-    employees = SupplementProduct.find_by(name: "new supplement product")
+    employees = SupplementProduct.find_by(name: "New Supplement Product")
     assert_equal employees.user, @employer
     can_update(@employers)
     cannot_delete(@employers)
@@ -78,6 +78,24 @@ class EnterSupplementProductsTest < ActionDispatch::IntegrationTest
         cannot_delete(@others)
       end
     end
+  end
+  
+  test "name should capitalize on create and save" do
+    login_as(@owner)
+    post supplement_products_path, supplement_product: {
+      name: "lowercase",
+      serving_type: "pill",
+      servings_per_bottle: 100,
+      retail_package_type: "bottle",
+      supplement_brand_id: 1
+    }
+    assert @owner.supplement_products.pluck(:name).include?("Lowercase")
+    assert !@owner.supplement_products.pluck(:name).include?("lowercase")
+    
+    @owners.name = "downcase"
+    @owners.save
+    assert @owner.supplement_products.pluck(:name).include?("Downcase")
+    assert !@owner.supplement_products.pluck(:name).include?("downcase")
   end
 
   def login_as(user)
@@ -111,6 +129,7 @@ class EnterSupplementProductsTest < ActionDispatch::IntegrationTest
         name: "new supplement product",
         serving_type: "pill",
         servings_per_bottle: 100,
+        retail_package_type: "bottle",
         supplement_brand_id: 1
       }
     end
@@ -124,6 +143,7 @@ class EnterSupplementProductsTest < ActionDispatch::IntegrationTest
         name: "new supplement product",
         serving_type: "pill",
         servings_per_bottle: 100,
+        retail_package_type: "bottle",
         supplement_brand_id: 1
       }
     end
@@ -135,7 +155,7 @@ class EnterSupplementProductsTest < ActionDispatch::IntegrationTest
       supplement_product: {name: "changed supplement product#{@i}"}
     assert !flash[:danger].blank?
     assert_redirected_to root_path
-    assert supplement_product.reload.name != "changed supplement product#{@i}"
+    assert supplement_product.reload.name != "Changed Supplement Product#{@i}"
   end
     
   def can_update(supplement_product)
@@ -143,7 +163,7 @@ class EnterSupplementProductsTest < ActionDispatch::IntegrationTest
     assert supplement_product.name != "changed supplement product#{@i}"
     patch supplement_product_path(supplement_product), 
       supplement_product: {name: "changed supplement product#{@i}"}
-    assert supplement_product.reload.name == "changed supplement product#{@i}"
+    assert supplement_product.reload.name == "Changed Supplement Product#{@i}"
   end
   
   def cannot_delete(supplement_product)

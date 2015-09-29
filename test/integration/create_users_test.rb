@@ -96,14 +96,10 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
 
   test "student should be able to create only 5 clients" do
     login_as(@student)
-    for i in 0...(4-@student.clients.length)
-      @new_user_params[:username] = "user#{i}"
-      @new_user_params[:first_name] = "name#{i}"
+    for i in 0...(5-@student.clients.length)
       can_create("client")
     end
     for i in 0...@possible_licenses.length
-      @new_user_params[:username] = "user#{i}"
-      @new_user_params[:first_name] = "name#{i}"
       cannot_create(@possible_licenses[i])
     end
   end
@@ -123,8 +119,8 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
     uste_test
   end
 
-  test "employers should only be able to create clients (and change
-        graduated students into employees)" do
+  test "employers should only be able to create clients and change
+        graduated students into employees" do
     login_as(@employer)
     can_create("client")
     cannot_create("employee")
@@ -133,6 +129,12 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
     cannot_create("CFNS")
     cannot_create("employer")
     cannot_create("owner")
+    post users_path, user: {
+      username: @trainer.username,
+      license: "employee"
+    }
+    assert_equal @trainer.reload.license, "employee"
+    assert_equal @trainer.employer, @employer
   end
 
   test "owner can create any licensed user" do
@@ -166,6 +168,9 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
   end
   
   def can_create(license)
+    @count = @count.nil? ? 0 : @count + 1
+    @new_user_params[:username] = @new_user_params[:username] + @count.to_s
+    @new_user_params[:first_name] = @new_user_params[:first_name] + @count.to_s
     @new_user_params[:license] = license
     assert_difference 'User.count', 1 do
       post users_path, user: @new_user_params
@@ -174,6 +179,9 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
   end
 
   def cannot_create(license)
+    @count = @count.nil? ? 0 : @count + 1
+    @new_user_params[:username] = @new_user_params[:username] + @count.to_s
+    @new_user_params[:first_name] = @new_user_params[:first_name] + @count.to_s
     @new_user_params[:license] = license
     assert_difference 'User.count', 0 do
       post users_path, user: @new_user_params

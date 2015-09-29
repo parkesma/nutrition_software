@@ -1,5 +1,5 @@
 class FoodAssignment < ActiveRecord::Base
-	validate :number_of_exchanges
+	validates :number_of_exchanges, presence: true
 	belongs_to :meal
 	belongs_to :food
 	
@@ -9,9 +9,9 @@ class FoodAssignment < ActiveRecord::Base
 	
 	def servings_text
 		if servings == 1
-			"#{self.servings} #{self.food.serving_type} of"
+			"1 #{self.food.serving_type} of"
 		else
-			"#{self.servings} #{self.food.serving_type.pluralize} of"
+			"#{'%g' % ('%.2f' % (self.servings))} #{self.food.serving_type.pluralize} of"
 		end
 	end
 	

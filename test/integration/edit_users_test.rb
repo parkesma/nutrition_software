@@ -171,6 +171,20 @@ class EditUsersTest < ActionDispatch::IntegrationTest
     assert @eclient1.reload.present_weight != 100
   end
   
+  test "editing client will focuss on client" do
+    login_as(@owner)
+    assert_no_match Regexp.escape("Focussing on: #{@eclient1.name}"), response.body
+    get edit_user_path(@eclient1)
+    assert_no_match Regexp.escape("Focussing on: #{@eclient1.name}"), response.body
+  end
+  
+  test "showing client will focuss on client" do
+    login_as(@owner)
+    assert_no_match Regexp.escape("Focussing on: #{@eclient1.name}"), response.body
+    get user_path(@eclient1)
+    assert_no_match Regexp.escape("Focussing on: #{@eclient1.name}"), response.body
+  end
+  
   def login_as(user)
     post_via_redirect login_path, session: { 
       username: user.username,

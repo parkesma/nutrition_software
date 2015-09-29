@@ -25,6 +25,7 @@ trainer:
   expiration_date: 01/01/2500
   first_name:      trainer
   last_name:       last
+  graduated:       true
 
 expired:
   id:              4
@@ -126,7 +127,11 @@ orphan_employee:
 other_user:
   id:             16
   license:        owner
+  first_name:      other
+  last_name:       user
 
 other_CFNS:       
   id:             17
   license:        CFNS
+  first_name:      other
+  last_name:       cfns

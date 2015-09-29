@@ -1,7 +1,7 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">
-			Estimated Weight Evolution Analysis
+			Estimated Weight Evolution
 		</h3>
 	</div>
 	<div class="panel-body">
@@ -62,19 +62,19 @@
 				<table class="col-md-12">
 			
 					<!-- Estimated Muscle Changes -->
-					<% @label = "ESTIMATED Muscle Changes:" %>
+					<% @label = "Muscle Changes:" %>
 					<% @field = @user.estimated_muscle_changes %>
 					<% @right = "kg" %>
 					<%= render 'users/field_display'%>
 			
 					<!-- Estimated Fat Changes -->
-					<% @label = "Estimated Fat Changes:" %>
+					<% @label = "Fat Changes:" %>
 					<% @field = @user.estimated_fat_changes %>
 					<% @right = "kg" %>
 					<%= render 'users/field_display'%>
 					
 					<!-- Estimated Total Changes -->
-					<% @label = "Estimated Total Changes:" %>
+					<% @label = "Total Changes:" %>
 					<% @field = @user.estimated_total_changes %>
 					<% @right = "kg" %>
 					<%= render 'users/field_display'%>

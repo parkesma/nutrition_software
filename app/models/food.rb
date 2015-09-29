@@ -1,4 +1,7 @@
 class Food < ActiveRecord::Base
+  before_save :singularize, :capitalize
+  before_create :singularize, :capitalize
+
 	validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :sub_exchange_id }
   validates :carbs_per_serving, presence: true
   validates :protein_per_serving, presence: true
@@ -6,6 +9,7 @@ class Food < ActiveRecord::Base
   validates :kcals_per_serving, presence: true
   validates :servings_per_exchange, presence: true
   validates :serving_type, presence: true
+  validates :sub_exchange_id, presence: true
 
   belongs_to :user
 	belongs_to :sub_exchange
@@ -36,7 +40,19 @@ class Food < ActiveRecord::Base
   end
   
   def servings_per_exchange_text
-    "#{servings_per_exchange} #{serving_type_text(1)} per exchange"
+    "#{"%g" % ("%.2f" % servings_per_exchange)} #{serving_type_text(1)} per exchange"
   end
+
+  private
+    def singularize
+      self.serving_type = self.serving_type.singularize if !self.serving_type.blank?
+    end
+    
+    private
+	
+		def capitalize
+			self.name = self.name.titleize if !self.name.blank?
+			self.serving_type = self.serving_type.downcase if !self.serving_type.blank?
+		end
 
 end

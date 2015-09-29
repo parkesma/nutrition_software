@@ -1,0 +1,72 @@
+body {
+  background: white;
+  color: black;
+  font-family: 'Times New Roman', Arial, sans-serif;
+  font-size: 12pt;
+}
+
+header, .logged-focussed, nav, .nav, .alert, .hide-on-print {
+  display: none;
+}
+
+input select {
+  border: none;
+  padding: 0px;
+}
+
+@page {
+  margin: 0.5cm;
+}
+
+h1 {
+  font-size: 24pt;
+}
+
+h2 {
+  font-size: 14pt;
+  margin-top: 25px;
+}
+
+h3 {
+  font-size: 12pt;
+}
+
+a[href]:after {
+  content: none;
+}
+
+.graph {
+  width: 50%;
+}
+
+.form-field {
+  width: 75%;
+  float: left;
+}
+
+.field-unit {
+  width: 25%;
+  float: left;
+}
+
+.left-box {
+  width: 60%;
+  float: left;
+}
+
+.right-box {
+  width: 40%;
+  float: right;
+}
+
+.sub-table {
+  border: 1px solid black;
+}
+
+tr .control-label-big {
+  width: 300px;
+}
+
+tr .form-control-big {
+  width: 400px;
+}

@@ -55,7 +55,7 @@ class EnterMealsTest < ActionDispatch::IntegrationTest
     focus_on(@eclient1)
     can_index(@eclient_meal)
     can_create(@employee)
-    employees_meal = Meal.find_by(name: "new meal by #{@employee.username}")
+    employees_meal = Meal.find_by(name: "New Meal By #{@employee.username.titleize}")
     assert @employer.clients.include?(employees_meal.user)
     can_update(@eclient_meal)
     cannot_delete(@eclient_meal)
@@ -70,7 +70,7 @@ class EnterMealsTest < ActionDispatch::IntegrationTest
         focus_on(m.user)
         if u.clients.include?(m.user)
           can_create(u)
-          my_meal = Meal.find_by(name: "new meal by #{u.username}")
+          my_meal = Meal.find_by(name: "New Meal By #{u.username.titleize}")
           can_index(my_meal)
           can_update(my_meal)
           can_delete(my_meal)
@@ -83,6 +83,22 @@ class EnterMealsTest < ActionDispatch::IntegrationTest
 #p "#{u.username} passed"
       end
     end
+  end
+  
+  test "name should capitalize on create and save" do
+    login_as(@owner)
+    focus_on(@eclient1)
+    post meals_path, meal: {
+      name: "lowercase",
+      time: "7:00 p.m."
+    }
+    assert @eclient1.meals.pluck(:name).include?("Lowercase")
+    assert !@eclient1.meals.pluck(:name).include?("lowercase")
+    
+    @eclient_meal.name = "downcase"
+    @eclient_meal.save
+    assert @eclient1.meals.pluck(:name).include?("Downcase")
+    assert !@eclient1.meals.pluck(:name).include?("downcase")
   end
 
   def login_as(user)
@@ -141,7 +157,7 @@ class EnterMealsTest < ActionDispatch::IntegrationTest
     assert meal.name != "changed meal"
     patch meal_path(meal), 
       meal: {name: "changed meal"}
-    assert meal.reload.name == "changed meal"
+    assert meal.reload.name == "Changed Meal"
   end
   
   def cannot_delete(meal)

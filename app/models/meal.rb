@@ -1,4 +1,7 @@
 class Meal < ActiveRecord::Base
+	before_save :capitalize
+	before_create :capitalize
+	
 	belongs_to :user
 	has_many :food_assignments, dependent: :destroy
 	has_many :supplement_assignments, dependent: :destroy
@@ -37,4 +40,9 @@ class Meal < ActiveRecord::Base
 		total
 	end
 	
+	private
+	
+		def capitalize
+			self.name = self.name.titleize if !self.name.blank?
+		end
 end

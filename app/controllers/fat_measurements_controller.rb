@@ -25,7 +25,12 @@ class FatMeasurementsController < ApplicationController
 				m.fat_mass
 			follow_up += 1
 		end
-			
+		
+		if !@fat_measurements.pluck(:weight).blank?
+			@weight_min = @fat_measurements.pluck(:weight).min - 10
+			@weight_max = @fat_measurements.pluck(:weight).max + 10 
+		end
+
 	end
 	
 	def create

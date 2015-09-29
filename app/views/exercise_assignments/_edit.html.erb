@@ -7,51 +7,51 @@
       <th class="text-center col-md-1">Kcal/hr</th>
       <th class="text-center col-md-1">Weekly</th>
       <th class="text-center col-md-1">Daily Avg.</th>
-      <th colspan="3"></th>
+      <th colspan="3" class="hide-on-print"></th>
     </tr>
   	<!-- </thead> -->
 
   	<!-- <tbody> -->
     <% @show.each do |exercise_assignment| %>
-<%= form_for(:exercise_assignment, url: exercise_assignment_path(exercise_assignment), 
-		method: :patch, html: {class: "form-horizontal"}) do |f| %>
-      <tr>
-        <td>
-          <div data-toggle="tooltip" title="<%= exercise_assignment.exercise.description %>" >
-            <%= exercise_assignment.exercise.name %>
-          </div>
-        </td>
-        <td>
-          <% if exercise_assignment.hrs_per_wk %>
-            <% default = sprintf("%0.2f", exercise_assignment.hrs_per_wk) %>
-          <% end %>
-          <%= f.text_field :hrs_per_wk, value: default, class: "control-form" %>
-        </td>
-        <td>
-          <%= sprintf("%0.2f", exercise_assignment.exercise.Kcal_per_kg_per_hr) if
-              exercise_assignment.exercise.Kcal_per_kg_per_hr %>
-        </td>
-        <td><%= exercise_assignment.kcal_per_hr %></td>
-        <td><%= exercise_assignment.weekly_kcal %></td>
-        <td><%= exercise_assignment.daily_kcal %></td>
-        <td>
-          <% if exercise_assignment.position > 0 %>
-            <%= link_to move_up_path(id: exercise_assignment.id), method: :post do %>
-              <i class="glyphicon glyphicon-arrow-up"></i>
+      <%= form_for(:exercise_assignment, url: exercise_assignment_path(exercise_assignment), 
+		    method: :patch, html: {class: "form-horizontal"}) do |f| %>
+        <tr>
+          <td>
+            <div data-toggle="tooltip" title="<%= exercise_assignment.exercise.description %>" >
+              <%= exercise_assignment.exercise.name %>
+            </div>
+          </td>
+          <td>
+            <% if exercise_assignment.hrs_per_wk %>
+              <% default = sprintf("%0.2f", exercise_assignment.hrs_per_wk) %>
             <% end %>
-          <% end %>
-        </td>
-        <td>
-          <% if exercise_assignment.position < @show.length - 1 %>
-            <%= link_to move_down_path(id: exercise_assignment.id), method: :post do %>
-              <i class="glyphicon glyphicon-arrow-down"></i>
+            <%= f.text_field :hrs_per_wk, value: default, class: "control-form" %>
+          </td>
+          <td>
+            <%= sprintf("%0.2f", exercise_assignment.exercise.Kcal_per_kg_per_hr) if
+                exercise_assignment.exercise.Kcal_per_kg_per_hr %>
+          </td>
+          <td><%= exercise_assignment.kcal_per_hr %></td>
+          <td><%= exercise_assignment.weekly_kcal %></td>
+          <td><%= exercise_assignment.daily_kcal %></td>
+          <td class="hide-on-print">
+            <% if exercise_assignment.position > 0 %>
+              <%= link_to move_up_path(id: exercise_assignment.id), method: :post do %>
+                <i class="glyphicon glyphicon-arrow-up"></i>
+              <% end %>
             <% end %>
-          <% end %>
-        </td>
-        <td><a><%= f.submit 'Update', class: "submit-link" %></a></td>
-				<td><%= link_to 'Remove', exercise_assignment, 
-				        method: :delete, data: {confirm: 'Are you sure?'} %></td>
-<% end %>
+          </td>
+          <td class="hide-on-print">
+            <% if exercise_assignment.position < @show.length - 1 %>
+              <%= link_to move_down_path(id: exercise_assignment.id), method: :post do %>
+                <i class="glyphicon glyphicon-arrow-down"></i>
+              <% end %>
+            <% end %>
+          </td>
+          <td class="hide-on-print"><a><%= f.submit 'Update', class: "submit-link" %></a></td>
+				  <td class="hide-on-print"><%= link_to 'Remove', exercise_assignment, 
+				          method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        <% end %>
       </tr>
     <% end %>
   	<!-- </tbody> -->

@@ -7,7 +7,7 @@ class SupplementAssignment < ActiveRecord::Base
 		if self.number_of_servings == 1
 			"1 #{self.supplement_product.serving_type} of "
 		else
-			"#{self.number_of_servings} #{self.supplement_product.serving_type.pluralize} of "
+			"#{"%g" % ("%.2f" % self.number_of_servings)} #{self.supplement_product.serving_type.pluralize} of "
 		end
 	end
 	

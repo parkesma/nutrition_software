@@ -122,25 +122,27 @@ class FatMeasurement < ActiveRecord::Base
 
 		if 	self.bf_method == "Jackson/Pollock 3 (pref)" || 
 				self.bf_method.blank?
-			
+
 			if !age.blank?
-			
+
 			  if self.user.gender == "F"
 			  	sum = self.tricep + self.iliac_crest + self.thigh if 
 								!self.tricep.blank? && !self.iliac_crest.blank? && 
 								!self.thigh.blank?
 					
-			  	body_density = 1.099421 - 0.0009929 * sum + 0.0000023 * 
+			  	body_density = 1.0994921 - 0.0009929 * sum + 0.0000023 * 
 			  		sum ** 2 - 0.0001392 * age if !sum.blank?
 			  else
+
 					sum = self.chest + self.abdomen + self.thigh if 
 								!self.chest.blank? && !self.abdomen.blank? && 
 								!self.thigh.blank?
-								
+
 			  	body_density = 1.10938 - 0.0008267 * sum + 
 			  		0.0000016 * sum ** 2 - 0.0002574 * age if !sum.blank?
-			  	
+
 			  end
+
 				495 / body_density - 450 if !body_density.blank?
 			
 			end

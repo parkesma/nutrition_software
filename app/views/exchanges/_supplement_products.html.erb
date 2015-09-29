@@ -8,7 +8,7 @@
 					<td><%= f.text_field :name, value: s.name, class: "table-text" %></td>
 					<td><%= f.text_field :retail_package_type, value: s.retail_package_type, class: "table-text" %></td>
 					<td><%= f.text_field :serving_type, value: s.serving_type, class: "table-text" %></td>
-					<td><%= f.text_field :servings_per_bottle, value: s.servings_per_bottle, class: "table-text" %></td>
+					<td><%= f.text_field :servings_per_bottle, value: "%g" % ("%.2f" % s.servings_per_bottle), class: "table-text" %></td>
 					<td><a><%= f.submit 'Update', class: "submit-link" %></a></td>
 					<td>
 						<%= link_to 'Delete', supplement_product_path(s), method: :delete, 
@@ -25,7 +25,7 @@
 				<td><%= s.name %></td>
 				<td><%= s.retail_package_type %></td>
 				<td><%= s.serving_type %></td>
-				<td><%= s.servings_per_bottle %></td>
+				<td><%= "%g" % ("%.2f" % s.servings_per_bottle) %></td>
 				<td></td>
 				<td></td>
 			<% end %>

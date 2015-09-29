@@ -57,7 +57,7 @@ class EnterExchangesTest < ActionDispatch::IntegrationTest
     login_as(@employee)
     can_index(@employers)
     can_create
-    employees_exchange = Exchange.find_by(name: "new exchange")
+    employees_exchange = Exchange.find_by(name: "New Exchange0")
     assert_equal employees_exchange.user, @employer
     can_update(@employers)
     cannot_delete(@employers)
@@ -79,6 +79,20 @@ class EnterExchangesTest < ActionDispatch::IntegrationTest
         cannot_delete(@others)
       end
     end
+  end
+  
+  test "name should capitalize on create and save" do
+    login_as(@owner)
+    post exchanges_path, exchange: {
+      name: "lowercase"
+    }
+    assert @owner.exchanges.pluck(:name).include?("Lowercase")
+    assert !@owner.exchanges.pluck(:name).include?("lowercase")
+    
+    @owners.name = "downcase"
+    @owners.save
+    assert @owner.exchanges.pluck(:name).include?("Downcase")
+    assert !@owner.exchanges.pluck(:name).include?("downcase")
   end
 
   def login_as(user)
@@ -107,16 +121,18 @@ class EnterExchangesTest < ActionDispatch::IntegrationTest
   end
       
   def cannot_create
+    i = i ? i + 1 : 0
     assert_difference 'Exchange.count', 0 do
-      post exchanges_path, exchange: {name: "new exchange"}
+      post exchanges_path, exchange: {name: "new exchange#{i}"}
     end
     assert !flash[:danger].blank?
     assert_redirected_to root_path
   end
   
   def can_create
+    i = i ? i + 1 : 0
     assert_difference 'Exchange.count', 1 do
-      post exchanges_path, exchange: {name: "new exchange"}
+      post exchanges_path, exchange: {name: "new exchange#{i}"}
     end
   end
     
@@ -131,7 +147,7 @@ class EnterExchangesTest < ActionDispatch::IntegrationTest
     assert exchange.name != "changed exchange"
     patch exchange_path(exchange), 
       exchange: {name: "changed exchange"}
-    assert exchange.reload.name == "changed exchange"
+    assert exchange.reload.name == "Changed Exchange"
   end
   
   def cannot_delete(exchange)

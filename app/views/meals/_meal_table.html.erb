@@ -18,9 +18,9 @@
 		<th>Protein</th>
 		<th>Fat</th>
 		<th>Kcals</th>
-		<th colspan="2"></th>
+		<th colspan="2" class="hide-on-print"></th>
 		<% if current_license != "client" && current_license != "employee"  %>
-			<th><%= link_to 'Delete Meal', @meal, method: :delete, data: { confirm: 'Are you sure?' } %></th>
+			<th class="hide-on-print"><%= link_to 'Delete Meal', @meal, method: :delete, data: { confirm: 'Are you sure?' } %></th>
 		<% end %>
 	</tr>
 	
@@ -59,10 +59,10 @@
 	<!-- meal notes and totals -->
 	<tr>
 		<td colspan="5" class="text-right"><%= "#{@meal.name} Totals"%></td>
-		<td><%= @meal.carbs %></td>
-		<td><%= @meal.protein %></td>
-		<td><%= @meal.fat %></td>
-		<td><%= @meal.kcals %></td>
+		<td><%= "%g" % ("%.2f" % @meal.carbs) %></td>
+		<td><%= "%g" % ("%.2f" % @meal.protein) %></td>
+		<td><%= "%g" % ("%.2f" % @meal.fat) %></td>
+		<td><%= "%g" % ("%.2f" % @meal.kcals) %></td>
 	</tr>
 	<tr></tr>
 	<tr>
@@ -81,7 +81,7 @@
 	<!-- form to add new food to the meal -->
 	<% if current_license != "client" %>
 		<%= form_for :food_assignment, url: food_assignments_path, method: :post do |f| %>
-			<tr>
+			<tr class="hide-on-print">
 				<td colspan="4">Add new food or supplement to <%= @meal.name %></td>
 				<td class="text-right"><%= f.number_field :number_of_exchanges, min: 0 %></td>
 				<td colspan="6">

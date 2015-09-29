@@ -1,4 +1,7 @@
 class SubExchange < ActiveRecord::Base
+	before_save		:capitalize
+	before_create :capitalize
+	
 	validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :exchange_id }
 	belongs_to :user
 	belongs_to :exchange
@@ -14,4 +17,10 @@ class SubExchange < ActiveRecord::Base
 		end
 	end
 	
+	private
+	
+		def capitalize
+			self.name = self.name.titleize if !self.name.blank?
+		end
+		
 end

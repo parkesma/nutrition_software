@@ -56,7 +56,7 @@ class EnterSupplementBrandsTest < ActionDispatch::IntegrationTest
     login_as(@employee)
     can_index(@employers)
     can_create
-    employees = SupplementBrand.find_by(name: "new supplement brand")
+    employees = SupplementBrand.find_by(name: "New Supplement Brand")
     assert_equal employees.user, @employer
     can_update(@employers)
     cannot_delete(@employers)
@@ -78,6 +78,20 @@ class EnterSupplementBrandsTest < ActionDispatch::IntegrationTest
         cannot_delete(@others)
       end
     end
+  end
+  
+  test "name should capitalize on create and save" do
+    login_as(@owner)
+    post supplement_brands_path, supplement_brand: {
+      name: "lowercase"
+    }
+    assert @owner.supplement_brands.pluck(:name).include?("Lowercase")
+    assert !@owner.supplement_brands.pluck(:name).include?("lowercase")
+    
+    @owners.name = "downcase"
+    @owners.save
+    assert @owner.supplement_brands.pluck(:name).include?("Downcase")
+    assert !@owner.supplement_brands.pluck(:name).include?("downcase")
   end
 
   def login_as(user)
@@ -130,7 +144,7 @@ class EnterSupplementBrandsTest < ActionDispatch::IntegrationTest
     assert supplement_brand.name != "changed supplement_brand"
     patch supplement_brand_path(supplement_brand), 
       supplement_brand: {name: "changed supplement brand"}
-    assert supplement_brand.reload.name == "changed supplement brand"
+    assert supplement_brand.reload.name == "Changed Supplement Brand"
   end
   
   def cannot_delete(supplement_brand)

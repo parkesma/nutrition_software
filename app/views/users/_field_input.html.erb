@@ -1,49 +1,44 @@
-<tr class="form-group">
-	
-	<% if !@popup.blank? %>
-		<div data-toggle="tooltip" title="<%= @popup %>" >
-	<% end %>
+<% if !@popup.blank? %>
+	<tr data-toggle="tooltip" title="<%= @popup %>" class="form-group" >
+<% else %>
+	<tr class="form-group">
+<% end %>
 
-		<% if @width=="small" %>
- 			<td class="control-label control-label-small">
- 				<%= @label %>
- 			</td>
- 		<% else %>
- 			<td class="control-label"><%= @label %></td>
- 		<% end %>
-  		
-  	<% if @user.gender == "F" %>		
- 			<td class="form-control fill-background-f">
- 		<% else %>
- 			<td class="form-control fill-background-m">
- 		<% end %>
+	<% if @width=="small" %>
+		<td class="control-label control-label-small">
+			<%= @label %>
+		</td>
+	<% else %>
+		<td class="control-label"><%= @label %></td>
+	<% end %>
  		
- 			<div class="text-left col-md-10">
- 				<% if @type=="text" %>
-  				<%= @form.text_field @field, class: 'form-control' %>
-  			<% elsif @type=="number" %>
-  				<%= @form.text_field @field, class: 'form-control',
-  						value: (number_with_precision(
-  						@default, precision: @precision) || 0) %>
-  			<% elsif @type=="date" %>
-  				<% if !@date.blank? %>
-  					<% date_value = @date.strftime("%b %d, %Y") %>
-  				<% end %>
-					<%= @form.text_field @field, value: (date_value),
-  						class: 'form-control' %>
-  			<% else %>
-  				<%= @form.select @field, 
-							options_for_select(@options_for_select, @selected),
-							{include_blank: false}, class: 'basic-select' %>
-	 			<% end %>
-	 		</div>
+ 	<% if @user.gender == "F" %>		
+		<td class="form-control fill-background-f">
+	<% else %>
+		<td class="form-control fill-background-m">
+	<% end %>
+		
+		<div class="text-left col-md-10 form-field">
+			<% if @type=="text" %>
+ 				<%= @form.text_field @field, class: 'form-control' %>
+ 			<% elsif @type=="number" %>
+ 				<%= @form.text_field @field, class: 'form-control',
+						value: (number_with_precision(
+ 						@default, precision: @precision) || 0) %>
+ 			<% elsif @type=="date" %>
+ 				<% if !@date.blank? %>
+ 					<% date_value = @date.strftime("%b %d, %Y") %>
+ 				<% end %>
+				<%= @form.text_field @field, value: (date_value),
+ 						class: 'form-control' %>
+ 			<% else %>
+ 				<%= @form.select @field, 
+						options_for_select(@options_for_select, @selected),
+						{include_blank: false}, class: 'basic-select' %>
+ 			<% end %>
+ 		</div>
 	 		
-	 		<div class="text-left col-md-1"><%= @right %></div>
+ 		<div class="text-left col-md-1 field-unit"><%= @right %></div>
  		
- 		</td>
-
-	<% if !@popup.blank? %>
-		</div>
-	<% end %>
-
+	</td>	
 </tr>

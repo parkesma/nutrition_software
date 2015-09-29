@@ -7,10 +7,10 @@
 		<%= render 'users/basic_basic_info' %>	
 
 	<div class="row">
-		<div class="col-md-7">
+		<div class="col-md-7 left-box">
 			<%= render 'users/basic_present_calories' %>	
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-5 right-box">
 			<%= render 'users/basic_target_calories' %>	
 			<%= render 'users/basic_target_heart_rate' %>	
 		</div>
@@ -20,7 +20,7 @@
 
 <!-- add popups like Excel sheet -->
 	
-	<div class="text-center">
+	<div class="text-center hide-on-print">
 		<%= f.submit "Recalculate", class: 'btn btn-primary' %>
 	</div>
 

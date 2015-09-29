@@ -65,6 +65,14 @@ class UserTest < ActiveSupport::TestCase
     @user.last_name = @student.last_name
     assert !@user.valid?
   end
+  
+  test "first and last names should be capitalized" do
+    @user.first_name = "john"
+    @user.last_name = "doe"
+    @user.save
+    assert_equal @user.reload.first_name, "John"
+    assert_equal @user.last_name, "Doe"
+  end
 
   test "should find student's clients in subs" do
     assert_equal @student.clients.length, 2
@@ -127,11 +135,8 @@ class UserTest < ActiveSupport::TestCase
     assert_equal @eclient1.tef(@eclient1.present_weight).to_i, 8
     assert_equal @eclient1.tef_factor.to_i, 161
     assert_equal @eclient1.present_energy_expenditure.to_i, 2178
-
-    #adding diet plan will mess these up
-      assert_equal @eclient1.daily_caloric_needs.to_i, 1743
-      assert_equal @eclient1.daily_deficit.to_i, -435
-
+    assert_equal @eclient1.daily_caloric_needs.to_i, @eclient1.daily_kcals
+    assert_equal @eclient1.daily_deficit.to_i, @eclient1.daily_kcals - 2178
     assert_equal @eclient1.fluid_min.to_i, 80
     assert_equal @eclient1.fluid_max.to_i, 160
     assert_equal @eclient1.present_lean_mass.to_i, 128
@@ -145,6 +150,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal @eclient1.target_heart_rate_max.to_i, 149
     assert_equal @eclient1.vo2max_endurance_min.to_i, 149
     assert_equal @eclient1.vo2max_endurance_max.to_i, 161
+    
   end
 
 end

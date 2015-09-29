@@ -104,12 +104,12 @@ class EnterSupplementAssignmentsTest < ActionDispatch::IntegrationTest
   
   def cannot_index(supplement_assignment)
     get meals_path
-    assert_no_match "value=\"#{supplement_assignment.number_of_servings}", response.body
+    assert_no_match "value=\"#{'%g' % ('%.2f' % supplement_assignment.number_of_servings)}", response.body
   end
   
   def can_index(supplement_assignment)
     get meals_path
-    assert_match "value=\"#{supplement_assignment.number_of_servings}", response.body
+    assert_match "value=\"#{'%g' % ('%.2f' % supplement_assignment.number_of_servings)}", response.body
   end
       
   def cannot_create(meal)

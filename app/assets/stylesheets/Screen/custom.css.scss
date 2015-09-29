@@ -183,7 +183,7 @@ input {
 
 .control-label {
   color: gray;
-  width: 165px;
+  width: 125px;
 }
 
 #date-select {
@@ -240,7 +240,7 @@ input {
 }
 
 tr .control-label {
-  width: 40%;
+  width: 30%;
   text-align: right;
 }
 
@@ -281,11 +281,11 @@ tr .control-label-small {
 }
 
 .fill-background-m {
-  background-color: #87CEEB;
+  background-color: #99CCFF;
 }
 
 .fill-background-f {
-  background-color: #FFBBBB;
+  background-color: #FF99CC;
 }
 
 .bold {
@@ -374,6 +374,14 @@ li {
   font-size: small;
   float: right;
   width: 15px;
+}
+
+#top-spacer {
+  height: 75px;
+}
+
+#user_clothing {
+  width: 100%;
 }
 
 /* Meals */

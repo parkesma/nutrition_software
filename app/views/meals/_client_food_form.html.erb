@@ -4,10 +4,10 @@
 		<%= @f.collection_select :food_id, @fa.available_foods, :id, :name,
 				{selected: @fa.food.id}, {} %>
 	</td>
-	<td class="text-right"><%= @fa.number_of_exchanges %></td>
+	<td class="text-right"><%= "%g" % ("%.2f" % @fa.number_of_exchanges) %></td>
 	<td><%= @fa.food.sub_exchange.drop_down_text %></td>
-	<td><%= @fa.food.carbs_per_serving * @fa.servings %></td>
-	<td><%= @fa.food.protein_per_serving * @fa.servings %></td>
-	<td><%= @fa.food.fat_per_serving * @fa.servings %></td>
-	<td><%= @fa.food.kcals_per_serving * @fa.servings %></td>
+	<td><%= "%g" % ("%.2f" % (@fa.food.carbs_per_serving * @fa.servings)) %></td>
+	<td><%= "%g" % ("%.2f" % (@fa.food.protein_per_serving * @fa.servings)) %></td>
+	<td><%= "%g" % ("%.2f" % (@fa.food.fat_per_serving * @fa.servings)) %></td>
+	<td><%= "%g" % ("%.2f" % (@fa.food.kcals_per_serving * @fa.servings)) %></td>
 </tr>

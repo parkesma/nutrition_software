@@ -44,6 +44,7 @@ class UsersController < ApplicationController
 	def create
 		existing = User.find_by(first_name: user_params[:first_name], 
 		                        last_name:  user_params[:last_name])
+
 		if !existing.nil?
 			flash[:danger] = "A user already exists with that first and last name."
 			redirect_to new_user_url
@@ -54,18 +55,17 @@ class UsersController < ApplicationController
 			
 		elsif current_license == "employer" &&
 					user_params[:license] == "employee"
-		
+
 			existing = User.find_by(username: user_params[:username])
 
-			if existing.graduated?
+			if existing.nil? || !existing.graduated?
+				flash[:danger] = "Only program graduates may be added as employees."
+		  	redirect_to new_user_url
+			else
 				@new_relationship = Relationship.create(sup_id: current_user.id,
 																						 		sub_id: existing.id)
 				existing.update_attribute(:license, "employee")
-				redirect_to edit_user_url(existing.id)
-			
-			else
-		  	flash[:danger] = "Only program graduates may be added as employees."
-		  	redirect_to new_user_url				
+				redirect_to edit_user_url(existing.id)		  	
 			end
 				 
 		elsif current_license == "student" &&
@@ -103,6 +103,7 @@ class UsersController < ApplicationController
 		@states = states
 		@user = User.find_by(id: params[:id])
 		if authorized_to_edit(@user)
+			focus(@user) if @user.license == "client"
 			
 			@possible_cfns = User.where("license = ? OR license = ?",
 	                     "employer",    "CFNS").order(:last_name)

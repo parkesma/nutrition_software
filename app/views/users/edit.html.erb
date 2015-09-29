@@ -5,7 +5,7 @@
 
 	<!-- username -->	
 	<div class="row form-group col-md-offset-3">		
-		<%= f.label "Username: ", class: "control-label col-md-2" %>
+		<%= f.label "Username: ", class: "control-label col-md-3 text-right" %>
 		<div class="col-md-5">
 			<%= f.text_field :username, class: 'form-control' %>
 		</div>
@@ -14,7 +14,7 @@
 	<!-- password -->	
 	<div class="row form-group col-md-offset-3">
 		<%= f.label "Password Reset:", 
-				class: "control-label col-md-2" %>
+				class: "control-label col-md-3 text-right" %>
 		<div class="col-md-5">
 			<%= text_field "", :reset, class: 'form-control' %>
 		</div>
@@ -22,7 +22,7 @@
 
 	<!-- first name -->	
 	<div class="row form-group col-md-offset-3">
-		<%= f.label "First Name:", class: "control-label col-md-2" %>
+		<%= f.label "First Name:", class: "control-label col-md-3 text-right" %>
 		<div class="col-md-5">
 			<%= f.text_field :first_name, class: 'form-control' %>
 		</div>
@@ -30,7 +30,7 @@
 
 	<!-- last name -->
 	<div class="row form-group col-md-offset-3">
-		<%= f.label "Last Name:", class: "control-label col-md-2" %>
+		<%= f.label "Last Name:", class: "control-label col-md-3 text-right" %>
 		<div class="col-md-5">
 			<%= f.text_field :last_name, class: "form-control" %>
 		</div>
@@ -40,7 +40,7 @@
 	<% if current_license == "owner" || 
 				current_license == "employer" %>
 		<div class="row form-group col-md-offset-3">
-			<%= f.label "License:", class: "control-label col-md-2" %>
+			<%= f.label "License:", class: "control-label col-md-3 text-right" %>
 			<div class="col-md-5">
 				<%= f.select :license, options_for_select(
 						current_user.possible_licenses, @user.license),
@@ -53,20 +53,16 @@
 
 	<!-- starting date -->
 	<div class="row form-group col-md-offset-3">
-		<%= f.label "Starting Date:",
-				class: "control-label col-md-1" %>
+		<%= f.label "Starting Date:", class: "control-label col-md-3 text-right" %>
 		<div class="col-md-5">
-			<% date_value = @user.starting_date.strftime(
-				"%b %d, %Y") if !@user.starting_date.blank? %>
-			<%= f.text_field :starting_date_string, 
-					value: date_value, class: "form-control" %>
+			<% date_value = @user.starting_date.strftime("%b %d, %Y") if !@user.starting_date.blank? %>
+			<%= f.text_field :starting_date_string, value: date_value, class: "form-control" %>
 		</div>
 	</div>
 	
 	<!-- expiration -->	
 	<div class="row form-group col-md-offset-3">
-		<%= f.label "Expiration Date:",
-				class: "control-label col-md-1" %>
+		<%= f.label "Expiration Date:", class: "control-label col-md-3 text-right" %>
 		<div class="col-md-5">
 			<%= f.text_field :expiration_date_string,
 					class: "form-control" %>
@@ -75,7 +71,7 @@
 		
 	<!-- logged in -->	
 	<div class="row form-group col-md-offset-3">
-		<%= f.label :logged_in?, class: "control-label col-md-2" %>
+		<%= f.label :logged_in?, class: "control-label col-md-3 text-right" %>
 		<div class="col-md-1">
 			<%= f.check_box :logged_in?, class: 'checkbox' %>
 		</div>
@@ -85,7 +81,7 @@
 	<% if @user.license == "student" ||
 				@user.license == "ustudent" %>	
 		<div class="row form-group col-md-offset-3">
-			<%= f.label :graduated?, class: "control-label col-md-2" %>
+			<%= f.label :graduated?, class: "control-label col-md-3 text-right" %>
 			<div class="col-md-5">
 				<%= f.check_box :graduated?, class: 'checkbox' %>
 			</div>
@@ -97,7 +93,7 @@
 		<% if @user.license == "client" %>
 			<div class="row form-group col-md-offset-3">
 
-				<label class="control-label col-md-2">CFNS:</label>
+				<label class="control-label col-md-3 text-right">CFNS:</label>
 
 				<div class="col-md-5">
 					<% if !@possible_cfns.blank? %>
@@ -114,7 +110,7 @@
 		<% elsif @user.license == "employee" %>
 			<div class="row form-group col-md-offset-3">
 
-				<label class="control-label col-md-2">Employer:</label>
+				<label class="control-label col-md-3 text-right">Employer:</label>
 				
 				<div class="col-md-5">
 					<% if !@possible_employers.blank? %>

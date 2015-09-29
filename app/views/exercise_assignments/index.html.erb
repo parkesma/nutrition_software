@@ -1,14 +1,16 @@
 <h1>Exercise Plan</h1>
 
-<% if current_license != "client" %>
-	<%= form_for(:exercise_assignment, url: exercise_assignments_path, 
-			method: :post, html: {class: "form-horizontal"}) do |f| %>
-		
-		<% @form = f %>
-		<%= render 'new' %>
-
+<div class="hide-on-print">
+	<% if current_license != "client" %>
+		<%= form_for(:exercise_assignment, url: exercise_assignments_path, 
+				method: :post, html: {class: "form-horizontal"}) do |f| %>
+			
+			<% @form = f %>
+			<%= render 'new' %>
+	
+		<% end %>
 	<% end %>
-<% end %>
+</div>
 
 <div class="bold big">Avg. Daily KCal: <%= @daily_average_kcal %></div>
 
