@@ -49,6 +49,12 @@ class SupplementBrandsController < ApplicationController
     end
 	end
 	
+  def import
+		csv_file = File.read(params[:file].tempfile.to_path.to_s)
+		SupplementBrand.import(csv_file)
+		redirect_to import_all_path
+  end
+	
 	private
 
 		# Use callbacks to share common setup or constraints between actions.

@@ -35,6 +35,15 @@ Rails.application.routes.draw do
   resources :supplement_brands, only: [:create, :update, :destroy]
   resources :supplement_products, only: [:create, :update, :destroy]
   resources :supplement_assignments, only: [:create, :update, :destroy]
+  
+  get  '/import_all',                 to: 'users#import_all',           as: 'import_all'
+  post '/import_users',               to: 'users#import',               as: 'import_users'
+  post '/import_exchanges',           to: 'exchanges#import',           as: 'import_exchanges'
+  post '/import_sub_exchanges',       to: 'sub_exchanges#import',       as: 'import_sub_exchanges'
+  post '/import_foods',               to: 'foods#import',               as: 'import_foods'
+  post '/import_supplement_brands',   to: 'supplement_brands#import',   as: 'import_supplement_brands'
+  post '/import_supplement_products', to: 'supplement_products#import', as: 'import_supplement_products'
+  post '/import_exercises',           to: 'exercises#import',           as: 'import_exercises'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

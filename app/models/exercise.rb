@@ -17,6 +17,18 @@ class Exercise < ActiveRecord::Base
 		end
 	end
 	
+	def self.import(file)
+		csv = CSV.parse(file, headers: true)
+		csv.each do |row|
+			new_hash = row.to_hash
+			new_exercise = Exercise.new
+			new_exercise.attributes.each do |attribute|
+				new_exercise[attribute[0]] = new_hash[attribute[0]]
+			end
+			new_exercise.save!
+		end
+	end
+	
 	private
 	
 		def capitalize

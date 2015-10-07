@@ -226,6 +226,15 @@ class UsersController < ApplicationController
 		redirect_to :basic_info
 	end
 	
+  def import
+		csv_file = File.read(params[:file].tempfile.to_path.to_s)
+		User.import(csv_file)
+		redirect_to import_all_path
+  end
+	
+	def import_all
+	end
+	
 	private
 	
 		def user_params

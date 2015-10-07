@@ -92,6 +92,12 @@ class ExchangesController < ApplicationController
       redirect_to exchanges_path
     end
 	end
+
+  def import
+		csv_file = File.read(params[:file].tempfile.to_path.to_s)
+		Exchange.import(csv_file)
+		redirect_to import_all_path
+  end
 	
 	private
 

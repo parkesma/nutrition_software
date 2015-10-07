@@ -1,0 +1,35 @@
+<h1>Import CSV File</h1>
+<h2>Users</h2>
+<h3>Header: username,password,license,trainer_id,expiration_date,graduated,website1,website2,first_name,last_name,starting_date,date_of_birth,gender,home_address_1,home_address_2,home_city,home_state,home_zip,home_country,work_address_1,work_address_2,email,home_phone,mobile_phone,work_phone,other_phone,resting_heart_rate,present_weight,height,desired_weight,desired_body_fat,measured_metabolic_rate,activity_index,created_at,updated_at,logged_in,work_city,work_state,work_zip,work_country,company,present_body_fat,clothing </h3>
+	<% @path = import_users_path %>
+	<%= render "import_form" %>
+
+<h2>Exchanges</h2>
+Header: blank,name,user_id
+	<% @path = import_exchanges_path %>
+	<%= render "import_form" %>
+	
+<h2>Categories</h2>
+Header: blank,exchange_id,name,user_id
+	<% @path = import_sub_exchanges_path %>
+	<%= render "import_form" %>
+
+<h2>Foods</h2>
+Header: blank,sub_exchange_id,name,carbs_per_serving,protein_per_serving,fat_per_serving,kcals_per_serving,servings_per_exchange,serving_type,user_id
+	<% @path = import_foods_path %>
+	<%= render "import_form" %>
+
+<h2>Supplement Brands</h2>
+Header: blank,user_id,name
+	<% @path = import_supplement_brands_path %>
+	<%= render "import_form" %>
+
+<h2>Supplement Products</h2>
+Header: blank,user_id,supplement_brand_id,name,serving_type,servings_per_bottle,created_at,updated_at,retail_package_type
+	<% @path = import_supplement_products_path %>
+	<%= render "import_form" %>
+
+<h2>Exercises</h2>
+Header: blank,user_id,name,description,Kcal_per_kg_per_hr,category
+	<% @path = import_exercises_path %>
+	<%= render "import_form" %>

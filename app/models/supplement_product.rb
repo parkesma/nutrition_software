@@ -22,7 +22,19 @@ class SupplementProduct < ActiveRecord::Base
 			self.retail_package_type.pluralize
 		end
 	end
-	
+
+	def self.import(file)
+		csv = CSV.parse(file, headers: true)
+		csv.each do |row|
+			new_hash = row.to_hash
+			new_instance = self.new
+			new_instance.attributes.each do |attribute|
+				new_instance[attribute[0]] = new_hash[attribute[0]]
+			end
+			new_instance.save!
+		end
+	end
+
 	private
     def singularize
       self.serving_type = self.serving_type.singularize
