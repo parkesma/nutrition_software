@@ -70,11 +70,6 @@
       <li><%= link_to "Foods", exchanges_path %></li>
     <% end %>
     
-    <!-- Foods dropdown -->        
-    <% if logged_in? && current_license == "owner" %>
-      <li><%= link_to "Import", import_all_path %></li>
-    <% end %>
-    
     <!-- What Works links dropdown -->        
     <% if current_license == "client" || focussed_license == "client" %>
       <li class="dropdown">
