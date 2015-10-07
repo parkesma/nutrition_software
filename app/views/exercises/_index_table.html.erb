@@ -19,7 +19,7 @@
         <% end %>
         <td><%= exercise.name %></td>
         <td><%= exercise.description %></td>
-        <td><%= sprintf("%0.2f", exercise.Kcal_per_kg_per_hr) %></td>
+        <td><%= exercise.Kcal_per_kg_per_hr %></td>
         <% if @authorized_to_change %>
           <td><%= link_to 'Edit', edit_exercise_path(exercise) %></td>
           <% if current_license != "employee" %>

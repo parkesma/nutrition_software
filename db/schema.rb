@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928212347) do
+ActiveRecord::Schema.define(version: 20151007173152) do
 
   create_table "exchanges", force: :cascade do |t|
     t.string   "name"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20150928212347) do
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
     t.string   "category"
+    t.decimal  "kcal_per_hr"
   end
 
   add_index "exercises", ["user_id"], name: "index_exercises_on_user_id"

@@ -3,15 +3,20 @@ class ExerciseAssignment < ActiveRecord::Base
 	belongs_to :exercise
 	
 	def kcal_per_hr
-		if user.fat_measurements.order(:created_at).last
-			weight = user.fat_measurements.order(:created_at).last.weight
-		else
-			weight = user.present_weight
-		end
-		
-		if weight && exercise
-			(exercise.Kcal_per_kg_per_hr * weight / 2.2).round(2)
-		end
+#p "___self exercise_id #{self.exercise_id}"
+#		if !exercise.kcal_per_hr.blank?
+#			exercise.kcal_per_hr
+#		else
+			if user.fat_measurements.order(:created_at).last
+				weight = user.fat_measurements.order(:created_at).last.weight
+			else
+				weight = user.present_weight
+			end
+			
+			if weight && exercise
+				(exercise.Kcal_per_kg_per_hr * weight / 2.2).round(2)
+			end
+#		end
 	end
 	
 	def weekly_kcal

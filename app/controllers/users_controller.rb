@@ -233,6 +233,8 @@ class UsersController < ApplicationController
   end
 	
 	def import_all
+		@all_exchanges = Exchange.all
+		@all_sub_exchanges = SubExchange.all
 	end
 	
 	private

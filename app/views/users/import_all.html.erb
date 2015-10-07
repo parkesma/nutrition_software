@@ -11,11 +11,17 @@ Header: blank,name,user_id
 	
 <h2>Categories</h2>
 Header: blank,exchange_id,name,user_id
+<% @all_exchanges.each do |e| %>
+	<p><%= "id: #{e.id}, name: #{e.name}" %></p>
+<% end %>
 	<% @path = import_sub_exchanges_path %>
 	<%= render "import_form" %>
 
 <h2>Foods</h2>
 Header: blank,sub_exchange_id,name,carbs_per_serving,protein_per_serving,fat_per_serving,kcals_per_serving,servings_per_exchange,serving_type,user_id
+<% @all_sub_exchanges.each do |s| %>
+	<p><%= "id: #{s.id}, name: #{s.name}" %></p>
+<% end %>
 	<% @path = import_foods_path %>
 	<%= render "import_form" %>
 
