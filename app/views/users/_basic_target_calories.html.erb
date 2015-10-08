@@ -15,9 +15,7 @@
 			<% @label = "NEW Daily Caloric Needs:" %>
 			<% @field = @user.daily_caloric_needs %>
 			<% @right = " Kcal" %>
-			<% @popup = "This value is 80% of 'Estimated Present Energy
-		           		Expenditure' for fat/weight loss, or the average
-		           		daily calories prescribed in the diet plan." %>
+			<% @popup = "This value will be automatically filled in once you complete the meal plan." %>
 			<%= render 'users/field_display'%>
 			
 			<!-- Daily Deficit -->
@@ -56,7 +54,7 @@
 		<!-- Fluid Requirements -->
 		<div class="form-group total text-center">
 			<div>ESTIMATED Fluid Requirements:</div>
-	 		<div><%= "#{@user.fluid_min.to_i}.....to.....#{@user.fluid_max.to_i}" %></div>
+	 		<div><%= "#{@user.fluid_min.to_i} to #{@user.fluid_max.to_i}" %></div>
 			<div>OUNCES OF FLUID PER DAY</div>
 		</div>
 				

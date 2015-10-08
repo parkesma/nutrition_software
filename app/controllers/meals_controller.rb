@@ -18,10 +18,10 @@ class MealsController < ApplicationController
       end
       
 		  @my_sub_exchanges = SubExchange.joins(foods: :user).where("users.license = ? OR users.id = ?", 
-		    "owner", @new_meal.user.trainer_id )
+		    "owner", @new_meal.user.trainer_id ).distinct
 		  
 		  @my_supplement_products = SupplementProduct.joins(:user).where("users.license = ? OR users.id = ?", 
-		    "owner", @new_meal.user.trainer_id )
+		    "owner", @new_meal.user.trainer_id ).distinct
 		    
 		else
 			flash[:danger] = "You are not authorized to view meals for this client"

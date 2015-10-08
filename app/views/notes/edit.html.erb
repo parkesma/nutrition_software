@@ -4,8 +4,8 @@
 <%= form_for(:note, url: note_path, method: :patch, 
 		html: {class: "form-horizontal"}) do |f| %>
 	
-	Date:
-	<%= f.text_field :updated_at, value: Date.today.strftime("%b %-d, %Y") %>	
+	Date (d/m/yyyy):
+	<%= f.text_field :updated_at, value: Date.today.strftime("%-d/%-m/%Y") %>	
 	<%= f.text_area :text, cols: 5, rows: 3, class: 'form-control' %>
 
 	<div class="text-center">

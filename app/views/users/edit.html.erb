@@ -53,19 +53,21 @@
 
 	<!-- starting date -->
 	<div class="row form-group col-md-offset-3">
-		<%= f.label "Starting Date:", class: "control-label col-md-3 text-right" %>
+		<%= f.label "Starting Date (d/m/yyyy):", class: "control-label col-md-3 text-right" %>
 		<div class="col-md-5">
-			<% date_value = @user.starting_date.strftime("%b %d, %Y") if !@user.starting_date.blank? %>
-			<%= f.text_field :starting_date_string, value: date_value, class: "form-control" %>
+			<% starting_value = @user.starting_date.strftime("%-d/%-m/%Y") unless @user.starting_date.blank? %>
+			<%= starting_value %>
+			<%= f.text_field :starting_date, value: starting_value, class: "form-control" %>
 		</div>
 	</div>
 	
 	<!-- expiration -->	
 	<div class="row form-group col-md-offset-3">
-		<%= f.label "Expiration Date:", class: "control-label col-md-3 text-right" %>
+		<%= f.label "Expiration Date (d/m/yyyy):", class: "control-label col-md-3 text-right" %>
 		<div class="col-md-5">
-			<%= f.text_field :expiration_date_string,
-					class: "form-control" %>
+			<% expiration_value = @user.expiration_date.strftime("%-d/%-m/%Y") unless @user.expiration_date.blank? %>
+			<%= expiration_value %>
+			<%= f.text_field :expiration_date, value: expiration_value, class: "form-control" %>
 		</div>
 	</div>
 		

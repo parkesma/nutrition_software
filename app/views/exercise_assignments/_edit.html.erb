@@ -3,7 +3,7 @@
     <tr>
       <th class="text-center col-md-2">Exercise</th>
       <th class="text-center col-md-8">Hrs/Wk</th>
-      <th class="text-center col-md-1">Kcal/kg/hr</th>
+      <th class="text-center col-md-1">Kcal/Kg/hr</th>
       <th class="text-center col-md-1">Kcal/hr</th>
       <th class="text-center col-md-1">Weekly</th>
       <th class="text-center col-md-1">Daily Avg.</th>
@@ -23,17 +23,17 @@
           </td>
           <td>
             <% if exercise_assignment.hrs_per_wk %>
-              <% default = sprintf("%0.2f", exercise_assignment.hrs_per_wk) %>
+              <% default = "%g" % ("%.2f" % exercise_assignment.hrs_per_wk) %>
             <% end %>
             <%= f.text_field :hrs_per_wk, value: default, class: "control-form" %>
           </td>
           <td>
-            <%= sprintf("%0.2f", exercise_assignment.exercise.Kcal_per_kg_per_hr) if
+            <%= "%g" % ("%.3f" % exercise_assignment.exercise.Kcal_per_kg_per_hr) if
                 exercise_assignment.exercise.Kcal_per_kg_per_hr %>
           </td>
-          <td><%= exercise_assignment.kcal_per_hr %></td>
-          <td><%= exercise_assignment.weekly_kcal %></td>
-          <td><%= exercise_assignment.daily_kcal %></td>
+          <td><%= "%g" % ("%.3f" % exercise_assignment.kcal_per_hr) %></td>
+          <td><%= "%g" % ("%.3f" % exercise_assignment.weekly_kcal) %></td>
+          <td><%= "%g" % ("%.3f" % exercise_assignment.daily_kcal) %></td>
           <td class="hide-on-print">
             <% if exercise_assignment.position > 0 %>
               <%= link_to move_up_path(id: exercise_assignment.id), method: :post do %>

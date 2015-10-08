@@ -60,6 +60,7 @@
 	<% @precision = 2 %>
 	<% @default = @user.present_body_fat %>
 	<% @right = "%" %>
+	<% @popup = nil %>
 	<%= render 'users/field_input'%>
 	
 	<!-- height -->
@@ -69,14 +70,16 @@
 	<% @precision = 2 %>
 	<% @default = @user.height %>
 	<% @right = "inches" %>
+	<% @popup = nil %>
 	<%= render 'users/field_input'%>
 			
 	<!-- date of birth -->
-	<% @label = "Date of Birth:" %>
-	<% @field = :date_of_birth_string %>
+	<% @label = "Date of Birth (d/m/yyyy):" %>
+	<% @field = :date_of_birth %>
 	<% @date = @user.date_of_birth %>
 	<% @type = "date" %>
 	<% @right = "" %>
+	<% @popup = nil %>
 	<%= render 'users/field_input'%>
 	
 	<!-- desired weight -->
@@ -86,6 +89,7 @@
 	<% @precision = 2 %>
 	<% @default = @user.desired_weight %>
 	<% @right = "lbs" %>
+	<% @popup = nil %>
 	<%= render 'users/field_input'%>
 	
 	<!-- desired body fat -->
@@ -95,6 +99,7 @@
 	<% @precision = 2 %>
 	<% @default = @user.desired_body_fat %>
 	<% @right = "%" %>
+	<% @popup = nil %>
 	<%= render 'users/field_input'%>
 	
 </table>

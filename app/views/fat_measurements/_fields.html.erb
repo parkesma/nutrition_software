@@ -19,9 +19,9 @@
 		<% if @field == :created_at %>
 			
 			<% if @fat_measurement.created_at.blank? %>
-				<% @default = Date.today.strftime("%b %-d, %Y") %>
+				<% @default = Date.today.strftime("%e/%-m/%y") %>
 			<% else %>
-				<% @default = @fat_measurement.created_at.strftime("%b %-d, %y") %>
+				<% @default = @fat_measurement.created_at.strftime("%e/%-m/%y") %>
 			<% end %>
 		
 		<% else %>

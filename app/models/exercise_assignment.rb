@@ -14,7 +14,7 @@ class ExerciseAssignment < ActiveRecord::Base
 			end
 			
 			if weight && exercise
-				(exercise.Kcal_per_kg_per_hr * weight / 2.2).round(2)
+				(exercise.Kcal_per_kg_per_hr * weight / 2.2)
 			end
 #		end
 	end

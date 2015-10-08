@@ -27,7 +27,7 @@
  						@default, precision: @precision) || 0) %>
  			<% elsif @type=="date" %>
  				<% if !@date.blank? %>
- 					<% date_value = @date.strftime("%b %d, %Y") %>
+ 					<% date_value = @date.strftime("%-d/%-m/%Y") %>
  				<% end %>
 				<%= @form.text_field @field, value: (date_value),
  						class: 'form-control' %>

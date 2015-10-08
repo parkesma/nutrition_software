@@ -30,6 +30,18 @@
   </div>
 </div>
 
+<!-- starting -->
+<div class="row col-md-offset-4">
+  <%= label_tag :expiration_date, "Starting Date:", class: "control-label col-md-1" %>
+  <div class="col-md-5 col-md-offset-1">
+    <% if @user.starting_date.nil? %>
+      <%= "None set" %>
+    <% else %>
+      <%= @user.starting_date.to_formatted_s(:rfc822) %>
+    <% end %>
+  </div>
+</div>
+
 <!-- expiration -->
 <div class="row col-md-offset-4">
   <%= label_tag :expiration_date, "Expiration Date:", class: "control-label col-md-1" %>

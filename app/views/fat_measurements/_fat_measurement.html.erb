@@ -1,5 +1,5 @@
 <tr>
-	<td><%= fat_measurement.created_at.strftime("%b %-d") %></td>
+	<td><%= fat_measurement.created_at.strftime("%-d/%-m/%Y") %></td>
 
 	<td><%= "%.2f" % fat_measurement.weight if  
 					fat_measurement.weight %></td>

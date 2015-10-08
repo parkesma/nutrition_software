@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007173152) do
+ActiveRecord::Schema.define(version: 20151008190827) do
 
   create_table "exchanges", force: :cascade do |t|
     t.string   "name"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20151007173152) do
     t.integer  "user_id"
     t.integer  "exercise_id"
     t.integer  "position"
-    t.integer  "hrs_per_wk"
+    t.decimal  "hrs_per_wk"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20151007173152) do
     t.integer  "user_id"
     t.string   "name"
     t.string   "description"
-    t.decimal  "Kcal_per_kg_per_hr", precision: 10, scale: 2
+    t.decimal  "Kcal_per_kg_per_hr", precision: 10, scale: 3
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
     t.string   "category"

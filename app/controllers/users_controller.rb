@@ -102,6 +102,7 @@ class UsersController < ApplicationController
 	def edit
 		@states = states
 		@user = User.find_by(id: params[:id])
+		focus(@user) if @user.license == "client"
 		if authorized_to_edit(@user)
 			focus(@user) if @user.license == "client"
 			
@@ -242,8 +243,8 @@ class UsersController < ApplicationController
 		def user_params
 			params.require(:user).permit(
 				:creator_id, :username, :password, :license, :first_name, 
-				:last_name, :logged_in, :starting_date_string, 
-				:expiration_date_string, :cfns, :employer,
+				:last_name, :logged_in, :cfns, :employer, :starting_date,
+				:expiration_date,
 
 				:home_address_1, :home_address_2, :home_city, :home_state,
 				:home_zip, :home_country, :work_address_1, 

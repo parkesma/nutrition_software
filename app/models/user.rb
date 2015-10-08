@@ -100,51 +100,51 @@ class User < ActiveRecord::Base
 	end
 	
 	#get for expiration date string virtual attribute
-	def expiration_date_string
-		expiration_date.to_s
-	end
+#	def expiration_date_string
+#		expiration_date.to_s
+#	end
 	
 	#set for expiration date string virtual attribute
-	def expiration_date_string=(expiration_date_str)
-		self.expiration_date = Time.parse(expiration_date_str)
-	rescue ArgumentError
-		@starting_date_invalid = true
-	end
+#	def expiration_date_string=(expiration_date_str)
+#		self.expiration_date = Time.parse(expiration_date_str)
+#	rescue ArgumentError
+#		@starting_date_invalid = true
+#	end
 		
 	def link(website)
 		"http://#{website}"
 	end
 
 	#get for starting date string virtual attribute
-	def starting_date_string
-		starting_date.to_s
-	end
+#	def starting_date_string
+#		starting_date.to_s
+#	end
 	
 	#set for starting date string virtual attribute
-	def starting_date_string=(starting_date_str)
-		self.starting_date = Time.parse(starting_date_str)
-	rescue ArgumentError
-		@starting_date_invalid = true
-	end
+#	def starting_date_string=(starting_date_str)
+#		self.starting_date = Time.parse(starting_date_str)
+#	rescue ArgumentError
+#		@starting_date_invalid = true
+#	end
 		
 	#get for date of birth string virtual attribute
-	def date_of_birth_string
-		date_of_birth.to_s
-	end
+#	def date_of_birth_string
+#		date_of_birth.to_s
+#	end
 	
 	#set for date of birth string virtual attribute
-	def date_of_birth_string=(date_of_birth_str)
-		self.date_of_birth = Time.parse(date_of_birth_str)
-	rescue ArgumentError
-		@date_of_birth_invalid = true
-	end
+#	def date_of_birth_string=(date_of_birth_str)
+#		self.date_of_birth = Time.parse(date_of_birth_str)
+#	rescue ArgumentError
+#		@date_of_birth_invalid = true
+#	end
 
 	#validate starting and dates string virtual attributes
-	def validate
-		error.add("That starting date was invalid") if @starting_date_invalid
-		error.add("That birthdate was invalid") if @date_of_birth_invalid
-		error.add("That expiration date was invalid") if @expiration_date_invalid
-	end
+#	def validate
+#		error.add("That starting date was invalid") if @starting_date_invalid
+#		error.add("That birthdate was invalid") if @date_of_birth_invalid
+#		error.add("That expiration date was invalid") if @expiration_date_invalid
+#	end
 	
 	def age
 		(Date.today - date_of_birth).to_i / 365 if !date_of_birth.blank?
@@ -250,8 +250,6 @@ class User < ActiveRecord::Base
 	def daily_caloric_needs
 		if !daily_kcals.blank?
 			daily_kcals
-		elsif !present_energy_expenditure.blank?
-			present_energy_expenditure * 0.8
 		end
 	end
 	

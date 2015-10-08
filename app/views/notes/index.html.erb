@@ -6,8 +6,8 @@
 		<%= form_for(:note, url: notes_path, method: :post, 
 				html: {class: "form-horizontal"}) do |f| %>
 			
-			Date:
-			<%= f.text_field :updated_at, value: Date.today.strftime("%b %-d, %Y") %>
+			Date (d/m/yyyy):
+			<%= f.text_field :updated_at, value: Date.today.strftime("%-d/%-m/%Y") %>
 			<%= f.text_area :text, cols: 5, rows: 3, class: 'form-control' %>
 		
 			<div class="text-center">
@@ -22,7 +22,7 @@
 	<table class="table table-striped table-bordered" >
 	
 		<!-- notes header row -->
-		<th>Date</th>
+		<th>Date (d/m/yy)</th>
 		<th>Author</th>
 		<th>Note</th>
 

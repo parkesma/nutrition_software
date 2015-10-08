@@ -21,25 +21,36 @@
 	<% end %>
 		<% if !@field.blank? %>
 			<div class="left">
-				<% if @precision == 2 %>
-					<%= sprintf("%0.2f", @field) %>
-				<% elsif @precision == 1 %>
-	 				<%= sprintf("%0.1f", @field) %>
-				<% else %>
-	 				<%= sprintf("%0.0f", @field) %>
+				<% if @label.include? "Fat-Burning" %>
+					<div class = "emphasized">
+				<% end %>
+					<% if @precision == 2 %>
+						<%= sprintf("%0.2f", @field) %>
+					<% elsif @precision == 1 %>
+		 				<%= sprintf("%0.1f", @field) %>
+					<% else %>
+		 				<%= sprintf("%0.0f", @field) %>
+					<% end %>
+				<% if @label.include?("Target Heart Rate") %>
+					</div>
 				<% end %>
 
- 				<% if @right == "kg" %>
-					<%= " lbs" %>
+ 				<% if @right == "Kg" %>
+					&nbsp
+					<%= "lbs" %>
  				<% elsif @right == "b/m" %>
-					<%= " to " %>
- 					<%= sprintf("%0.0f", @field2) %>
+ 					</div>
+ 					<div class="left">
+						&nbsp
+						<%= "to " %>
+ 						<%= sprintf("%0.0f", @field2) %>
+ 					</div>
  				<% end %>
  			</div>
  		<% end %>
 
 		<% if !@field.blank? %>
- 			<% if @right=="kg" %>
+ 			<% if @right=="Kg" %>
 				<div class="right">
 					<%= @user.to_kg(@field) %> Kg
 				</div>
