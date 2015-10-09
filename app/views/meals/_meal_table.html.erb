@@ -41,21 +41,6 @@
 		<% end %>
 	<% end %>
 	
-	<% if !@meal.supplement_assignments.nil? %>
-		<% @meal.supplement_assignments.each do |sa| %>
-			<tr>
-				<% @sa = sa %>
-				<% if current_license == "client" %>
-					<%= render 'client_supplement_form' %>
-				<% else %>
-					<div id="supplement_form<%= sa.id %>">
-						<%= render 'non_client_supplement_form' %>
-					</div>
-				<% end %>
-			</tr>
-		<% end %>
-	<% end %>
-
 	<!-- meal notes and totals -->
 	<tr>
 		<td colspan="5" class="text-right"><%= "#{@meal.name} Totals"%></td>
@@ -82,10 +67,10 @@
 	<% if current_license != "client" %>
 		<%= form_for :food_assignment, url: food_assignments_path, method: :post do |f| %>
 			<tr class="hide-on-print">
-				<td colspan="4">Add new food or supplement to <%= @meal.name %></td>
+				<td colspan="4">Add new food to <%= @meal.name %></td>
 				<td class="text-right"><%= f.number_field :number_of_exchanges, min: 0 %></td>
 				<td colspan="6">
-					<%= collection_select nil, :category, @my_sub_exchanges + @my_supplement_products, :name, 
+					<%= collection_select nil, :category, @my_sub_exchanges, :name, 
 							:drop_down_text %>
 					<%= f.hidden_field(:meal_id, value: @meal.id) %>
 				</td>

@@ -1,0 +1,16 @@
+<%= form_for :supplement_assignment, url: supplement_assignment_path(@sa), method: :patch do |f| %>	
+	<td class="text-center"><%= f.select :time_of_day, options_for_select(@sa.time_options, @sa.time_of_day), include_blank: true %></td>
+	<td>
+		<%= f.text_field :number_of_servings, value: "%g" % ("%.2f" % @sa.number_of_servings), 
+				class: "text-right" %>
+	</td>
+	<td class="col-md-1"><%= @sa.serving_type_text %></td>
+	<td>
+		<%= f.collection_select :supplement_product_id, @my_supplement_products, :id, :drop_down_text, 
+				{selected: @sa.supplement_product.id}, include_blank: true %>
+	</td>
+	<td class="hide-on-print"><a><%= f.submit 'Update', class: "submit-link" %></a></td>
+	<td class="hide-on-print">
+		<%= link_to 'Remove', @sa, method: :delete, data: {confirm: 'Are you sure?'} %>
+	</td>
+<% end %>

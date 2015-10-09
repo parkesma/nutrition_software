@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   resources :supplement_brands, only: [:create, :update, :destroy]
   resources :supplement_products, only: [:create, :update, :destroy]
-  resources :supplement_assignments, only: [:create, :update, :destroy]
+  resources :supplement_assignments, only: [:index, :create, :update, :destroy]
   
   get  '/import_all',                 to: 'users#import_all',           as: 'import_all'
   post '/import_users',               to: 'users#import',               as: 'import_users'

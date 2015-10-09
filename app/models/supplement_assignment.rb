@@ -1,6 +1,6 @@
 class SupplementAssignment < ActiveRecord::Base
 	validates :number_of_servings, presence: true
-	belongs_to :meal
+	belongs_to :user
 	belongs_to :supplement_product
 	
 	def servings_text
@@ -17,5 +17,23 @@ class SupplementAssignment < ActiveRecord::Base
 		else
 			"#{self.supplement_product.serving_type.pluralize} of "
 		end
+	end
+	
+	def time_options
+		[
+			["Upon Waking, First Thing"],
+			["Before Breakfast"],
+			["Meal #1 (Breakfast)"],
+			["Meal #2 (AM Snack)"],
+			["Before Lunch"],
+			["Meal #3 (Lunch)"],
+			["Meal #4 (PM Snack)"],
+			["Before Dinner"],
+			["Meal #5 (Dinner)"],
+			["Meal #6 (HS Snack if prescribed)"],
+			["Before Workout"],
+			["After Workout (15min After)"],
+			["Bedtime"]
+		]
 	end
 end

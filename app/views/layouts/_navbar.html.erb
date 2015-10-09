@@ -67,7 +67,7 @@
     
     <!-- Foods dropdown -->        
     <% if logged_in? && current_license != "client" %>
-      <li><%= link_to "Foods", exchanges_path %></li>
+      <li><%= link_to "Foods and Supplements", exchanges_path %></li>
     <% end %>
     
     <!-- What Works links dropdown -->        
@@ -82,6 +82,7 @@
           <li><%= link_to "Body Fat",        fat_measurements_path %></li>
           <li><%= link_to "Exercise Plan",   exercise_assignments_path %></li>
           <li><%= link_to "Meal Plan",       meals_path %></li>
+          <li><%= link_to "Supplements",     supplement_assignments_path %></li>
           <% if current_license != "client" %>
             <li><%= link_to "Notes",         notes_path %></li>
           <% end %>

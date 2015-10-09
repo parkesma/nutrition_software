@@ -1,29 +1,29 @@
 eclient1_supplement_assignment:
   id: 1
-  meal_id: 1
+  user_id: 5
   supplement_product_id: 2
   number_of_servings: 1
   
 sclient1_supplement_assignment:
   id: 2
-  meal_id: 2
+  user_id: 10
   supplement_product_id: 1
   number_of_servings: 2
   
 uclient_supplement_assignment:
   id: 3
-  meal_id: 3
+  user_id: 12
   supplement_product_id: 1
   number_of_servings: 3
   
 tclient_supplement_assignment:
   id: 4
-  meal_id: 4
+  user_id: 13
   supplement_product_id: 1
   number_of_servings: 4
   
 orphan_supplement_assignment:
   id: 5
-  meal_id: 5
+  user_id: 14
   supplement_product_id: 1
   number_of_servings: 5

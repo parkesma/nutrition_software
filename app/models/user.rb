@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
 	has_many :meals, dependent: :destroy
 	has_many :supplement_brands, dependent: :destroy
 	has_many :supplement_products, dependent: :destroy
+	has_many :supplement_assignments, dependent: :destroy
 	
 	def clients
 
@@ -336,10 +337,9 @@ class User < ActiveRecord::Base
 	end
 	
 	def supplements_per_month
-		all_supplement_assignments = SupplementAssignment.joins(meal: :user).where("user_id = ?", self.id)
 		supplements_per_day = {}
 
-		all_supplement_assignments.each do |sa|
+		self.supplement_assignments.each do |sa|
 			supplement_name = sa.supplement_product.drop_down_text
 			if supplements_per_day[supplement_name].nil?
 				supplements_per_day[supplement_name] = 

@@ -26,9 +26,9 @@
         <%= "%g" % ("%.3f" % exercise_assignment.exercise.Kcal_per_kg_per_hr) if
             exercise_assignment.exercise.Kcal_per_kg_per_hr %>
       </td>
-      <td><%= "%g" % ("%.3f" % exercise_assignment.kcal_per_hr) %></td>
-      <td><%= "%g" % ("%.3f" % exercise_assignment.weekly_kcal) %></td>
-      <td><%= "%g" % ("%.3f" % exercise_assignment.daily_kcal) %></td>
+      <td><%= "%g" % ("%.3f" % exercise_assignment.kcal_per_hr) if exercise_assignment.kcal_per_hr %></td>
+      <td><%= "%g" % ("%.3f" % exercise_assignment.weekly_kcal) if exercise_assignment.weekly_kcal %></td>
+      <td><%= "%g" % ("%.3f" % exercise_assignment.daily_kcal)  if exercise_assignment.daily_kcal %></td>
     </tr>
   <% end %>
  	<!-- </tbody> -->

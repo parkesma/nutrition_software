@@ -1,4 +1,4 @@
-<h1>Foods</h1>
+<h1>Foods & Caloric Supplements</h1>
 <% if !@exchanges.nil? %>
 	<% @exchanges.each do |e| %>
 		<div class="meal-table">
@@ -50,6 +50,6 @@
 	<% end %>
 </table>
 
-<h1>Supplements</h2>
+<h1>Non-Caloric Supplements</h2>
 	<%= render 'supplement_brands' %>
 </table>

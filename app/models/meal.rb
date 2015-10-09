@@ -4,7 +4,6 @@ class Meal < ActiveRecord::Base
 	
 	belongs_to :user
 	has_many :food_assignments, dependent: :destroy
-	has_many :supplement_assignments, dependent: :destroy
 	validates :name, presence: true
 	validates :time, presence: true
 

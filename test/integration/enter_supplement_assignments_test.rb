@@ -38,9 +38,9 @@ class EnterSupplementAssignmentsTest < ActionDispatch::IntegrationTest
   test "client can index, but not create, update, or delete" do
     login_as(@eclient1)
     focus_on(@eclient1)
-    get meals_path
+    get supplement_assignments_path
     assert_match @eclient_supplement_assignment.servings_text, response.body
-    cannot_create(@eclient_supplement_assignment.meal)
+    cannot_create_for(@eclient1)
     cannot_update(@eclient_supplement_assignment)
     cannot_delete(@eclient_supplement_assignment)
   end
@@ -49,7 +49,7 @@ class EnterSupplementAssignmentsTest < ActionDispatch::IntegrationTest
     login_as(@owner)
     focus_on(@eclient1)
     can_index(@eclient_supplement_assignment)
-    can_create(@eclient_supplement_assignment.meal)
+    can_create_for(@eclient1)
     can_update(@eclient_supplement_assignment)
     can_delete(@eclient_supplement_assignment)
   end
@@ -58,10 +58,10 @@ class EnterSupplementAssignmentsTest < ActionDispatch::IntegrationTest
     login_as(@employee)
     focus_on(@eclient1)
     can_index(@eclient_supplement_assignment)
-    can_create(@eclient_supplement_assignment.meal)
+    can_create_for(@eclient1)
     employees_supplement_assignment = SupplementAssignment.find_by(number_of_servings: 
       100 + @@count)
-    assert @employer.clients.include?(employees_supplement_assignment.meal.user)
+    assert @employer.clients.include?(employees_supplement_assignment.user)
     can_update(@eclient_supplement_assignment)
     can_delete(@eclient_supplement_assignment)
   end
@@ -71,16 +71,16 @@ class EnterSupplementAssignmentsTest < ActionDispatch::IntegrationTest
     @possible_users.each do |u|
       login_as(u)
       @possible_supplement_assignments.each do |f|
-        focus_on(f.meal.user)
-        if u.clients.include?(f.meal.user)
-          can_create(f.meal)
+        focus_on(f.user)
+        if u.clients.include?(f.user)
+          can_create_for(f.user)
           my_supplement_assignment = SupplementAssignment.find_by(number_of_servings: 
             100 + @@count)
           can_index(my_supplement_assignment)
           can_update(my_supplement_assignment)
           can_delete(my_supplement_assignment)
         else
-          cannot_create(f.meal)
+          cannot_create_for(f.user)
           cannot_index(f)
           cannot_update(f)
           cannot_delete(f)
@@ -103,38 +103,38 @@ class EnterSupplementAssignmentsTest < ActionDispatch::IntegrationTest
   end
   
   def cannot_index(supplement_assignment)
-    get meals_path
+    get supplement_assignments_path
     assert_no_match "value=\"#{'%g' % ('%.2f' % supplement_assignment.number_of_servings)}", response.body
   end
   
   def can_index(supplement_assignment)
-    get meals_path
+    get supplement_assignments_path
     assert_match "value=\"#{'%g' % ('%.2f' % supplement_assignment.number_of_servings)}", response.body
   end
       
-  def cannot_create(meal)
+  def cannot_create_for(user)
     @@count += 1
     assert_difference 'SupplementAssignment.count', 0 do
-      post food_assignments_path, 
-        category: @owners_supplement_product.name,
-        food_assignment: {
-          meal_id: meal.id,
-          number_of_exchanges: 100 + @@count
-        }
+      post supplement_assignments_path, supplement_assignment: {
+        user_id: user.id,
+        supplement_product_id: @owners_supplement_product.id,
+        number_of_servings: 100 + @@count, 
+        time_of_day: "Before breakfast"
+      }
     end
     assert !flash[:danger].blank?
-    assert_redirected_to meals_path
+    assert_redirected_to root_path
   end
   
-  def can_create(meal)
+  def can_create_for(user)
     @@count += 1
     assert_difference 'SupplementAssignment.count', 1 do
-      post food_assignments_path, 
-        category: @owners_supplement_product.name,
-        food_assignment: {
-          meal_id: meal.id,
-          number_of_exchanges: 100 + @@count
-        }
+      post supplement_assignments_path, supplement_assignment: {
+        user_id: user.id,
+        supplement_product_id: @owners_supplement_product.id,
+        number_of_servings: 100 + @@count, 
+        time_of_day: "Before breakfast"
+      }
     end
   end
     
@@ -142,7 +142,7 @@ class EnterSupplementAssignmentsTest < ActionDispatch::IntegrationTest
     patch supplement_assignment_path(supplement_assignment), 
       supplement_assignment: {number_of_servings: 0}
     assert !flash[:danger].blank?
-    assert_redirected_to meals_path
+    assert_redirected_to root_path
   end
     
   def can_update(supplement_assignment)
@@ -156,7 +156,7 @@ class EnterSupplementAssignmentsTest < ActionDispatch::IntegrationTest
     assert_difference 'SupplementAssignment.count', 0 do
       delete supplement_assignment_path(supplement_assignment)
       assert !flash[:danger].blank?
-      assert_redirected_to meals_path
+      assert_redirected_to root_path
     end
   end
   

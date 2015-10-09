@@ -1,0 +1,6 @@
+<% unless focussed_user.supplements_per_month.blank? %>
+	<div class="text-center big">Supplements Needed Each Month</div>
+	<% focussed_user.supplements_per_month.each do |supplements_string| %>
+		<div class="text-center"><%= supplements_string %></div>
+	<% end %>
+<% end %>

@@ -10,11 +10,6 @@
 	<% end %>
 <% end %>
 
-<!-- monthly supplement amounts -->
-<div id="supplement_summary">
-	<%= render "supplement_summary" %>
-</div>
-
 <!-- form to add new meals -->
 <% if current_license != "client" %>
 	<%= form_for :meal, url: meals_path, method: :post do |f| %>

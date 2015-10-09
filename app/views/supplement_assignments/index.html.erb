@@ -1,0 +1,49 @@
+<table class="table">
+	<tr>
+		<th class="text-center">Time of Day</th>
+		<th colspan=2 class="col-md-2 text-right">Servings</th>
+		<th colspan="3" class="col-md-6">Product</th>
+	</tr>
+
+	<!-- list of assigned supplements -->
+	<% unless @supplement_assignments.nil? %>
+			<% @supplement_assignments.each do |sa| %>
+				<tr>
+					<% @sa = sa %>
+					<% if current_license == "client" %>
+						<%= render 'client_supplement_form' %>
+					<% else %>
+						<div id="supplement_form<%= sa.id %>">
+							<%= render 'non_client_supplement_form' %>
+						</div>
+					<% end %>
+				</tr>
+			<% end %>
+	<% end %>
+
+	<!-- prescribe new supplements -->
+	<% unless current_license == "client" %>
+		<%= form_for :supplement_assignment, url: supplement_assignments_path, method: :post do |f| %>
+			<tr class="hide-on-print">
+				<td class="text-center">
+					<%= f.select :time_of_day, options_for_select(@new_sa.time_options), include_blank: true %>
+				</td>
+				<td class="text-right"><%= f.text_field :number_of_servings %></td>
+				<td></td>
+				<td>
+					<%= f.collection_select :supplement_product_id, @my_supplement_products, :id, :drop_down_text,
+							include_blank: true%>
+					<%= f.hidden_field(:user_id, value: focussed_user.id) %>
+				</td>
+				<td colspan="2"><%= f.submit "Add New Supplement", class: "btn-sm btn-primary" %></td>
+			</tr>
+		<% end %>
+	<% end %>
+</table>
+
+<!-- monthly supplement amounts -->
+<div id="supplement_summary">
+	<%= render "supplement_summary" %>
+</div>
+<br>
+<br>
