@@ -42,4 +42,19 @@ module SessionsHelper
     focussed_user.license if focussed?
   end
   
+  def master_date_check(date)
+    if date.blank?
+      return true
+    else
+      d, m, y = date.split '/'
+		  if Date.valid_date? y.to_i, m.to_i, d.to_i
+  			return true
+		  else
+    		flash[:danger] = "Invalid Date"
+  		  redirect_to :back
+  		  return false
+		  end
+		end
+  end
+  
 end

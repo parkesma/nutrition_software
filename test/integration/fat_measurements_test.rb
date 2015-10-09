@@ -49,11 +49,11 @@ class FatMeasurementsTest < ActionDispatch::IntegrationTest
     login_as(@employer)
     focus_on(@eclient)
     get fat_measurements_path
-    assert_match @fm1.created_at.strftime("%-d/%m/%Y"), 
+    assert_match @fm1.created_at.strftime("%Y"), 
       response.body
-    assert_match @fm2.created_at.strftime("%-d/%m/%Y"), 
+    assert_match @fm2.created_at.strftime("%Y"), 
       response.body
-    assert_match @fm3.created_at.strftime("%-d/%m/%Y"), 
+    assert_match @fm3.created_at.strftime("%Y"), 
       response.body
   end
   
@@ -61,11 +61,11 @@ class FatMeasurementsTest < ActionDispatch::IntegrationTest
         edit, or delete options" do
     login_as(@eclient)
     get fat_measurements_path
-    assert_match @fm1.created_at.strftime("%-d/%m/%Y"), 
+    assert_match @fm1.created_at.strftime("%Y"), 
       response.body
-    assert_match @fm2.created_at.strftime("%-d/%m/%Y"), 
+    assert_match @fm2.created_at.strftime("%Y"), 
       response.body
-    assert_match @fm3.created_at.strftime("%-d/%m/%Y"), 
+    assert_match @fm3.created_at.strftime("%Y"), 
       response.body
     assert_select "form", count: 0
     assert_select "a", text: "edit", count: 0

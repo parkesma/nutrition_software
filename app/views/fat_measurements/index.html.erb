@@ -45,36 +45,41 @@
 	
 	</table>
 	
-	<!-- BF Chart -->
-  <div class="col-md-6 graph">
-    <h3 class="text-center">Body Fat%</h3>
-    <%= line_chart @bf_chart_hash, discrete: true,
-    		library: {hAxis: {title: "Follow Up"},
-    		vAxis: {title: "Body Fat%"}} %>
-  </div>
 
-	<!-- Weight Chart -->
-  <div class="col-md-6 graph">
-    <h3 class="text-center">Weight</h3>
-    <%= line_chart @weight_chart_hash, discrete: true,
-    		library: {hAxis: {title: "Follow Up"},
-    		vAxis: {title: "Weight"}}, min: @weight_min, max: @weight_max %>
-  </div>
-  
-	<!-- Lean Mass Chart -->
-  <div class="col-md-6 graph">
-    <h3 class="text-center">Lean Mass</h3>
-    <%= line_chart @lean_chart_hash, discrete: true,
-    		library: {hAxis: {title: "Follow Up"},
-    		vAxis: {title: "Lean Mass"}} %>
-  </div>
+	<div class="row">
 
-	<!-- Fat Mass Chart -->
-  <div class="col-md-6 graph">
-    <h3 class="text-center">Fat Mass</h3>
-    <%= line_chart @fat_chart_hash, discrete: true,
-    		library: {hAxis: {title: "Follow Up"},
-    		vAxis: {title: "Fat Mass"}} %>
-  </div>
+		<% chart_width = 475 %>
 
+		<!-- BF Chart -->
+  	<div class="left graph">
+	    <%= area_chart @bf_chart_hash,
+		    	library: {title: "Body Fat %", width: chart_width,
+		    	hAxis: {title: "Date", gridlines: {color: "#CCC"}},
+    			vAxis: {title: "%"}}, min: @bf_min, max: @bf_max %>
+  	</div>
+	
+		<!-- Weight Chart -->
+	  <div class="right graph">
+    	<%= area_chart @weight_chart_hash,
+    			library: {title: "Weight", width: chart_width,
+    			hAxis: {title: "Date", gridlines: {color: "#CCC"}},
+    			vAxis: {title: "lbs"}}, min: @weight_min, max: @weight_max %>
+  	</div>
+	  
+		<!-- Lean Mass Chart -->
+	  <div class="left graph">
+    	<%= area_chart @lean_chart_hash,
+    			library: {title: "Lean Mass", width: chart_width,
+    			hAxis: {title: "Date", gridlines: {color: "#CCC"}},
+    			vAxis: {title: "lbs"}}, min: @lean_min, max: @lean_max %>
+  	</div>
+	
+		<!-- Fat Mass Chart -->
+	  <div class="right graph">
+    	<%= area_chart @fat_chart_hash,
+    			library: {title: "Fat Mass", width: chart_width,
+    			hAxis: {title: "Date", gridlines: {color: "#CCC"}},
+    			vAxis: {title: "lbs"}}, min: @fat_min, max: @fat_max %>
+  	</div>
+	</div>
 <% end %>

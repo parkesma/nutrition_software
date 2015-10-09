@@ -1,4 +1,5 @@
 class NotesController < ApplicationController
+  before_action :date_check, only: [:create, :update]
 	
 	def index
     if current_license != "client"
@@ -80,5 +81,10 @@ class NotesController < ApplicationController
 				:text, :updated_at
 			)
 		end
+		
+    def date_check
+			master_date_check(note_params[:updated_at])
+    end
+
   
 end

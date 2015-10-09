@@ -1,4 +1,5 @@
 class FatMeasurementsController < ApplicationController
+	before_action :date_check, only: [:create, :update]
 	
 	def index
 		@fat_measurement = focussed_user.fat_measurements.build()
@@ -12,24 +13,22 @@ class FatMeasurementsController < ApplicationController
 		@lean_chart_hash = {}
 		@fat_chart_hash = {}
 		@weight_chart_hash = {}
-		follow_up = 1
 		
 		@fat_measurements.reverse.each do |m|
-			@bf_chart_hash[follow_up] = m.calculated_bf.round(2) if
-				m.calculated_bf
-			@weight_chart_hash[follow_up] = m.weight.round(2) if 
-				m.weight
-			@lean_chart_hash[follow_up] =m.lean_mass.round(2) if 
-				m.lean_mass
-			@fat_chart_hash[follow_up] = m.fat_mass.round(2) if 
-				m.fat_mass
-			follow_up += 1
+			@bf_chart_hash[m.created_at]     = m.calculated_bf.round(2) if m.calculated_bf
+			@weight_chart_hash[m.created_at] = m.weight.round(2) if m.weight
+			@lean_chart_hash[m.created_at]   = m.lean_mass.round(2) if m.lean_mass
+			@fat_chart_hash[m.created_at]    = m.fat_mass.round(2) if m.fat_mass
 		end
 		
-		if !@fat_measurements.pluck(:weight).blank?
-			@weight_min = @fat_measurements.pluck(:weight).min - 10
-			@weight_max = @fat_measurements.pluck(:weight).max + 10 
-		end
+		@bf_min			= (@bf_chart_hash.map 		{|k, v| v}).min - 2		unless @bf_chart_hash.blank?
+		@bf_max			= (@bf_chart_hash.map 		{|k, v| v}).max + 2		unless @bf_chart_hash.blank?
+		@weight_min = (@weight_chart_hash.map {|k, v| v}).min - 10	unless @weight_chart_hash.blank?
+		@weight_max = (@weight_chart_hash.map {|k, v| v}).max + 10	unless @weight_chart_hash.blank?
+		@lean_min		= (@lean_chart_hash.map 	{|k, v| v}).min - 10	unless @lean_chart_hash.blank?
+		@lean_max		= (@lean_chart_hash.map 	{|k, v| v}).max + 10	unless @lean_chart_hash.blank?
+		@fat_min		= (@fat_chart_hash.map 		{|k, v| v}).min - 2		unless @fat_chart_hash.blank?
+		@fat_max		= (@fat_chart_hash.map 		{|k, v| v}).max + 2		unless @fat_chart_hash.blank?
 
 	end
 	
@@ -111,6 +110,11 @@ class FatMeasurementsController < ApplicationController
     		:midaxillary, :measured_bf, :bf_method
 			)
 		end
+		
+		def date_check
+			master_date_check(fat_measurement_params[:created_at])
+		end
+
 
 		def authorized_to_edit(user)
 			(current_license != "client" && 

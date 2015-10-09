@@ -4,8 +4,8 @@ class Exercise < ActiveRecord::Base
 
 	validates :category,   					presence: true
 	validates :name,   							presence: true, uniqueness: { case_sensitive: false }
-#	validates :Kcal_per_kg_per_hr,  presence: true, unless: ->(exercise){exercise.kcal_per_hr.present?}
-#	validates :kcal_per_hr, presence: true, unless: ->(exercise){exercise.Kcal_per_kg_per_hr.present?}
+  validates :Kcal_per_kg_per_hr,  presence: true, unless: ->(exercise){exercise.kcal_per_hr.present?}
+	validates :kcal_per_hr, presence: true, unless: ->(exercise){exercise.Kcal_per_kg_per_hr.present?}
 	
 	belongs_to :user
 	has_many :exercise_assignments, dependent: :destroy

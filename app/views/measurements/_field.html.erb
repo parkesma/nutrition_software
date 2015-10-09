@@ -1,4 +1,7 @@
 <td>
-    <%= @form.text_field @field, value: @default, 
-        class: "control-form" %>
+  <% if @default.class == String || @default.nil? %>
+    <%= @form.text_field @field, value: @default, class: "control-form" %>
+  <% else %>
+    <%= @form.text_field @field, value: "%g" % ("%.2f" % @default), class: "control-form" %>
+  <% end %>
 </td>

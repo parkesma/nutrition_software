@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	before_action :date_check, only: [:create, :update, :update_basic_info]
 
 	def index
 		@current_user = current_user
@@ -228,14 +229,22 @@ class UsersController < ApplicationController
 	end
 	
   def import
-		csv_file = File.read(params[:file].tempfile.to_path.to_s)
-		User.import(csv_file)
-		redirect_to import_all_path
+		if current_license != "owner"
+  		redirect_to root_path
+		else
+			csv_file = File.read(params[:file].tempfile.to_path.to_s)
+			User.import(csv_file)
+			redirect_to import_all_path
+		end
   end
 	
 	def import_all
-		@all_exchanges = Exchange.all
-		@all_sub_exchanges = SubExchange.all
+		if current_license != "owner"
+  		redirect_to root_path
+  	else
+			@all_exchanges = Exchange.all
+			@all_sub_exchanges = SubExchange.all
+		end
 	end
 	
 	private
@@ -260,11 +269,18 @@ class UsersController < ApplicationController
 			params.require(:user).permit(
 				:gender, :resting_heart_rate, :present_weight, 
 				:clothing, :present_body_fat, :height, 
-				:date_of_birth_string, :desired_weight, 
+				:date_of_birth, :desired_weight, 
 				:desired_body_fat, :measured_metabolic_rate, 
 				:activity_index
 			)
 		end
+		
+		def date_check
+			master_date_check(basic_info_params[:date_of_birth]) 	unless basic_info_params[:date_of_birth].blank?
+			master_date_check(user_params[:starting_date]) 				unless user_params[:starting_date].blank?
+			master_date_check(user_params[:expiration_date]) 			unless user_params[:expiration_date].blank?
+		end
+
 		
 		def search_params
 			params.require(:search).permit(:city, :state, :zip)

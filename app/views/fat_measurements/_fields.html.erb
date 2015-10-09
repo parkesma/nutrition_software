@@ -5,6 +5,11 @@
 	<% @fat_measurement.method_fields.each do |mf| %>
 
 		<% @heading = mf.to_s.titleize %>
+		<% if @heading == "Created At" %>
+			<% @subheading = "(d/m/yyyy)" %>
+		<% else %>
+			<% @subheading = nil %>
+		<% end %>
 		<%= render 'fat_measurements/header' %>
 
 	<% end %>		
@@ -19,9 +24,9 @@
 		<% if @field == :created_at %>
 			
 			<% if @fat_measurement.created_at.blank? %>
-				<% @default = Date.today.strftime("%e/%-m/%y") %>
+				<% @default = Date.today.strftime("%-d/%-m/%Y") %>
 			<% else %>
-				<% @default = @fat_measurement.created_at.strftime("%e/%-m/%y") %>
+				<% @default = @fat_measurement.created_at.strftime("%-d/%-m/%Y") %>
 			<% end %>
 		
 		<% else %>

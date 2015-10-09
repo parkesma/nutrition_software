@@ -11,14 +11,13 @@
 	<td><%= measurement.rt_calf %></td>
 
 	<% if current_license != "client" %>
-		<td class="hide-on-print"><%= link_to "edit",   edit_measurement_path(measurement),
-						method: :get, class: "record-link" %></td>
+		<td class="hide-on-print">
+			<%= link_to "edit",   edit_measurement_path(measurement), method: :get, class: "record-link" %>
+		</td>
 	      
 	  <td class="hide-on-print">
-	  	<%= link_to "delete", measurement, method: :delete,
-					data: { confirm: 
-	  			"Are you sure you want to delete this measurement?" },
-	  			class: "record-link" %>
+	  	<%= link_to "delete", measurement, method: :delete, data: { confirm: 
+	  			"Are you sure you want to delete this measurement?" }, class: "record-link" %>
 	  </td>
   <% end %>
   

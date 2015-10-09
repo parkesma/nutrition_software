@@ -6,7 +6,6 @@ class Food < ActiveRecord::Base
   validates :carbs_per_serving, presence: true
   validates :protein_per_serving, presence: true
   validates :fat_per_serving, presence: true
-  validates :kcals_per_serving, presence: true
   validates :servings_per_exchange, presence: true
   validates :serving_type, presence: true
   validates :sub_exchange_id, presence: true
@@ -25,6 +24,10 @@ class Food < ActiveRecord::Base
   
   def fat_per_exchange
     self.fat_per_serving * self.servings_per_exchange
+  end
+  
+  def kcals_per_serving
+    4 * (carbs_per_serving + protein_per_serving) + 9 * fat_per_serving
   end
   
   def kcals_per_exchange

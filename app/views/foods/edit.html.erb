@@ -37,11 +37,6 @@
 	<% @default = "%g" % ("%.2f" % @food.fat_per_serving) %>	
 	<%= render 'field' %>
 	
-	<% @label = 'Kcals per Serving' %>
-	<% @field = :kcals_per_serving %>
-	<% @default = "%g" % ("%.2f" % @food.kcals_per_serving) %>
-	<%= render 'field' %>
-	
 	<div class="text-center">
 		<%= f.submit 'Update', class: "btn btn-primary" %>
 	</div>

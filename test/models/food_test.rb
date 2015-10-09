@@ -7,7 +7,6 @@ class FoodTest < ActiveSupport::TestCase
       carbs_per_serving: "10",
       protein_per_serving: "10",
       fat_per_serving: "10",
-      kcals_per_serving: "10",
       servings_per_exchange: "10",
       serving_type: "oz",
       sub_exchange_id: 1
@@ -35,12 +34,6 @@ class FoodTest < ActiveSupport::TestCase
   test "fat should be present" do
     assert @food.valid?
     @food.fat_per_serving = nil
-    assert !@food.valid?
-  end
-  
-  test "kcals should be present" do
-    assert @food.valid?
-    @food.kcals_per_serving = nil
     assert !@food.valid?
   end
   

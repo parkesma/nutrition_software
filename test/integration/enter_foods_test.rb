@@ -89,7 +89,6 @@ class EnterFoodsTest < ActionDispatch::IntegrationTest
       carbs_per_serving: 10,
       protein_per_serving: 10,
       fat_per_serving: 10,
-      kcals_per_serving: 10,
       servings_per_exchange: 1,
       serving_type: "slice"
     }
@@ -136,7 +135,6 @@ class EnterFoodsTest < ActionDispatch::IntegrationTest
         carbs_per_serving: 10,
         protein_per_serving: 10,
         fat_per_serving: 10,
-        kcals_per_serving: 10,
         servings_per_exchange: 1,
         serving_type: "slice"
       }
@@ -154,7 +152,6 @@ class EnterFoodsTest < ActionDispatch::IntegrationTest
         carbs_per_serving: 10,
         protein_per_serving: 10,
         fat_per_serving: 10,
-        kcals_per_serving: 10,
         servings_per_exchange: 1,
         serving_type: "slice"
       }

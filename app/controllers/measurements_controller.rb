@@ -1,7 +1,9 @@
 class MeasurementsController < ApplicationController
+	before_action :date_check, only: [:create, :update]
 
 	def index
 		if authorized_to_see(focussed_user)
+			@measurement = Measurement.new
 			@measurements = focussed_user.measurements.order(
 				"created_at DESC")
 		else
@@ -77,6 +79,10 @@ class MeasurementsController < ApplicationController
 	    	:rt_thigh,
 	    	:rt_calf
 			)
+		end
+		
+		def date_check
+			master_date_check(measurement_params[:created_at])
 		end
 		
 		def authorized_to_edit(user)

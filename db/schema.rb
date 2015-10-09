@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151008190827) do
+ActiveRecord::Schema.define(version: 20151009011013) do
 
   create_table "exchanges", force: :cascade do |t|
     t.string   "name"
@@ -86,7 +86,6 @@ ActiveRecord::Schema.define(version: 20151008190827) do
     t.decimal  "carbs_per_serving",     precision: 10, scale: 2
     t.decimal  "protein_per_serving",   precision: 10, scale: 2
     t.decimal  "fat_per_serving",       precision: 10, scale: 2
-    t.decimal  "kcals_per_serving",     precision: 10, scale: 2
     t.decimal  "servings_per_exchange", precision: 10, scale: 2
     t.string   "serving_type"
     t.datetime "created_at",                                     null: false

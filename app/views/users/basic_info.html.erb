@@ -1,7 +1,12 @@
 <% provide(:title, 'Basic Info') %>
 <h1><%= @user.name %></h1>
+
 <%= form_for(:user, url: recalculate_path, method: :patch, 
 		html: {class: "form-horizontal"}) do |f| %>
+		
+	<div class="text-center hide-on-print">
+		<%= f.submit "Recalculate", class: 'btn btn-primary' %>
+	</div>
 
 	<% @form = f%>
 		<%= render 'users/basic_basic_info' %>	
