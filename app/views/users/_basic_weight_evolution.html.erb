@@ -10,6 +10,7 @@
 		<% @width = "big" %>
 		<% @popup = nil %>
 		<% @precision = 2 %>
+		<% @emphasized = false %>
 			
 		<div class="col-md-10 col-md-offset-2">
 			<div class="shrink-on-print">
@@ -69,8 +70,10 @@
 					<!-- Estimated Muscle Changes -->
 					<% @label = "Muscle Changes:" %>
 					<% @field = @user.estimated_muscle_changes %>
+					<% @emphasized = true if @field < 0 %>
 					<% @right = "Kg" %>
 					<%= render 'users/field_display'%>
+					<% @emphasized = false %>
 			
 					<!-- Estimated Fat Changes -->
 					<% @label = "Fat Changes:" %>
