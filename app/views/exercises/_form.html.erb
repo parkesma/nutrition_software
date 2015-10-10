@@ -45,6 +45,18 @@
 		</div>
 	</div>
 
+	<div class="row form-group col-md-offset-3 padded-5">
+		<%= f.label "Kcal/hr", class: "control-label col-md-1" %>
+		<div class="col-md-8 col-md-offset-1">
+			<% if @exercise.kcal_per_hr %>
+				<% default = sprintf("%0.2f", @exercise.kcal_per_hr) %>
+			<% else %>
+				<% default = nil %>
+			<% end %>
+			<%= f.text_field :kcal_per_hr, value: default, class: 'form-control' %>
+		</div>
+	</div>
+
   <div class="text-center">
 		<%= f.submit @submit_text, class: 'btn btn-primary' %>
 	</div>
