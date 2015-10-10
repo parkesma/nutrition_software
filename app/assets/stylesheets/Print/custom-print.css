@@ -59,14 +59,32 @@ a[href]:after {
   float: right;
 }
 
+.left {
+  float: left;
+}
+
+.right {
+  padding-left: 10px;
+  float: left;
+}
+
+.shrink-on-print {
+  /* border: 1px solid black; */
+  width: 33%;
+  float: left;
+  margin: 0px;
+}
+
 .sub-table {
-  border: 1px solid black;
+  border: none;
 }
 
 tr .control-label-big {
   width: 300px;
+  margin: 1px;
 }
 
 tr .form-control-big {
   width: 400px;
+  margin: 1px;
 }
