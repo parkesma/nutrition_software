@@ -47,3 +47,9 @@
 </div>
 <br>
 <br>
+
+<!-- add new and list supplements -->
+<% unless current_license == "client" %>
+	<h2>Available Supplements</h2>
+	<%= render 'supplement_brands' %>
+<% end %>

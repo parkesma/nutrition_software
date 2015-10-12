@@ -41,7 +41,7 @@
 	<% end %>
 	
 	<!-- meal notes and totals -->
-	<tr>
+	<tr class="totals">
 		<td colspan="5" class="text-right"><%= "#{@meal.name} Totals"%></td>
 		<td><%= "%g" % ("%.2f" % @meal.carbs) %></td>
 		<td><%= "%g" % ("%.2f" % @meal.protein) %></td>

@@ -32,6 +32,7 @@
 		</tr>
 	<% end %>
 <% end %>
+
 <%= form_for(:supplement_product, url: supplement_products_path, method: :post) do |f| %>
 	<tr>
 		<%= f.hidden_field :supplement_brand_id, value: @b.id %>

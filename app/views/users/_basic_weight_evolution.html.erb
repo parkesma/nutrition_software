@@ -70,7 +70,7 @@
 					<!-- Estimated Muscle Changes -->
 					<% @label = "Muscle Changes:" %>
 					<% @field = @user.estimated_muscle_changes %>
-					<% @emphasized = true if @field < 0 %>
+					<% @emphasized = true if @field && @field < 0 %>
 					<% @right = "Kg" %>
 					<%= render 'users/field_display'%>
 					<% @emphasized = false %>

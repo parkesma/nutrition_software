@@ -9,39 +9,27 @@ class ExchangesController < ApplicationController
           @my_exchanges           = current_user.employer.exchanges
           @my_sub_exchanges       = current_user.employer.sub_exchanges
           @my_foods               = current_user.employer.foods
-          @my_supplement_brands   = current_user.employer.supplement_brands
-          @my_supplement_products = current_user.employer.supplement_products
         else
           @my_exchanges           = current_user.exchanges
           @my_sub_exchanges       = current_user.sub_exchanges
           @my_foods               = current_user.foods
-          @my_supplement_brands   = current_user.supplement_brands
-          @my_supplement_products = current_user.supplement_products
         end
         
         owner_exchanges           = Exchange.joins(           :user).where(users: { license: "owner" })
         owner_sub_exchanges       = SubExchange.joins(        :user).where(users: { license: "owner" })
         owner_foods               = Food.joins(               :user).where(users: { license: "owner" })
-        owner_supplement_brands   = SupplementBrand.joins(   :user).where(users: { license: "owner" })
-        owner_supplement_products = SupplementProduct.joins( :user).where(users: { license: "owner" })
         
       	@exchanges            = (@my_exchanges            || []) + (owner_exchanges           || [])
       	@sub_exchanges        = (@my_sub_exchanges        || []) + (owner_sub_exchanges       || [])
       	@foods                = (@my_foods                || []) + (owner_foods               || [])
-      	@supplement_brands    = (@my_supplement_brands    || []) + (owner_supplement_brands   || [])
-      	@supplement_products  = (@my_supplement_products  || []) + (owner_supplement_products || [])
 			end
     else
       @exchanges              = Exchange.all
       @sub_exchanges          = SubExchange.all
       @foods                  = Food.all
-      @supplement_brands      = SupplementBrand.all
-      @supplement_products    = SupplementProduct.all
       @my_exchanges           = @exchanges            
       @my_sub_exchanges       = @sub_exchanges
       @my_foods               = @foods
-      @my_supplement_brands   = @supplement_brands
-      @my_supplement_products = @supplement_products
     end
 	end
 	

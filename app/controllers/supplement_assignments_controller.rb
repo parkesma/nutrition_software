@@ -7,6 +7,31 @@ class SupplementAssignmentsController < ApplicationController
       @new_sa = focussed_user.supplement_assignments.new
       @my_supplement_products = SupplementProduct.joins(:user).where("users.license = ? OR users.id = ?", 
 		    "owner", @new_sa.user.trainer_id ).distinct
+		    
+      if current_license != "owner" 
+        if current_license != "client"
+          
+          if current_license == "employee"
+            @my_supplement_brands   = current_user.employer.supplement_brands
+            @my_supplement_products = current_user.employer.supplement_products
+          else
+            @my_supplement_brands   = current_user.supplement_brands
+            @my_supplement_products = current_user.supplement_products
+          end
+          
+          owner_supplement_brands   = SupplementBrand.joins(   :user).where(users: { license: "owner" })
+          owner_supplement_products = SupplementProduct.joins( :user).where(users: { license: "owner" })
+          
+      	  @supplement_brands    = (@my_supplement_brands    || []) + (owner_supplement_brands   || [])
+      	  @supplement_products  = (@my_supplement_products  || []) + (owner_supplement_products || [])
+        end
+      else
+        @supplement_brands      = SupplementBrand.all
+        @supplement_products    = SupplementProduct.all
+        @my_supplement_brands   = @supplement_brands
+        @my_supplement_products = @supplement_products
+      end
+
     else
       flash[:danger] = "You are not authorized to view this client's supplements"
       redirect_to root_path

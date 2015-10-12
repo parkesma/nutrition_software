@@ -336,7 +336,7 @@ class User < ActiveRecord::Base
 		end
 	end
 	
-	def supplements_per_month
+	def supplements_summary
 		supplements_per_day = {}
 
 		self.supplement_assignments.each do |sa|
@@ -349,14 +349,20 @@ class User < ActiveRecord::Base
 			end
 		end
 		
-		supplements_per_month = supplements_per_day.map { |sa, array| 
-			number = (array[1] * 365 / 12.00 / array[0]).round(2)
-			[sa, number, array[2].package_text(number)]
-		}
+		supplements_summary = []
+		supplements_per_day.each do |sa, array| 
+			number_per_week = (array[1] * 7 / array[0]).round(2)
+			number_per_month = (array[1] * 365 / 12.00 / array[0]).round(2)
+			weekly_packages = array[2].package_text(number_per_week)
+			monthly_packages = array[2].package_text(number_per_month)
+			hash = {}
+			hash[:name] = sa
+			hash[:per_week] = "#{number_per_week} #{weekly_packages}"
+			hash[:per_month] = "#{number_per_month} #{monthly_packages}"
+			supplements_summary.push(hash)
+		end
 		
-		supplements_per_month.map! { |sa, number, package_text| 
-			"#{"%g" % ("%.2f" % number)} #{package_text} of #{sa}"
-		}
+		supplements_summary
 	end
 	
 	def daily_carbs

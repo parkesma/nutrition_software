@@ -27,7 +27,8 @@ class EnterSupplementBrandsTest < ActionDispatch::IntegrationTest
   
   test "client can't index, create, update, or delete any" do
     login_as(@eclient1)
-    cannot_index(@owners)
+    get supplement_assignments_path
+    assert_no_match "Available Supplements", response.body
     cannot_create
     cannot_update(@owners)
     cannot_delete(@owners)
@@ -37,6 +38,7 @@ class EnterSupplementBrandsTest < ActionDispatch::IntegrationTest
     @possible_users.each do |u|
       if u.license != "client" && u.license != "owner"
         login_as(u)
+        focus_on(u.clients.first)
         can_index(@owners)
         cannot_update(@owners)
         cannot_delete(@owners)
@@ -46,6 +48,7 @@ class EnterSupplementBrandsTest < ActionDispatch::IntegrationTest
   
   test "Owner can index, create, update, and delete all" do
     login_as(@owner)
+    focus_on(@eclient1)
     can_index(@employers)
     can_create
     can_update(@employers)
@@ -54,6 +57,7 @@ class EnterSupplementBrandsTest < ActionDispatch::IntegrationTest
   
   test "Employee can index, create, and edit, but not delete employer's" do
     login_as(@employee)
+    focus_on(@eclient1)
     can_index(@employers)
     can_create
     employees = SupplementBrand.find_by(name: "New Supplement Brand")
@@ -67,6 +71,7 @@ class EnterSupplementBrandsTest < ActionDispatch::IntegrationTest
     @possible_users.each do |u|
       if u.license != "client" && u.license != "employee" && u.license != "owner"
         login_as(u)
+        focus_on(u.clients.first)
         can_create
         mine = SupplementBrand.find_by(user_id: u.id)
         can_index(mine)
@@ -108,13 +113,13 @@ class EnterSupplementBrandsTest < ActionDispatch::IntegrationTest
   end
   
   def cannot_index(supplement_brand)
-    get exchanges_path
+    get supplement_assignments_path
     assert_no_match supplement_brand.name.to_s, 
       response.body
   end
   
   def can_index(supplement_brand)
-    get exchanges_path
+    get supplement_assignments_path
     assert_match supplement_brand.name.to_s,
       response.body
   end

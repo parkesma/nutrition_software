@@ -1,6 +1,17 @@
-<% unless focussed_user.supplements_per_month.blank? %>
-	<div class="text-center big">Supplements Needed Each Month</div>
-	<% focussed_user.supplements_per_month.each do |supplements_string| %>
-		<div class="text-center"><%= supplements_string %></div>
-	<% end %>
+<% unless focussed_user.supplements_summary.blank? %>
+	<div class="text-center big">Supplements Needed</div>
+	<table class="table">
+		<tr>
+			<th>Supplement</th>
+			<th>Per Week</th>
+			<th>Per Month</th>
+		</tr>
+		<% focussed_user.supplements_summary.each do |ss| %>
+			<tr>
+				<td><%= ss[:name] %></td>
+				<td><%= ss[:per_week] %></td>
+				<td><%= ss[:per_month] %></td>
+			</tr>
+		<% end %>
+	</table>
 <% end %>
