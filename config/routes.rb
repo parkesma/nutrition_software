@@ -45,6 +45,11 @@ Rails.application.routes.draw do
   post '/import_supplement_products', to: 'supplement_products#import', as: 'import_supplement_products'
   post '/import_exercises',           to: 'exercises#import',           as: 'import_exercises'
 
+  resources :videos, only: [:index, :create, :update, :destroy]
+  
+  post '/move_video_up',    to: 'videos#move_up',   as: 'move_video_up'
+  post '/move_video_down',  to: 'videos#move_down', as: 'move_video_down'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

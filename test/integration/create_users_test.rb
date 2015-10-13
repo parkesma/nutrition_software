@@ -60,7 +60,7 @@ class CreateUsersTest < ActionDispatch::IntegrationTest
   test "different licenses see the right menu options" do
     @possible_users.each do |u|
       login_as(u)
-      assert_select "a", "Home"
+      assert_select "a", "Help"
       assert_select "a", "Account"
       assert_select "a", "Log out"
       if u.license == "client"

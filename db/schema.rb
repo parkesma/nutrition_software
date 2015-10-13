@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009225713) do
+ActiveRecord::Schema.define(version: 20151013185914) do
 
   create_table "exchanges", force: :cascade do |t|
     t.string   "name"
@@ -225,6 +225,14 @@ ActiveRecord::Schema.define(version: 20151009225713) do
     t.string   "company"
     t.decimal  "present_body_fat",        precision: 10, scale: 2
     t.string   "clothing"
+  end
+
+  create_table "videos", force: :cascade do |t|
+    t.string   "title"
+    t.string   "url"
+    t.integer  "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

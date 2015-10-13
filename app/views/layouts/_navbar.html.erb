@@ -13,20 +13,24 @@
 <nav class="row" id="menu">
   <ul class="nav navbar-nav navbar-default col-md-12">
   
-    <li><%= link_to "Home", root_path %></li>
+    <li><%= link_to "Help", videos_path %></li>
 
     <!-- Link to list of subusers -->
-    <% if logged_in? && current_license != "client" %>
+    <% if logged_in? %>
+      <% if current_license != "client" %>
     
-      <% if current_license == "owner" %>
-        <% users_text = "Users" %>
-      <% elsif current_license == "employer" %>
-        <% users_text = "Clients & Employees" %>
-      <% else %>
-        <% users_text = "Clients" %>
+        <% if current_license == "owner" %>
+          <% users_text = "Users" %>
+        <% elsif current_license == "employer" %>
+          <% users_text = "Clients & Employees" %>
+        <% else %>
+          <% users_text = "Clients" %>
+        <% end %>
+        
+        <li><%= link_to users_text, users_path(current_user.id) %></li>
       <% end %>
-      
-      <li><%= link_to users_text, users_path(current_user.id) %></li>
+    <% else %>
+      <li><%= link_to "Log In", login_path %></li>
     <% end %>
 
     <!-- Account links dropdown -->

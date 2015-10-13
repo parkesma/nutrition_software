@@ -56,7 +56,6 @@
 		<%= f.label "Starting Date (d/m/yyyy):", class: "control-label col-md-3 text-right" %>
 		<div class="col-md-5">
 			<% starting_value = @user.starting_date.strftime("%-d/%-m/%Y") unless @user.starting_date.blank? %>
-			<%= starting_value %>
 			<%= f.text_field :starting_date, value: starting_value, class: "form-control" %>
 		</div>
 	</div>
@@ -66,7 +65,6 @@
 		<%= f.label "Expiration Date (d/m/yyyy):", class: "control-label col-md-3 text-right" %>
 		<div class="col-md-5">
 			<% expiration_value = @user.expiration_date.strftime("%-d/%-m/%Y") unless @user.expiration_date.blank? %>
-			<%= expiration_value %>
 			<%= f.text_field :expiration_date, value: expiration_value, class: "form-control" %>
 		</div>
 	</div>

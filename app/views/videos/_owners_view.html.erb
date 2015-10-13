@@ -1,0 +1,47 @@
+<!-- Edit/see each video -->
+<% @videos.each do |video| %>
+	<%= form_for(:video, url: video_path(video), method: :patch) do |f| %>
+		<%= f.text_field :title, value: video.title, class: "text-center video-title" %>
+		<%= f.text_field :url, value: video.url, class: "text-center"%>
+		<div class="text-center">
+			<%= f.submit 'Update', class: "btn btn-primary" %>
+		</div>
+
+		<div class="text-center">
+     	<% if video.position > 1 %>
+      	<%= link_to move_video_up_path(id: video.id), method: :post do %>
+       		<i class="glyphicon glyphicon-arrow-up"></i>
+     		<% end %>
+			<% end %>      	
+			<% if video.position < @videos.length %>
+      	<%= link_to move_video_down_path(id: video.id), method: :post do %>
+       		<i class="glyphicon glyphicon-arrow-down"></i>
+     		<% end %>
+     	<% end %>
+		</div>
+	<% end %>
+	
+	<div class="text-center">
+		<%= content_tag(:iframe, nil, src: "#{video.url}", class: "video-player", allowfullscreen: true) %>
+	</div>
+
+	
+<% end %>
+
+<!-- enter new videos -->
+<h2>Enter New Video</h2>
+<%= form_for(:video, url: videos_path, method: :post) do |f| %>
+	<table class="table">
+		<tr>
+			<th class="col-md-3">Video Title</th>
+			<th class="col-md-9">url</th>
+		</tr>
+		<tr>
+			<td><%= f.text_field :title %></td>
+			<td><%= f.text_field :url %></td>
+		</tr>	
+	</table>
+	<div class="text-center">
+		<%= f.submit 'Save New Video', class: "btn btn-primary" %>
+	</div>
+<% end %>

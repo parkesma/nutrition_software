@@ -1,0 +1,6 @@
+<h1>Instructional Videos</h1>
+<% if current_license == "owner" %>
+	<%= render "owners_view" %>
+<% else %>
+	<%= render "users_view" %>
+<% end %>
