@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013185914) do
+ActiveRecord::Schema.define(version: 20151013233924) do
 
   create_table "exchanges", force: :cascade do |t|
     t.string   "name"
@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(version: 20151013185914) do
     t.string   "company"
     t.decimal  "present_body_fat",        precision: 10, scale: 2
     t.string   "clothing"
+    t.integer  "login_count",                                      default: 0,     null: false
   end
 
   create_table "videos", force: :cascade do |t|

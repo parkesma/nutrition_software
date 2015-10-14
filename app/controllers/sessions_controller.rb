@@ -7,7 +7,7 @@ before_action :expired,           only: [:create]
   def new
     if logged_in?
       if current_license != "client"
-        redirect_to users_url(current_user.id)
+          redirect_to users_url(current_user.id)
       else
         redirect_to current_user
       end
@@ -18,7 +18,11 @@ before_action :expired,           only: [:create]
     login(@user)
     if logged_in?
       if current_license != "client"
-        redirect_to users_url(current_user.id)
+        if current_user.login_count == 1
+          redirect_to edit_user_path(current_user)
+        else        
+          redirect_to users_url(current_user.id)
+        end
       else
         redirect_to current_user
       end
