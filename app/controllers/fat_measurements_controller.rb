@@ -6,8 +6,8 @@ class FatMeasurementsController < ApplicationController
 		@fat_measurement.bf_method = session[:bf_method] ||
 			@fat_measurement.bf_options[0]
 		session[:bf_method] = nil
-		@fat_measurements = focussed_user.fat_measurements.order(
-			"created_at DESC")
+		@fat_measurements = focussed_user.fat_measurements.where("bf_method = ?", @fat_measurement.bf_method).
+			order("created_at DESC")
 
 		@bf_chart_hash = {}
 		@lean_chart_hash = {}

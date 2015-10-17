@@ -27,23 +27,38 @@
 </div>
 
 <% if @fat_measurements.length > 0 %>
-	<table class="table table-striped table-bordered" >
+	<div class="">
+	<table class="table table-striped table-bordered fat-measurement-table">
+		<tr class="header-row">
+			<th class="created-at">
+				<div class="fat-label">Created At<br>(d/m/yyyy)</div>
+			</th>
 
-		<tr>
-			<th class="text-center">Date (d/m/yyyy)</th>
-			<th class="text-center">Weight</th>
-			<th class="text-center">Method</th>
-			<th class="text-center">Body Fat%</th>
-			<th class="text-center">Lean Mass</th>
-			<th class="text-center">Fat Mass</th>
-			<th class="text-center">Change in Body Fat%</th>
-			<th class="text-center">Change in Lean Mass</th>
-			<th class="text-center">Change in Fat Mass</th>
+			<% @fat_measurement.method_fields.each do |mf| %>
+				<% @heading = mf.to_s.titleize %>
+				<% next if @heading == "Created At" %>
+				<%= render 'fat_measurements/header' %>
+			<% end %>
+			
+			<% extra_labels = [	
+				["Body Fat%", " "],
+				["Lean Mass", " "],
+				["Fat Mass", 	" "],
+				["Body Fat%", "Change"],
+				["Lean Mass", "Change"],
+				["Fat Mass", 	"Change"]
+			] %>
+			<% extra_labels.each do |heading, subheading| %>
+				<% @heading 		= heading %>
+				<% @subheading 	= subheading %>
+				<%= render 'fat_measurements/header' %>
+			<% end %>
 		</tr>
 
 		<%= render @fat_measurements %>
 	
 	</table>
+	</div>
 	
 
 	<div class="row">

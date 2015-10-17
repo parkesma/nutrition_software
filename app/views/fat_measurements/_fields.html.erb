@@ -34,7 +34,10 @@
 			<% @default = @fat_measurement.send(@field) %>
 
 		<% end %>
-		<%= render 'fat_measurements/field' %>
+		
+		<td>
+		  <%= @form.text_field @field, value: @default, class: "control-form" %>
+		</td>
 	<% end %>		
 
 	</tr>

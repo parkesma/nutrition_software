@@ -1,10 +1,12 @@
-<tr>
-	<td><%= fat_measurement.created_at.strftime("%-d/%-m/%Y") %></td>
-
-	<td><%= "%.2f" % fat_measurement.weight if  
-					fat_measurement.weight %></td>
-
-	<td><%= fat_measurement.bf_method %></td>
+<tr>	
+	
+	<% fat_measurement.method_fields.each do |mf| %>
+		<% if mf == :created_at %>
+			<td><%= fat_measurement.created_at.strftime("%-d/%-m/%Y") %></td>
+		<% else %>
+			<td><%= "%.2f" % fat_measurement.public_send(mf) if fat_measurement.respond_to? mf %></td>
+		<% end %>
+	<% end %>
 
 	<td><%= "%.2f" % fat_measurement.calculated_bf if 
 					!fat_measurement.calculated_bf.blank? %></td>

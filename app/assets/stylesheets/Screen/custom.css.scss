@@ -418,3 +418,23 @@ li {
   font-size: 1.5em;
   font-weight: bold;
 }
+
+/* Fat Measurement */
+.fat-measurement-table {
+  table-layout: fixed;
+  width: 100%;
+
+  th {
+    height: 100px;
+    margin: auto;
+    
+    .fat-label {
+      transform: translate(50%, 65px) rotate(-90deg);
+	    transform-origin: left center;
+	    white-space: nowrap;
+    }
+  }
+  .created-at {
+    width: 80px;
+  }
+}
