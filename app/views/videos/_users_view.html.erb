@@ -1,6 +1,9 @@
 <% @videos.each do |video| %>
-	<div class="text-center video-title"><%= video.title %></div>
-	<div class="text-center">
-		<%= content_tag(:iframe, nil, src: "#{video.url}", class: "video-player", allowfullscreen: true) %>
-	</div>
+	<div class="sub-table">
+		<div class="text-center video-title"><%= video.title %></div>
+		<div class="text-center">
+			<%= content_tag(:iframe, nil, src: "#{video.url}", class: "video-player", allowfullscreen: true) %>
+		</div>
+		<div class="video-description"><%= video.description %></div>
+	</div><br>
 <% end %>
