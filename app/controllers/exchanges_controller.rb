@@ -31,6 +31,11 @@ class ExchangesController < ApplicationController
       @my_sub_exchanges       = @sub_exchanges
       @my_foods               = @foods
     end
+    
+		respond_to do |format|
+			format.html
+			format.csv { send_data @foods.to_csv }
+		end
 	end
 	
 	def create

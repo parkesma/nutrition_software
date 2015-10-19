@@ -1,11 +1,15 @@
 <!-- Edit/see each video -->
 <% @videos.each do |video| %>
+	<div class="sub-table">
 	<%= form_for(:video, url: video_path(video), method: :patch) do |f| %>
 		<%= f.text_field :title, value: video.title, class: "text-center video-title" %>
 		<%= f.text_field :url, value: video.url, class: "text-center"%>
+		
 		<div class="text-center">
-			<%= f.submit 'Update', class: "btn btn-primary" %>
+			<%= content_tag(:iframe, nil, src: "#{video.url}", class: "video-player", allowfullscreen: true) %>
 		</div>
+		
+		<div class="text-center">Description:<%= f.text_area :description, value: video.description %></div>
 
 		<div class="text-center">
      	<% if video.position > 1 %>
@@ -19,13 +23,15 @@
      		<% end %>
      	<% end %>
 		</div>
-	<% end %>
-	
-	<div class="text-center">
-		<%= content_tag(:iframe, nil, src: "#{video.url}", class: "video-player", allowfullscreen: true) %>
-	</div>
 
-	
+		<div class="text-center"><%= f.submit 'Update', class: "btn btn-primary" %></div>
+		<div class="text-center">
+			<%= link_to 'Delete', video_path(video), method: :delete, data: {confirm: 
+				'Are you sure that you want to delete this video?'} %>
+		</div>
+
+	<% end %>
+	</div><br>
 <% end %>
 
 <!-- enter new videos -->
@@ -39,8 +45,9 @@
 		<tr>
 			<td><%= f.text_field :title %></td>
 			<td><%= f.text_field :url %></td>
-		</tr>	
+		</tr>
 	</table>
+	<div class="text-center">Description:<%= f.text_area :description %></div>
 	<div class="text-center">
 		<%= f.submit 'Save New Video', class: "btn btn-primary" %>
 	</div>
