@@ -1,8 +1,8 @@
 <tr>
 	<td colspan="2" class="text-right col-md-2"><%= @fa.servings_text %></td>
 	<td class="col-md-3" onchange='$("#food_form<%= @fa.id %>").submit();'>
-		<%= select_tag ':food_assignment[:food_id]', grouped_options_for_select(@fa.grouped_available_foods, 
-				selected_key: @fa.food.id) %>
+		<%= select_tag 'food_assignment[food_id]', grouped_options_for_select(@fa.grouped_available_foods, 
+				selected: @fa.food.id) %>
 	</td>
 	<td class="text-right col-md-1" onchange='$("#food_form<%= @fa.id %>").submit();'>
 		<%= @f.text_field :number_of_exchanges, value: "%g" % ("%.2f" % @fa.number_of_exchanges) %>
