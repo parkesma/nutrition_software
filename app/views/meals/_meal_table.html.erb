@@ -70,8 +70,7 @@
 				<td colspan="4">Add new food to <%= @meal.name %></td>
 				<td class="text-right"><%= f.number_field :number_of_exchanges, min: 0 %></td>
 				<td colspan="6">
-					<%= collection_select nil, :category, @my_exchanges, :name, 
-							:name %>
+					<%= select_tag :sub_exchange, options_for_select(@my_exchanges) %>
 					<%= f.hidden_field(:meal_id, value: @meal.id) %>
 				</td>
 				<td><%= f.submit "Add", class: "btn-sm btn-primary" %></td>

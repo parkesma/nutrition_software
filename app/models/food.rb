@@ -49,6 +49,15 @@ class Food < ActiveRecord::Base
   def sub_exchange_for_group
     [self.sub_exchange]
   end
+  
+  def exchange_for_dropdown
+    if  self.sub_exchange.exchange.name.include?("Meat") ||
+        self.sub_exchange.exchange.name.include?("Milk")
+      self.sub_exchange.name
+    else
+      self.sub_exchange.exchange.name
+    end
+  end
 
 	def self.import(file)
 		csv = CSV.parse(file, headers: true)

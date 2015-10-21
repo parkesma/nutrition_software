@@ -8,10 +8,11 @@ class FoodAssignmentsController < ApplicationController
       meal = Meal.find(food_assignment_params[:meal_id])
       params[:food_assignment][:number_of_exchanges] = 1 if !params[:food_assignment][:number_of_exchanges]
 
-      sub_exchange = SubExchange.find_by(name: params[:category])
+      sub_exchange = 	SubExchange.find_by(name: params[:sub_exchange]) ||
+      								Exchange.find_by(name: params[:sub_exchange]) 
 
       if sub_exchange.nil?
-      	supplement_product_id = SupplementProduct.find_by(name: params[:category]).id
+      	supplement_product_id = SupplementProduct.find_by(name: params[:sub_exchange]).id
       	number_of_servings = params[:food_assignment][:number_of_exchanges]
       	
       	@supplement_assignment = meal.supplement_assignments.build(
@@ -44,9 +45,11 @@ class FoodAssignmentsController < ApplicationController
 			          "position = ?", @food_assignment.position - 1)
 		    above.update_all(position: @food_assignment.position) if above.size > 0
 		  end
+		  
+		  new_sub_exchange = 	SubExchange.find_by(name: params[:sub_exchange]) || 
+		  										Exchange.find_by(name: params[:sub_exchange])
 
-		  if params[:sub_exchange] && params[:sub_exchange].to_i != @food_assignment.food.sub_exchange.id
-		  		new_sub_exchange = SubExchange.find_by(id: params[:sub_exchange])
+		  if new_sub_exchange && new_sub_exchange != @food_assignment.food.sub_exchange
 		  		params[:food_assignment][:food_id] = new_sub_exchange.first_food_id
 		  end
 		  

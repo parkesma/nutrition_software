@@ -28,7 +28,7 @@ class MealsController < ApplicationController
 		    sub_exchange.exchange.name.include?("Meat") ||
 		    sub_exchange.exchange.name.include?("Milk")
 		  }
-		  @my_exchanges = exchanges_no_milk_or_meat + milk_and_meat_sub_exchanges
+		  @my_exchanges = (exchanges_no_milk_or_meat + milk_and_meat_sub_exchanges).map {|element| element.name}
 		else
 			flash[:danger] = "You are not authorized to view meals for this client"
 			redirect_to root_path

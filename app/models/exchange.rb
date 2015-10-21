@@ -22,6 +22,12 @@ class Exchange < ActiveRecord::Base
 		self.sub_exchanges.first.id
 	end
 	
+	def first_food_id
+		if self.sub_exchanges.first.foods.size > 0
+			self.sub_exchanges.first.foods.first.id
+		end
+	end
+	
 	private
 	
 		def capitalize
