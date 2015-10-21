@@ -41,12 +41,13 @@
 	<% end %>
 	
 	<!-- meal notes and totals -->
-	<tr class="totals">
-		<td colspan="5" class="text-right"><%= "#{@meal.name} Totals"%></td>
-		<td><%= "%g" % ("%.2f" % @meal.carbs) %></td>
-		<td><%= "%g" % ("%.2f" % @meal.protein) %></td>
-		<td><%= "%g" % ("%.2f" % @meal.fat) %></td>
-		<td><%= "%g" % ("%.2f" % @meal.kcals) %></td>
+	<tr>
+		<td colspan="3"><td>
+		<td class="text-right totals"><%= "#{@meal.name} Totals"%></td>
+		<td class="totals"><%= "%g" % ("%.2f" % @meal.carbs) %></td>
+		<td class="totals"><%= "%g" % ("%.2f" % @meal.protein) %></td>
+		<td class="totals"><%= "%g" % ("%.2f" % @meal.fat) %></td>
+		<td class="totals"><%= "%g" % ("%.2f" % @meal.kcals) %></td>
 	</tr>
 	<tr></tr>
 	<tr>

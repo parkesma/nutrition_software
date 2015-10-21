@@ -15,11 +15,31 @@ class FoodAssignment < ActiveRecord::Base
 		end
 	end
 	
-	def available_foods
+	def grouped_available_foods
 		sups_foods = Food.joins(:user).where("users.license = ? OR users.id = ?", 
-			"owner", self.meal.user.trainer_id )
-		same_category_foods = self.food.sub_exchange.foods
-		same_category_foods.merge(sups_foods)
+												 								 "owner", 					 self.meal.user.trainer_id)
+		if 	self.food.sub_exchange.exchange.name.include?("Meat") ||
+				self.food.sub_exchange.exchange.name.include?("Milk")
+			same_exchange_foods = self.food.sub_exchange.foods
+		else
+			same_exchange_sub_exchanges = self.food.sub_exchange.exchange.sub_exchanges.pluck(:id)
+			same_exchange_foods = Food.where("sub_exchange_id IN (?)", same_exchange_sub_exchanges)
+		end
+		available_foods = same_exchange_foods.merge(sups_foods)
+		available_sub_exchanges = []
+		available_foods.each do |food|
+			available_sub_exchanges.push(food.sub_exchange)
+		end
+		grouped_available_foods = {}
+		available_sub_exchanges.uniq.each do |sub_exchange|
+			
+			grouped_available_foods[sub_exchange.name] = available_foods.select{ |food|
+				food.sub_exchange == sub_exchange
+			}.map { |food| 
+					[food.name, food.id]
+			}
+		end
+		return grouped_available_foods
 	end
 
 end

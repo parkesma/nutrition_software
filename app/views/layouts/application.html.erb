@@ -7,13 +7,20 @@
     <%= stylesheet_link_tag    'application-print', media: 'print' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
+    <script language="JavaScript">
+      function readCookie(name){
+        return(document.cookie.match('(^|; )'+name+'=([^;]*)')||0)[2]
+      }
+    </script>
     <%= render 'layouts/shim' %>
     <!--[if lt IE 9]>
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
       </script>
     <![endif]-->
   </head>
-  <body data-no-turbolink>
+  <body data-no-turbolink
+        onScroll="document.cookie='ypos=' + window.pageYOffset" 
+        onLoad="window.scrollTo(0,readCookie('ypos'))">
       
     <%= render 'layouts/header' %>
       

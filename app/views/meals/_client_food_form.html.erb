@@ -1,8 +1,8 @@
 <tr>
 	<td colspan="2" class="text-right"><%= @fa.servings_text %></td>	
 	<td onchange='$("#food_form<%= @fa.id %>").submit();'>
-		<%= @f.collection_select :food_id, @fa.available_foods, :id, :name,
-				{selected: @fa.food.id}, {} %>
+		<%= select_tag ':food_assignment[:food_id]', grouped_options_for_select(@fa.grouped_available_foods,
+				selected_key: @fa.food.id) %>
 	</td>
 	<td class="text-right"><%= "%g" % ("%.2f" % @fa.number_of_exchanges) %></td>
 	<td><%= @fa.food.sub_exchange.drop_down_text %></td>

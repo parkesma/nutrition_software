@@ -16,7 +16,7 @@ class SubExchange < ActiveRecord::Base
 			self.foods.first.id
 		end
 	end
-	
+
 	def self.import(file)
 		csv = CSV.parse(file, headers: true)
 		csv.each do |row|

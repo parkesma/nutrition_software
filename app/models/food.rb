@@ -46,6 +46,10 @@ class Food < ActiveRecord::Base
     "#{"%g" % ("%.2f" % servings_per_exchange)} #{serving_type_text(1)} per exchange"
   end
   
+  def sub_exchange_for_group
+    [self.sub_exchange]
+  end
+
 	def self.import(file)
 		csv = CSV.parse(file, headers: true)
 		csv.each do |row|
@@ -58,15 +62,6 @@ class Food < ActiveRecord::Base
 		end
 	end
 	
-  def self.to_csv
-	  CSV.generate do |csv|
-	    csv << column_names
-      all.each do |food|
-	      csv << food.attributes.values_at(*column_names)
-      end
-    end
-  end
-
   private
     def singularize
       self.serving_type = self.serving_type.singularize if !self.serving_type.blank?

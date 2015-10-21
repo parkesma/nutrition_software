@@ -1,20 +1,65 @@
 <div class="meal-table">
 	<table class="table">
 		<tr>
-			<th class="big col-md-7">Daily Totals</th>
-			<th>Carbs</th>
-			<th>Protein</th>
-			<th>Fat</th>
-			<th>Kcals</th>
-			<th colspan="2"></th>
+			<th class="big col-md-6">Daily Totals</th>
+			<th></th>
+			<th class="text-right">Carbs</th>
+			<th class="text-right">Protein</th>
+			<th class="text-right">Fat</th>
 		</tr>
 		<tr>
 			<td></td>
-			<td><%= focussed_user.daily_carbs %></td>
-			<td><%= focussed_user.daily_protein %></td>
-			<td><%= focussed_user.daily_fat %></td>
-			<td><%= focussed_user.daily_kcals %></td>
-			<td colspan="2"></td>
+			<td class="text-right">Grams from each Category</td>
+			<td class="text-right">
+				<%= "%g" % ("%.2f" % focussed_user.daily_carbs) if focussed_user.daily_carbs %>
+			</td>
+			<td class="text-right">
+				<%= "%g" % ("%.2f" % focussed_user.daily_protein) if focussed_user.daily_protein %>
+			</td>
+			<td class="text-right">
+				<%= "%g" % ("%.2f" % focussed_user.daily_fat) if focussed_user.daily_fat %>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td class="text-right">Calories from each Category</td>
+			<td class="text-right">
+				<%= "%g" % ("%.2f" % (focussed_user.daily_carbs * 4)) if focussed_user.daily_carbs %>
+			</td>
+			<td class="text-right">
+				<%= "%g" % ("%.2f" % (focussed_user.daily_protein * 4)) if focussed_user.daily_protein %>
+			</td>
+			<td class="text-right">
+				<%= "%g" % ("%.2f" % (focussed_user.daily_fat * 9)) if focussed_user.daily_fat %>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td class="text-right">Percent of Calories</td>
+			<td class="text-right">
+				<% if focussed_user.daily_carbs && focussed_user.daily_kcals != 0 %>
+					<%= "%g" % ("%.2f" % (focussed_user.daily_carbs   / focussed_user.daily_kcals * 100)) + "%" %>
+				<% end %>
+			</td>
+			<td class="text-right">
+				<% if focussed_user.daily_protein && focussed_user.daily_kcals != 0 %>
+					<%= "%g" % ("%.2f" % (focussed_user.daily_protein / focussed_user.daily_kcals * 100)) + "%" %>
+				<% end %>
+			</td>
+			<td class="text-right">
+				<% if focussed_user.daily_fat && focussed_user.daily_kcals != 0%>
+					<%= "%g" % ("%.2f" % (focussed_user.daily_fat     / focussed_user.daily_kcals * 100)) + "%" %>
+				<% end %>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td class="text-right totals">TOTAL DAILY CALORIES</td>
+			<td class="text-right totals"></td>
+			<td class="text-right totals">
+				<%= "%g" % ("%.2f" % focussed_user.daily_kcals) if focussed_user.daily_kcals %>
+			</td>
+			<td class="text-right totals">Kcals</td>
 		</tr>
 	</table>
 </div>
