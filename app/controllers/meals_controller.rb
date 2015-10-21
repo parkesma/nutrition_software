@@ -17,9 +17,18 @@ class MealsController < ApplicationController
         end
       end
       
-		  @my_sub_exchanges = SubExchange.joins(foods: :user).where("users.license = ? OR users.id = ?", 
+      my_exchanges = Exchange.joins(:user).where("users.license = ? OR users.id = ?", 
+		    "owner", @new_meal.user.trainer_id )
+		  my_sub_exchanges = SubExchange.joins(:user).where("users.license = ? OR users.id = ?", 
 		    "owner", @new_meal.user.trainer_id ).distinct
-		    
+		  exchanges_no_milk_or_meat = my_exchanges.select{|exchange| !exchange.name.include?("Meat") && 
+		    !exchange.name.include?("Milk")
+		  }
+		  milk_and_meat_sub_exchanges = my_sub_exchanges.select{|sub_exchange| 
+		    sub_exchange.exchange.name.include?("Meat") ||
+		    sub_exchange.exchange.name.include?("Milk")
+		  }
+		  @my_exchanges = exchanges_no_milk_or_meat + milk_and_meat_sub_exchanges
 		else
 			flash[:danger] = "You are not authorized to view meals for this client"
 			redirect_to root_path

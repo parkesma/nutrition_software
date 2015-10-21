@@ -28,6 +28,10 @@ class SubExchange < ActiveRecord::Base
 			new_instance.save!
 		end
 	end
+
+	def id_for_dropdown
+		id
+	end
 	
 	private
 	

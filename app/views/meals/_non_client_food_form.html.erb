@@ -8,8 +8,8 @@
 		<%= @f.text_field :number_of_exchanges, value: "%g" % ("%.2f" % @fa.number_of_exchanges) %>
 	</td>
 	<td class="text-left col-md-3" onchange='$("#food_form<%= @fa.id %>").submit();'>
-		<%= collection_select nil, :sub_exchange, @my_sub_exchanges, :id, :drop_down_text, 
-				selected: @fa.food.sub_exchange.id %>
+		<%= collection_select nil, :sub_exchange, @my_exchanges, :id_for_dropdown, :name, 
+				selected: @fa.food.sub_exchange.exchange.id %>
 	</td>
 	<td><%= "%g" % ("%.2f" % (@fa.food.carbs_per_serving * @fa.servings)) if @fa.food && @fa.servings %></td>
 	<td><%= "%g" % ("%.2f" % (@fa.food.protein_per_serving * @fa.servings)) if @fa.food && @fa.servings %></td>

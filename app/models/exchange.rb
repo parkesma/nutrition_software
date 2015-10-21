@@ -18,6 +18,10 @@ class Exchange < ActiveRecord::Base
 		end
 	end
 	
+	def id_for_dropdown
+		self.sub_exchanges.first.id
+	end
+	
 	private
 	
 		def capitalize
